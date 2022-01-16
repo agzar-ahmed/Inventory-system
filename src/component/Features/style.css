@@ -1,0 +1,33 @@
+
+.featured{
+    display: flex;
+    justify-content:space-around;
+    padding: 10px;
+}
+.featuredItem{
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.featuredTitle{
+    margin: 10px 0;
+    font-size: 25px;
+}
+.featureBody{
+        padding: 18px 0;
+}
+.featuredMoney{
+    font-weight: bold;
+    font-size: 33px;
+}
+.featuredArrow.up{
+    margin-right: 5px;
+    color:olivedrab;
+}
+.featuredArrow.down{
+    margin-right: 5px;
+    color:red;
+}
+.featuredFooter{
+    color: gray;
+    font-size: 15px;
+}

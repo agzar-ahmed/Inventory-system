@@ -1,0 +1,74 @@
+/* .size .formContent {
+    display: unset;
+} */
+
+.addressFormRow{
+    display: flex;
+    justify-content: space-between;
+}
+.addressForm .inputBox~:last-child{
+    margin: 0 30px 0 0;
+}
+.addressForm .inputBox input,
+.addressForm .inputBox select
+{
+  width: 100%;
+  padding: 5px 0;
+  font-size: 15px; 
+  color: #3e3e3e;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+  border: none;
+  background: transparent;
+  border-bottom: 1px solid #21dbd2;
+  outline: none;
+  }
+  
+  .addressForm .inputBox label {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 15px;
+    pointer-events: none;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    transition: 0.2s ease-in;
+  }
+  
+  .addressForm .inputRow .inputBox input:focus~label,
+  .addressForm .inputRow .inputBox input:valid~label {
+    top: -30px;
+    left: 0;
+    color: salmon;
+    font-size: 16px;
+    font-style: italic;
+  }
+  .addressForm .addNew {
+    margin: 0;
+    background-color: #ebebeb7d;
+    border:none;
+    color: #272727;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 5px;
+  }
+  .addressForm button:hover {
+    background-color: #444444;
+    color: whitesmoke;
+    cursor:
+    pointer;
+  }
+  .addressForm .btnSubmit{
+    width: 52%;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #ebebeb;
+    text-transform: uppercase;
+    margin: 30px 0;
+    border: none;
+    background: #1d1b31;
+    outline: none;
+  }

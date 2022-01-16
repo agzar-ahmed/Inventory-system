@@ -11,3 +11,68 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.content{
+  flex: 4 1;
+}
+
+.titleHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn{
+    border: none;
+    background-color: #21dbd2;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #eee;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.btn-action-delete{
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255,255,255,0);
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto',sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%);
+  text-align: center;
+  transition: all 0.2s;
+  background: #ff5131;
+}
+.btn-action-edit{
+  display: inline-block;
+  padding: 0.3em 1.2em;
+  margin: 0 0.1em 0.1em 0;
+  border: 0.16em solid rgba(255,255,255,0);
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: 'Roboto',sans-serif;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%);
+  text-align: center;
+  transition: all 0.2s;
+  background: #17f687;
+}
+
+button:hover{
+  color:#222 ;
+}
+
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: none;
+} 

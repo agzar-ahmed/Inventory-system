@@ -1,0 +1,140 @@
+.userContainer{
+    flex: 4;
+    padding: 20px
+}
+.userTitleContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.createBtn{ 
+    border: none;
+    background-color: #21dbd2;
+    width: 80px;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.userDataContainer{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.userData{
+    flex:1;
+    align-self: stretch;
+    margin-right: 10px;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.userEdit{
+    flex:2;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+.userDataInfo{
+    display:flex;
+    align-items: center;
+    margin:10px 0;
+}
+.userDataInfo >img{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.userDataTitle{
+    display: flex;
+    flex-direction: column;  
+}
+.userDataName{
+    font-weight: bold;
+}
+.userDataJobTitle{
+    color: gray;
+}
+.userDataBodytitle{
+    color:#808080ba
+} 
+.userDataIcon{
+    margin:0 10px 0 5px;
+}
+.userDataIcon{
+    font-size: 1,2rem !important;
+    color: #3e3e3e
+}
+.user-formContent{
+    display: flex;
+    justify-content: space-between;
+}
+.user-formData{
+   flex: 3;
+}
+.user-formContent .inputBox {
+    /* position: relative; */
+    height: 80px;
+  }
+  
+/* .formContent .inputBox input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 15px; 
+    color: #3e3e3e;
+    text-transform: uppercase;
+    border: none;
+    background: transparent;
+    border-bottom: 1px solid #21dbd2;
+    outline: none;
+  } */
+  
+  .user-formContent .inputBox label {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    font-weight: bold;
+    padding: 10px 0;
+    font-size: 15px;
+    pointer-events: none;
+    -webkit-transition: 0.2s ease-in;
+    -moz-transition: 0.2s ease-in;
+    -o-transition: 0.2s ease-in;
+    transition: 0.2s ease-in;
+  }
+  
+  .user-formContent .inputBox input:focus~label,
+  .user-formContent .inputBox input:valid~label {
+    top: -30px;
+    left: 0;
+    color: salmon;
+    font-size: 16px;
+    font-style: italic;
+  }
+  
+  /* Form buttons */
+  .user-formContent .updateBtn {
+    margin-left: 0;
+    display: block;
+    margin: 0 auto 20px;
+    min-width: 150px;
+    background-color: #3e3e3e;
+    border:none;
+    color: whitesmoke;
+    padding: 7px;
+    font-size: 15px;
+    border-radius: 5px;
+  }
+  .user-formContent .updateBtn:hover {
+    background-color: #21dbd2;
+    color: whitesmoke;
+    cursor: pointer;
+  }
+  .user-UpdateImageBox {
+      margin: 0 20px;
+  }
+  .user-UpdateImageBox >img{
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+  }
