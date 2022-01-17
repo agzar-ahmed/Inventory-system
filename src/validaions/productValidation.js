@@ -34,11 +34,11 @@ export const itemSchema = yup.object({
   productName: yup.string().required().label("Product name"),
   description: yup.string().max(100),
   sku: yup.string(),
-  // productImg:  yup.array()
-  //                 .nullable()
-  //                 .required('VALIDATION_FIELD_REQUIRED')
-  //                 .test('is-correct-file', 'VALIDATION_FIELD_FILE_BIG',checkIfFilesAreTooBig)
-  //                 .test('is-big-file','VALIDATION_FIELD_FILE_WRONG_TYPE',checkIfFilesAreCorrectType),
+  productImg:  yup.array()
+                   .nullable()
+                   .required('VALIDATION_FIELD_REQUIRED')
+                   .test('is-correct-file', 'VALIDATION_FIELD_FILE_BIG',checkIfFilesAreTooBig)
+                   .test('is-big-file','VALIDATION_FIELD_FILE_WRONG_TYPE',checkIfFilesAreCorrectType),
   productTypeId: yup.number().typeError('Product type is required').required().positive(),
   sizeId: yup.number().typeError('Size is required').required().positive()
   // name: string().required(),

@@ -1,4 +1,8 @@
 .item-form{
     display: flex;
     flex-direction: column;
+    display: flex;
+    flex-direction: row;
+    flex-direction: row-reverse;
+    justify-content: space-between;
 } 

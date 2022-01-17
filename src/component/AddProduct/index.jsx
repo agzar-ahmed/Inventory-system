@@ -1,6 +1,5 @@
 import React,{useState,useRef,useEffect,Fragment} from 'react';
 import './style.css'
-import { Publish,AddPhotoAlternate } from '@material-ui/icons';
 import Modal from '../Modal';
 import Form from '../Form' 
 import { FormInput,FormSelect } from'../FormFields';
@@ -9,6 +8,7 @@ import Size from '../Size'
 import ItemTypes from '../ItemType'
 import Manufacturer from '../Manufacurer'
 import Provider from '../Provider'
+import ImagWidget from '../ImageWidget';
 import { Link } from 'react-router-dom';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {productSchema}from '../../validaions/productValidation'
@@ -38,13 +38,6 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
       }
     );
     const [btnDisable,setBtnDisabled] = useState(true)
-
-    const [previewImg,setPreviewImg] = useState()
-    const [previewList,setPreviewList] = useState([])
-    const [maxImgWarning,setMaxImgWarning] = useState(false)
-    const [duplicateImg,setDuplicateImg] = useState(false)
-    const [selectedImg,setSelectedImg] = useState()
-  
 
     // const [showModalProductList,setShowModalProductList] = useState(false)
     const [showModalItem,setShowModalItem] = useState(false)
@@ -107,46 +100,10 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
         //   validate()? setBtnDisabled(true): setBtnDisabled(false)
         // }
     });
+
     const dispatch = useDispatch()
 
-    const handelPicture=(e)=>{
-
-    e.target.files[0] && setPreviewImg(URL.createObjectURL(e.target.files[0]));
-    
-    //verify max photo number:
-    if(previewList.length >= 3 ){
-      setMaxImgWarning(true)
-      return
-    }
-
-    //verify if photo already exists:
-    if(previewList.includes(previewImg)){
-      setDuplicateImg(true)
-      return
-    }
-
-    let newPreviewList = [];
-    // /if(previewImg && previewList){
-      e.target.files[0] && (newPreviewList = [...previewList, URL.createObjectURL(e.target.files[0])])
-    // }
-
    
-    console.log(previewList.find(url=> url === previewImg),'duplicated') 
-    console.log(previewImg,previewList,'previewList')
-
-
-    console.log(e.target.files)
-    setPreviewList(newPreviewList)
-    //heighlight selected image length-1 to match the index
-    setSelectedImg(newPreviewList.length-1)
-       
-    setData({
-        ...data,
-        [e.target.name]:[...data.productImg, e.target.files[0]]
-    })
-
-    console.log(data)
-  }
   
     const {itemId,purchaseDate,
            purchasePrice,expirationDate,
@@ -224,8 +181,6 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
               </Link>
             </div>              
             </div>
-            
-                    
               <Form
                     dataSchema={productSchema}
                     initialValues={data}
@@ -299,62 +254,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                     
                 </div>
 
-                <div className="UpdateImageBox">
-                    {
-                    previewImg ? <img 
-                     src={previewImg} 
-                     alt="profile image"
-                     />
-                    :
-                    <div>
-                      <label htmlFor="file1"> <AddPhotoAlternate className="imgIcon"/> </label>
-                      <input type="file" id='file1' name="productImg" onChange={handelPicture} style={{display:'none'}}/>
-                      {/* <FormInput
-                            htmlFor="file"
-                            label="select image"
-                            type="file"
-                            id="file"
-                            // style={{display:'none'}}
-                            name="productImg" 
-                            onChange={handelPicture}
-                            errorMessage="Error message"
-                            required
-                      /> */}
-                    </div>
-                    }
-                    {
-                      previewImg && 
-                          <div className='imgSmallPrev'>
-                              <label htmlFor="file"> <AddPhotoAlternate className="imgIconPrev"/> </label>
-                              <input type="file" id='file' name="productImg" onChange={handelPicture} style={{display:'none'}}/>
-                             {
-                                console.log(selectedImg),
-                                previewList && 
-                                previewList.map((image,index) =>
-                                    <div className={ selectedImg == index ?'overlay':'noOverlay'}>
-                                      {console.log(selectedImg,index,'selectedImg')}
-                                      <img 
-                                        key={index}
-                                        className="imgIconPrev"
-                                        src={image} 
-                                        alt="profile image"
-                                        onClick={(e)=>{
-                                          setPreviewImg(e.target.src)
-                                          setSelectedImg(index)
-                                        }}
-                                        />
-                                    </div>
-                                )
-                             } 
-                             { maxImgWarning && <div className='warning'>Maximum 3 photos</div> }
-                             { duplicateImg && <div className='warning'>Photo already exists</div> }
-                          
-                          </div>
-                    }
-                    
-                     
-                 </div> 
-                               
+                       
                    
 
                 {/* </Form>    */}

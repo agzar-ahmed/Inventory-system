@@ -1,0 +1,70 @@
+.UpdateImageBox{
+  position: relative;
+  height: 300px;
+  width: 250px;
+}
+.UpdateImageBox .imgIcon{ 
+  border: #e3e3e3 solid 1px;
+  background-color: #001e3c17;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 100px;
+  /* height: 220px;
+  width: 220px; */
+  cursor: pointer;
+}
+.UpdateImageBox .imgIconPrev{
+border: #e3e3e3 solid 1px;
+background-color: #001e3c17;
+border-radius: 5px;
+height: 50px;
+width: 50px;
+margin: 2px;
+/* font-size: 100px; */
+cursor: pointer;
+}
+.UpdateImageBox .overlay{
+display: inline-block;
+background-color: #7fffd485;
+margin:2px;
+padding: 2px;
+border-radius: 5px;
+}
+.UpdateImageBox .noOverlay{
+display: inline-block;
+}
+.warning{
+color: tomato;
+font-size: 14px;
+}
+
+.img-view img{
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.img-view{
+  width: 100%;
+  height: 80%;
+}
+.img-delete{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #2f2f2f5c;
+  color:#f9f9f9;
+  display:none
+}
+.img-delete div{
+  padding: 5px 10px;
+}
+.img-view:hover
+.img-delete
+{
+  display: block;
+}
+.img-deleteIcon{
+  color: #ff5132;
+  cursor: pointer;
+}

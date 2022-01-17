@@ -6,6 +6,7 @@ import { itemSchema } from '../../validaions/productValidation';
 import {productTypeSelector} from '../../store/selectors/productTypeSelector';
 import {sizeSelector} from '../../store/selectors/sizeSelector';
 import { handleChange, handleSubmit} from '../../component/Form/formFunctions';
+import ImagWidget from '../ImageWidget';
 
 import { useDispatch,useSelector } from 'react-redux';
 
@@ -44,7 +45,7 @@ function item() {
     
     const{ productName, description,sku,
     productImg,productTypeId,sizeId } = data
-  return (
+  return ( 
 
             <Form
                     dataSchema={itemSchema}
@@ -57,6 +58,8 @@ function item() {
                     setErrors = {setErrors}
             >
               <div className='item-form'>
+              <ImagWidget data={data} setData={setData} maxPicture={3} />
+              <div>
                 <FormInput
                             label="name" 
                             placeholder="Product name" 
@@ -113,6 +116,7 @@ function item() {
                         onBlur={inputChange}
                         errorMessage={errors.description}
                 />
+                </div>
               </div>
             </Form>
         

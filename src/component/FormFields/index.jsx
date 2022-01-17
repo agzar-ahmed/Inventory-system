@@ -3,12 +3,14 @@ import './style.css'
 
 export function FormInput(props) {
     const [focused, setFocused] = useState(false);
-    const { label, errorMessage, onChange, htmlFor, ...inputProps } = props;
+    const { label, errorMessage, onChange, htmlFor, displayInput, ...inputProps } = props;
   
     const handleFocus = (e) => {
       setFocused(true);
     };
   
+    const displayNone={display:'none'}
+
     return (
       <div className="inputBox">
         <div>
@@ -18,6 +20,7 @@ export function FormInput(props) {
             <input
               {...inputProps}
               onChange={onChange}
+                
               // onBlur={handleFocus}
             //   onFocus={() =>
             //     inputProps.name === "confirmPassword" && setFocused(true)

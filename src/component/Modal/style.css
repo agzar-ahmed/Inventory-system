@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: 0.2s ease 0.1s 1 normal forwards running;
   }
 .modalTitle{
   background-color: #11101d;
@@ -56,6 +57,8 @@
   z-index: 100; 
   box-shadow: rgb(43 44 57 / 14%) 0px 6px 20px;
   border-radius: 10px 10px 0 0;
+  animation: 0.2s ease 0.1s 1 normal forwards running;
+  box-shadow: rgb(43 44 57 / 14%) 0p
 }
 .modalBody{
   margin: 1% 5%;
