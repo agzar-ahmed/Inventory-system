@@ -8,6 +8,7 @@ import {apiCallBegan, apiCallSuccess, apiCallFailed } from '../actions/apiAction
 //         url:'/items',
 //         method:'get',
 //         data:{},
+//         onStart: action.ITEMS_LOADING,
 //         onSuccess: 'apiCallSuccess',
 //         onError:'apiCallFailed'
 //     }

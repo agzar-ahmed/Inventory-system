@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useRef} from 'react';
 import './style.css'
 
 export function FormInput(props) {
@@ -32,6 +32,39 @@ export function FormInput(props) {
         </div>
       </div>
     )
+}
+
+
+export function FileForm(props) {
+  const { label, errorMessage, onChange, htmlFor, displayInput, ...inputProps } = props;
+  const imgRef = useRef()
+  return (
+    <div>
+     <label 
+          onClick={()=>{
+            console.log(imgRef.current,"input Ref")
+            imgRef.current.click()
+          }} 
+          htmlFor="file1"> 
+         {label}
+          {/* <AddPhotoAlternate className="imgIcon"/>  */}
+      </label>
+      <input 
+          ref={imgRef} 
+          {...inputProps}
+          onChange={onChange}
+            
+          // onBlur={handleFocus}
+        //   onFocus={() =>
+        //     inputProps.name === "confirmPassword" && setFocused(true)
+        //   }
+          className={errorMessage ? "error": ""}
+          // onChange={handelPicture} 
+          style={{display:'none'}}
+      />
+      <span className='error'>{errorMessage}</span>
+    </div>
+  )
 }
 
 

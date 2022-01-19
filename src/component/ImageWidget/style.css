@@ -1,7 +1,7 @@
 .UpdateImageBox{
   position: relative;
-  height: 300px;
-  width: 250px;
+  height: 150px;
+  width: 150px;
 }
 .UpdateImageBox .imgIcon{ 
   border: #e3e3e3 solid 1px;

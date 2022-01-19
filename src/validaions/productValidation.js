@@ -36,7 +36,7 @@ export const itemSchema = yup.object({
   sku: yup.string(),
   productImg:  yup.array()
                    .nullable()
-                   .required('VALIDATION_FIELD_REQUIRED')
+                   .required('Image is required')
                    .test('is-correct-file', 'VALIDATION_FIELD_FILE_BIG',checkIfFilesAreTooBig)
                    .test('is-big-file','VALIDATION_FIELD_FILE_WRONG_TYPE',checkIfFilesAreCorrectType),
   productTypeId: yup.number().typeError('Product type is required').required().positive(),

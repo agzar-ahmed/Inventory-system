@@ -1,18 +1,22 @@
-import React,{useState , useEffect} from 'react'
+import React,{useState , useEffect,useRef} from 'react'
 import {  HighlightOff,AddPhotoAlternate } from '@material-ui/icons';
 import './style.css'
-import {FormInput} from '../FormFields'
+import {FormInput,FileForm} from '../FormFields'
+import { handleChange } from '../Form/formFunctions';
+import { itemSchema } from '../../validaions/productValidation';
 
-const ImagWidget = ({data,setData,maxPicture}) => {
+const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
 
     const [previewImg,setPreviewImg] = useState()
     const [previewList,setPreviewList] = useState([])
     const [maxImgWarning,setMaxImgWarning] = useState(false)
     const [duplicateImg,setDuplicateImg] = useState(false)
     const [selectedImg,setSelectedImg] = useState(null)
+    // const imgRef = useRef()
 
     const handelPicture=(e)=>{
         
+        handleChange(e,data,setData,itemSchema,errors,setErrors);
         //clear all errors
         setDuplicateImg(false)
         setMaxImgWarning(false)
@@ -46,13 +50,14 @@ const ImagWidget = ({data,setData,maxPicture}) => {
         setPreviewList(newPreviewList)
         //heighlight selected image length-1 to match the index
         // setSelectedImg(newPreviewList.length)
-           
+        
         setData({
             ...data,
             [e.target.name]:[...data.productImg, e.target.files[0]]
         })
+        // handleChange()
     
-        console.log(data)
+        // console.log(data)
       }
 
     return (
@@ -80,15 +85,37 @@ const ImagWidget = ({data,setData,maxPicture}) => {
                                     <span> Delete</span>  
                                 </div>
                             </div>
-                            }
-                            
-                            
+                            }     
                     </div>                    
                     :
                     <div>
-                      {/* <label htmlFor="file1"> <AddPhotoAlternate className="imgIcon"/> </label>
-                      <input type="file" id='file1' name="productImg" onChange={handelPicture} style={{display:'none'}}/> */}
-                      <FormInput
+
+
+                      {/* <label 
+                      onClick={()=>{
+                        console.log(imgRef.current,"input Ref")
+                        imgRef.current.click()
+                      }} 
+                      htmlFor="file1"> 
+                      <AddPhotoAlternate className="imgIcon"/> 
+                      </label>
+                      <input 
+                         ref={imgRef} 
+                         type="file"  
+                         name="productImg" 
+                         onChange={handelPicture} 
+                         style={{display:'none'}}
+                      /> */}
+                      {console.log(errors.productImg,'errorMessage')}
+                      <FileForm 
+                             type="file"  
+                             label={<AddPhotoAlternate className="imgIcon"/>}
+                             name="productImg" 
+                             onChange={handelPicture}
+                             onBlur={handelPicture}
+                             errorMessage={errors.productImg}
+                        />
+                      {/* <FormInput
                             htmlFor="file1"
                             label={<AddPhotoAlternate className="imgIcon"/>}
                             displayInput={false}
@@ -99,7 +126,7 @@ const ImagWidget = ({data,setData,maxPicture}) => {
                             onChange={handelPicture}
                             onBlur={handelPicture}
                             errorMessage="erromessage"
-                      /> 
+                      />  */}
                     </div>
                     }
                     {
