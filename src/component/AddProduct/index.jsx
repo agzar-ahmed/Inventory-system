@@ -168,7 +168,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
               </Modal>
             }
             <div className="titleHeader">
-            <h1>Product</h1>
+            <h1>Incoming Purchases</h1>
 
             <div>
               <Link to="productlist">
@@ -191,160 +191,163 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                     errors = {errors}
                     setErrors = {setErrors}
               >
-              <Fragment>
-                <div className="addProduct">    
-                 <h3>Product information</h3>   
-                <div className="productForm"> 
-                  {console.log(initialState,'initialstate')}
-                  {console.log(items,itemId,"options,value")}
-                    <FormSelect
-                                label="Product"
-                                name="itemId"
-                                value={itemId}
+                  <div className='incoming-purchase'>
+                    <div className="addProduct">    
+                    <h3>Product information</h3>   
+                    <div className="productForm"> 
+                      {console.log(initialState,'initialstate')}
+                      {console.log(items,itemId,"options,value")}
+                      <div className="input-row">
+                      <FormSelect
+                                    label="Product"
+                                    name="itemId"
+                                    value={itemId}
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    options={items}
+                                    errorMessage={errors.itemId}
+                                    buttonTittle="Add new"
+                                    ButtonClick={()=>setShowModalItem(true)}
+                        /> 
+                        <FormInput
+                                label="Purchase date" 
+                                type="date"
+                                placeholder="Purchase Date"
+                                name="purchaseDate" 
+                                value={purchaseDate} 
                                 onChange={inputChange}
                                 onBlur={inputChange}
-                                options={items}
-                                errorMessage={errors.itemId}
-                                buttonTittle="Add new"
-                                ButtonClick={()=>setShowModalItem(true)}
-                    /> 
-                    <FormInput
-                             label="Purchase date" 
-                             type="date"
-                             placeholder="Purchase Date"
-                             name="purchaseDate" 
-                             value={purchaseDate} 
-                             onChange={inputChange}
-                             onBlur={inputChange}
-                             errorMessage={errors.purchaseDate}
-                    />
-                    <FormInput
-                             label="Expiration date" 
-                             type="date"
-                             placeholder="Expiration date"
-                             name="expirationDate" 
-                             value={expirationDate} 
-                             onChange={inputChange}
-                             onBlur={inputChange}
-                             errorMessage={errors.expirationDate}
-                    />
-                    <FormInput
-                            label="Purchase price"
-                            type="number" 
-                            min="1" 
-                            step="0.01" 
-                            placeholder="Purchase Price" 
-                            name="purchasePrice" 
-                            value={purchasePrice} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            errorMessage={errors.purchasePrice}
-                    />
-                    
-                   <FormInput
-                            label="Quantity"
-                            type="number" 
-                            placeholder="Quantity" 
-                            min="0" name="quantity" 
-                            value={quantity} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            errorMessage={errors.quantity}
-                    />
-                    
-                </div>
-
-                       
-                   
-
-                {/* </Form>    */}
-                </div>
-
-            <div className="addProduct">    
-              <h3>Manufacturer and Provider</h3>           
-              {/* <Form
-                    dataSchema={productSchema}
-                    initialValues={data}
-                    initialValuesErrors={errors}
-                    // onChange={handleChange}
-                    onSubmit={formSubmit}
-                    // labelBtn={"Add Item"}
-                    errors = {errors}
-                    setErrors = {setErrors}
-              >  */}
-                <div className="productForm">
-                <FormSelect
-                            label="Manufacturer"
-                            name="manufacturerId"
-                            value={manufacturerId}
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            options={manufacturers}
-                            errorMessage={errors.manufacturerId}
-                            buttonTittle="Add new"
-                            ButtonClick={()=>setShowModalManufacturer(true)}       
-                />
-                <FormSelect
-                            label="Provider"
-                            name="providerId"
-                            value={providerId} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            options={providers}
-                            errorMessage={errors.providerId}
-                            buttonTittle="Add new"
-                            ButtonClick={()=>setShowModalProvider(true)}       
-                />
-
-                </div>
-              
-                {/* </Form>    */}
-               </div>
-
-            <div className="addProduct">    
-              <h3>Inventry</h3>           
-              {/* <Form
-                    dataSchema={productSchema}
-                    initialValues={data}
-                    initialValuesErrors={errors}
-                    // onChange={handleChange}
-                    onSubmit={formSubmit}
-                    // labelBtn={"Add Item"}
-                    errors = {errors}
-                    setErrors = {setErrors}
-              >  */}
-                <div className="productForm">
-                    <FormSelect
-                                label="Inventory"
-                                name="inventoryId" 
-                                value={inventoryId}
+                                errorMessage={errors.purchaseDate}
+                        />
+                        <FormInput
+                                label="Expiration date" 
+                                type="date"
+                                placeholder="Expiration date"
+                                name="expirationDate" 
+                                value={expirationDate} 
                                 onChange={inputChange}
                                 onBlur={inputChange}
-                                options={inventories}
-                                errorMessage={errors.inventoryId}
-                                buttonTittle="Add new"
-                                ButtonClick={()=>setShowModalInventory(true)}       
-                    />
-                    <FormInput
-                            label="Min level"
-                            type="number" 
-                            placeholder="Min level" 
-                            name="minLevel" 
-                            value={minLevel} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            errorMessage={errors.minLevel}
-                            // required
-                    />
+                                errorMessage={errors.expirationDate}
+                        />
+                      </div>
+                      <div className="input-row">
+                      <FormInput
+                                label="Purchase price"
+                                type="number" 
+                                min="1" 
+                                step="0.01" 
+                                placeholder="Purchase Price" 
+                                name="purchasePrice" 
+                                value={purchasePrice} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.purchasePrice}
+                        />
+                        
+                      <FormInput
+                                label="Quantity"
+                                type="number" 
+                                placeholder="Quantity" 
+                                min="0" name="quantity" 
+                                value={quantity} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.quantity}
+                        />
+                        <div></div>
+                      </div>
+                        
+                        
+                    </div>
 
-                </div>
-                </div>
-                </Fragment>
-                </Form>   
-               
-              
-               <button  className="btn btnSubmit" onClick={formSubmit}>ADD</button>
-              
+                          
+                      
+
+                    {/* </Form>    */}
+                    </div>
+
+                  <div className="addProduct">    
+                    {/* <h3>Manufacturer and Provider</h3>            */}
+                    {/* <Form
+                          dataSchema={productSchema}
+                          initialValues={data}
+                          initialValuesErrors={errors}
+                          // onChange={handleChange}
+                          onSubmit={formSubmit}
+                          // labelBtn={"Add Item"}
+                          errors = {errors}
+                          setErrors = {setErrors}
+                    >  */}
+                      <div className="input-row">
+                      <FormSelect
+                                  label="Manufacturer"
+                                  name="manufacturerId"
+                                  value={manufacturerId}
+                                  onChange={inputChange}
+                                  onBlur={inputChange}
+                                  options={manufacturers}
+                                  errorMessage={errors.manufacturerId}
+                                  buttonTittle="Add new"
+                                  ButtonClick={()=>setShowModalManufacturer(true)}       
+                      />
+                      <FormSelect
+                                  label="Provider"
+                                  name="providerId"
+                                  value={providerId} 
+                                  onChange={inputChange}
+                                  onBlur={inputChange}
+                                  options={providers}
+                                  errorMessage={errors.providerId}
+                                  buttonTittle="Add new"
+                                  ButtonClick={()=>setShowModalProvider(true)}       
+                      /> 
+                      <div></div>
+                      </div>
+                    
+                      {/* </Form>    */}
+                  </div>
+
+                  <div className="addProduct">    
+                    {/* <h3>Inventry</h3>            */}
+                    {/* <Form
+                        dataSchema={productSchema}
+                        initialValues={data}
+                        initialValuesErrors={errors}
+                        // onChange={handleChange}
+                        onSubmit={formSubmit}
+                        // labelBtn={"Add Item"}
+                        errors = {errors}
+                        setErrors = {setErrors}
+                  >  */}
+                    <div className="input-row">
+                        <FormSelect
+                                    label="Inventory"
+                                    name="inventoryId" 
+                                    value={inventoryId}
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    options={inventories}
+                                    errorMessage={errors.inventoryId}
+                                    buttonTittle="Add new"
+                                    ButtonClick={()=>setShowModalInventory(true)}       
+                        />
+                        <FormInput
+                                label="Min level"
+                                type="number" 
+                                placeholder="Min level" 
+                                name="minLevel" 
+                                value={minLevel} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.minLevel}
+                                // required
+                        />
+                        <div></div>
+                    </div>
+                  </div>
+                  <button  className="btn btnSubmit" onClick={formSubmit}>ADD</button>
+              </div>
+              </Form>                 
         </div>
     )
 }

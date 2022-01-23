@@ -15,13 +15,13 @@ function item() {
     const [data,setData] = useState(
         {
           name:'',description:'',sku:'',
-          productImg:'',productTypeId:'',sizeId:'',companyId:'',userId:9
+          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:"2",UserId:"3"
         }
       );
     const [errors,setErrors] = useState(
         {
-          productName:'',description:'',sku:'',
-          productImg:'',productTypeId:'',sizeId:''
+          name:'',description:'',sku:'',
+          productImg:'',ItemTypeId:'',SizeId:''
         }
       );
 
@@ -42,13 +42,14 @@ function item() {
     const onSubmit = () =>{
       dispatch(createItems(data))
       setData({
-      name:'',description:'',sku:'',
-      productImg:'',productTypeId:'DEFAULT',sizeId:''
-    })}
+        name:'',description:'',sku:'',
+      productImg:'',productTypeId:'DEFAULT',SizeId:''
+      })
+  }
     const formSubmit = e => handleSubmit(e,data,itemSchema,errors,setErrors,onSubmit)
     
     const{ name, description,sku,
-    productImg,productTypeId,sizeId } = data
+    productImg,ItemTypeId,SizeId } = data
   return ( 
 
             <Form
@@ -67,7 +68,7 @@ function item() {
                             data={data} 
                             setData={setData} 
                             maxPicture={3}  
-                            // value={productName} 
+                            value={productImg} 
                             // onChange={inputChange}
                             // onBlur={inputChange}
                             errors={errors}
@@ -75,15 +76,15 @@ function item() {
                   />
                   
                   <FormSelect
-                                    label="Size"
-                                    name="sizeId" 
-                                    value={sizeId}
-                                    onChange={inputChange}
-                                    onBlur={inputChange}
-                                    options={sizes}
-                                    errorMessage={errors.sizeId}
-                                    buttonTittle="Add new"
-                                    // ButtonClick={()=>setShowModalSize(true)}       
+                            label="Size"
+                            name="SizeId" 
+                            value={SizeId}
+                            onChange={inputChange}
+                            onBlur={inputChange}
+                            options={sizes}
+                            errorMessage={errors.SizeId}
+                            buttonTittle="Add new"
+                            // ButtonClick={()=>setShowModalSize(true)}       
                     />
                     </div>
               <div>
@@ -94,31 +95,32 @@ function item() {
                             value={name} 
                             onChange={inputChange}
                             onBlur={inputChange}
-                            errorMessage={errors.productName}
+                            errorMessage={errors.name}
                 />
               
-                        <FormInput
-                            label="SKU"
-                            type="text" 
-                            placeholder="Serial number" 
-                            name="sku" 
-                            value={sku} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            errorMessage={errors.sku}
-                            // required
-                        /> 
-                              <FormSelect
-                                    label="Product Type"
-                                    name="productTypeId" 
-                                    value={productTypeId}
-                                    onChange={inputChange}
-                                    onBlur={inputChange}
-                                    options={itemTypes}
-                                    errorMessage={errors.productTypeId}
-                                    buttonTittle="Add new"
-                                    // ButtonClick={()=>setShowModalItemType(true)}       
-                              />
+                <FormInput
+                    label="SKU"
+                    type="text" 
+                    placeholder="Serial number" 
+                    name="sku" 
+                    value={sku} 
+                    onChange={inputChange}
+                    onBlur={inputChange}
+                    errorMessage={errors.sku}
+                    // required
+                /> 
+
+                <FormSelect
+                      label="Product Type"
+                      name="ItemTypeId" 
+                      value={ItemTypeId}
+                      onChange={inputChange}
+                      onBlur={inputChange}
+                      options={itemTypes}
+                      errorMessage={errors.ItemTypeId}
+                      buttonTittle="Add new"
+                      // ButtonClick={()=>setShowModalItemType(true)}       
+                />
  </div>
                        
 

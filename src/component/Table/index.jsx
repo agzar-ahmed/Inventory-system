@@ -5,9 +5,6 @@ import './style.css';
 import {usersRows} from '../../dummyData'
 import {Link} from 'react-router-dom'
 import { DeleteOutlineSharp } from '@material-ui/icons';
-import { getItems } from '../../store/actions/itemAction';
-import { itemsSelector } from '../../store/selectors/itemSelector'
-import { useDispatch,useSelector } from 'react-redux';
 
 import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -16,7 +13,7 @@ import { grid } from '@mui/system';
 
 
 
- function ProductsTable2() {
+ function Table({tableData}) {
     const[data,setData] = useState([]);
     const[tableColumn,setTableColumn] = useState([]);
     const[rows,setRows] = useState([]);
@@ -129,20 +126,11 @@ import { grid } from '@mui/system';
       agGrid && setRows(agGrid)
     }
   
-    //life cycle HOOKS
-    const dispatch = useDispatch()
-
+   
     useEffect(()=>{
-        dispatch(getItems());
+      tableContent(tableData)
     }
     ,[])
-
-    const productList = useSelector(itemsSelector())
-     
-    useEffect(()=>{
-      tableContent(productList)
-    }
-    ,[productList])
     
 
     return (
@@ -556,6 +544,6 @@ function ProductsTable1() {
 
 
 export {
-  ProductsTable1,
-  ProductsTable2
+  Table,
+  ProductsTable1
 }

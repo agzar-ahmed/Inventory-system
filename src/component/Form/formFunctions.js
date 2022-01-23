@@ -41,6 +41,7 @@ export const validateProperty=(e,dataSchema,errors,setErrors)=>{
 
 export const handleChange=(e,data,setter,dataSchema,errors,setErrors)=>{
    validateProperty(e,dataSchema,errors,setErrors)
+   console.log(data)
    onChange(e,data,setter)
 }
 

@@ -16,7 +16,7 @@ import * as actions from "../actions/types";
             case actions.ITEMS_LOADED:
                 return {
                     ...state,
-                    itemsData: action.payload.items.results.rows,
+                    itemsData: action.payload.items,
                     itemsisLoading: false
                 };
             case  actions.ITEMS_ERROR:
@@ -29,7 +29,7 @@ import * as actions from "../actions/types";
                     ...state,
                     itemsData:[
                            ...state.itemsData,
-                           action.payload.items.results.rows
+                           action.payload.items
                     ]
                 };   
             case actions.DELETE_ITEMS:

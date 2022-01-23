@@ -15,55 +15,57 @@ import {productTypeSelector} from '../../store/selectors/productTypeSelector'
 import {sizeSelector} from '../../store/selectors/sizeSelector'
 import {manufacturerSelector} from '../../store/selectors/manufacturerSelector'
 import { itemsSelector } from '../../store/selectors/itemSelector'
+import { Table } from '../../component/Table';
 
 
 import { useDispatch,useSelector } from 'react-redux';
 
 export default function Product() {
 
-    const [itemSizes,setItemSizes] = useState([]);
-    const [itemTypes,setItemTypes] = useState([]);
-    const [providers,setProviders] = useState([]);
-    const [manufacturers,setManufacturers] = useState([]);
-    const [inventories,setInventories] = useState([])
+    /* before using Redux */
+    // const [itemSizes,setItemSizes] = useState([]);
+    // const [itemTypes,setItemTypes] = useState([]);
+    // const [providers,setProviders] = useState([]);
+    // const [manufacturers,setManufacturers] = useState([]);
+    // const [inventories,setInventories] = useState([])
 
-    //setManufacturers(store.manufacturers.manufacturerData)
-        //    ( 
-        //        setItemSizes(store.size.sizeData),
-        //        setItemTypes(store.productType.productTypeData),
-        //        setProviders(store.providers.providerData)
-        //       )
+    // //setManufacturers(store.manufacturers.manufacturerData)
+    //     //    ( 
+    //     //        setItemSizes(store.size.sizeData),
+    //     //        setItemTypes(store.productType.productTypeData),
+    //     //        setProviders(store.providers.providerData)
+    //     //       )
 
-    const fetchData=()=>{
-        return(
-            Promise.all([
-                fetch('http://localhost:3000/api/sizes'),
-                fetch('http://localhost:3000/api/itemTypes'),
-                fetch('http://localhost:3000/api/providers'),
-                fetch('http://localhost:3000/api/manufacturers'),
-                fetch('http://localhost:3000/api/inventories')
-            ]).then((responses)=>{
-                // Get a JSON object from each of the responses
-                console.log(responses,'responses')
-                return Promise.all(responses.map(function (response) {
-                    return response.json();
-                }));
-            }).then((data)=>{
-                // Log the data to the console
-                // You would do something with both sets of data here
-                console.log(data)
-                setItemSizes(data['0'].size);
-                setItemTypes(data['1'].itemTypes);
-                setProviders(data['2'].provider);
-                setManufacturers(data['3'].manufacturers)
-                setInventories(data['4'].inventories)
-            }).catch((error)=>{
-                // if there's an error, log it
-                console.log(error);
-            })
+    // const fetchData=()=>{
+    //     return(
+    //         Promise.all([
+    //             fetch('http://localhost:3000/api/sizes'),
+    //             fetch('http://localhost:3000/api/itemTypes'),
+    //             fetch('http://localhost:3000/api/providers'),
+    //             fetch('http://localhost:3000/api/manufacturers'),
+    //             fetch('http://localhost:3000/api/inventories')
+    //         ]).then((responses)=>{
+    //             // Get a JSON object from each of the responses
+    //             console.log(responses,'responses')
+    //             return Promise.all(responses.map(function (response) {
+    //                 return response.json();
+    //             }));
+    //         }).then((data)=>{
+    //             // Log the data to the console
+    //             // You would do something with both sets of data here
+    //             console.log(data)
+    //             setItemSizes(data['0'].size);
+    //             setItemTypes(data['1'].itemTypes);
+    //             setProviders(data['2'].provider);
+    //             setManufacturers(data['3'].manufacturers)
+    //             setInventories(data['4'].inventories)
+    //         }).catch((error)=>{
+    //             // if there's an error, log it
+    //             console.log(error);
+    //         })
       
-        )
-    }
+    //     )
+    // }
 
 //life cycle HOOKS
     const dispatch = useDispatch()
@@ -94,8 +96,11 @@ export default function Product() {
     return (
         <div className="productPage">
              <TopBar/>
-            <AddProduct sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/>
-                
+             <AddProduct sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/> 
+             <div className="purchases-table">
+                 <h2>Purchases table</h2>
+                {itemsList && <Table tableData={itemsList}/>} 
+             </div>      
         </div>
     )
 }
