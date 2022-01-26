@@ -41,9 +41,6 @@ function ProductList() {
                     {console.log(productList,"productList")}
                     {productList && <Table tableData={productList}/>} 
                 </div>
-                <div className="prod-table">
-                    <ProductsTable1/> 
-                </div>
             </div>
         </div>
     )

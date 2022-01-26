@@ -1,36 +1,29 @@
 import * as yup from 'yup';
 
-export const productSchema = yup.object({
-    itemId: yup.number().typeError('you must select a value').required().positive(),
-    // productName: yup.string().required().label("Product name"),
-    purchaseDate: yup.date().typeError('you must specify a date').default(() => new Date()),
-    purchasePrice: yup.number().typeError('you must specify a number').positive(),
-    expirationDate: yup.date().typeError('you must specify a date'),
-    quantity: yup.number().typeError('you must specify a number').positive().nullable(true),
-    // description: yup.string().max(100),
-    // sku: yup.string(),
-    // productImg:  yup.array()
-                    // .nullable()
-                    // .required('VALIDATION_FIELD_REQUIRED')
-                    // .test('is-correct-file', 'VALIDATION_FIELD_FILE_BIG',checkIfFilesAreTooBig)
-                    // .test('is-big-file','VALIDATION_FIELD_FILE_WRONG_TYPE',checkIfFilesAreCorrectType),
-    // productTypeId: yup.number().typeError('').required().positive(),
-    // sizeId: yup.number().typeError('you must select a value').required().positive(),
-    manufacturerId: yup.number().typeError('you must select a value').required().positive(),
-    providerId: yup.number().typeError('you must select a value').required().positive(),
-    minLevel: yup.number().typeError('you must specify a number').positive(),
-    inventoryId: yup.number().typeError('you must select a value').required().positive()
-
-    // name: string().required(),
-    // age: number().required().positive().integer(),
-    // email: string().email(),
-    // website: string().url().nullable(),
-    // createdOn: date().default(() => new Date()),
+export const incomingProductSchema = yup.object({
+  userId:yup.number().typeError('This field is required').required().positive(),
+  itemId:yup.number().typeError('This field is required').required().positive(),
+  providerId:yup.number().typeError('This field is required').required().positive(),
+  manufacturerId:yup.number().typeError('').positive(),
+  inventoryId:yup.number().typeError('This field is required').required().positive(),
+  purchaseDate:yup.date().typeError('This field is required').default(() => new Date()),
+  expirationDate: yup.date().typeError('You must specify a date'),
+  productionDate: yup.date().typeError('You must specify a date'),
+  // purchasePrice:yup.number().typeError('This field is required').required().positive(),
+  quantity:yup.number().typeError('This field is required').positive().nullable(true),
+  unitPrice:yup.number().typeError('This field is required').required().positive(),
+  VATRate:yup.number().typeError('This field is required').required().positive(),
+  msrp:yup.number().typeError('').positive(),
+  // discount:yup.number().typeError('This field is number'),
+  // tatalExTax:yup.number().typeError('This field is required').required().positive(),
+  // totalIncTax:yup.number().typeError('This field is required').required().positive(),
+  minLevel:yup.number().typeError('').positive(),
   });
 
 
   
 export const itemSchema = yup.object({
+  
   name: yup.string().required().label("Product name"),
   description: yup.string().max(100),
   sku: yup.string(),

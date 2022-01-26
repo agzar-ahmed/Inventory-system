@@ -8,6 +8,7 @@ import {getSizes} from '../../store/actions/sizeActions'
 import {getProviders} from '../../store/actions/providerActions'
 import {getManufacturers} from '../../store/actions/manufacturerActions'
 import { getItems } from '../../store/actions/itemAction';
+import { getIncomingPurchases } from '../../store/actions/incomingPurchaseActions';
 
 import { inventorySelector } from '../../store/selectors/inventorySelector'
 import { providerSelector } from '../../store/selectors/providerSelector'
@@ -15,6 +16,8 @@ import {productTypeSelector} from '../../store/selectors/productTypeSelector'
 import {sizeSelector} from '../../store/selectors/sizeSelector'
 import {manufacturerSelector} from '../../store/selectors/manufacturerSelector'
 import { itemsSelector } from '../../store/selectors/itemSelector'
+import { incomingPurchaseSelector } from '../../store/selectors/incomingPurchaseSelector'
+
 import { Table } from '../../component/Table';
 
 
@@ -77,6 +80,7 @@ export default function Product() {
         dispatch(getProviders())
         dispatch(getManufacturers())
         dispatch(getItems())
+        dispatch(getIncomingPurchases())
     }
     ,[])
 
@@ -87,6 +91,7 @@ export default function Product() {
     const sizesList = useSelector(sizeSelector())
     const manufacturersList = useSelector(manufacturerSelector())
     const itemsList = useSelector(itemsSelector())
+    const incomingPurchases = useSelector(incomingPurchaseSelector())
 
     const state = useSelector(state=>state)
 
@@ -96,11 +101,7 @@ export default function Product() {
     return (
         <div className="productPage">
              <TopBar/>
-             <AddProduct sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/> 
-             <div className="purchases-table">
-                 <h2>Purchases table</h2>
-                {itemsList && <Table tableData={itemsList}/>} 
-             </div>      
+             <AddProduct sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/>     
         </div>
     )
 }

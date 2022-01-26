@@ -11,32 +11,102 @@ import Provider from '../Provider'
 import ImagWidget from '../ImageWidget';
 import { Link } from 'react-router-dom';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
-import {productSchema}from '../../validaions/productValidation'
-
+import {incomingProductSchema}from '../../validaions/productValidation'
+import { Table } from '../../component/Table';
 
 import { createItems,getItems } from '../../store/actions/itemAction';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { getItemsbyIdSelector, itemsSelector } from '../../store/selectors/itemSelector'
+
 export default function AddProduct({sizes,itemTypes,items,manufacturers,providers,inventories}) {
-    const initialState =  {
-      itemId:'',purchaseDate:'',
-      purchasePrice:'',expirationDate:'',
+    
+  const initialState =  {
+      // itemId:'',purchaseDate:'',
+      // purchasePrice:'',expirationDate:'',
+      // quantity:'',manufacturerId:'',
+      // providerId:'',minLevel:'',inventoryId:''
+      userId:1,
+      itemId:'',
+      manufacturerId:'',
+      providerId:'',
+      inventoryId:'',
+      purchaseDate:'',
+      expirationDate:'',
+      productionDate:'',
+      purchasePrice:'',
       quantity:'',
-      productImg:'',manufacturerId:'',
-      providerId:'',minLevel:'',inventoryId:''
+      purchasePrice:'',
+      msrp:'',
+      unitPrice:'',
+      VATRate:'',
+      discount:0,
+      tatalExTax:'',
+      totalIncTax:'',
+      minLevel:''
     }
     const [data,setData] = useState(
       initialState
     );
     const [errors,setErrors] = useState(
       {
-        itemId:'',purchaseDate:'',
-        purchasePrice:'',expirationDate:'',
+        // itemId:'',purchaseDate:'',
+        // purchasePrice:'',expirationDate:'',
+        // quantity:'',
+        // productImg:'',manufacturerId:'',
+        // providerId:'',minLevel:'',inventoryId:''
+        userId:'',
+        itemId:'',
+        manufacturerId:'',
+        providerId:'',
+        inventoryLocationId:'',
+        purchaseDate:'',
+        expirationDate:'',
+        productionDate:'',
+        purchasePrice:'',
         quantity:'',
-        productImg:'',manufacturerId:'',
-        providerId:'',minLevel:'',inventoryId:''
+        purchasePrice:'',
+        msrp:'',
+        unitPrice:'',
+        VATRate:'',
+        discount:'',
+        tatalExTax:'',
+        totalIncTax:'',
+        minLevel:''
       }
     );
+    const [incomingPurchseData,setIncomingPurchseData] = useState([{
+      userId:'',
+      productName:'',
+      quantity:'',
+      unitPrice:'',
+      tatalExTax:'',
+      VATRate:'',
+      discount:'',
+      totalIncTax:'',
+      inventoryLocation:'',
+      minLevel:'',
+      msrp:'',
+      provider:'',
+      Manufacturer:'',
+      purchaseDate:'',
+      expirationDate:'',
+      productionDate:'',
+      // productName:'',
+      // purchaseDate:'',
+      // purchasePrice:'',
+      // expirationDate:'',
+      // quantity:'',
+      // // description:'',
+      // // sku:'',
+      // // productImg:'',
+      // minLevel:'',
+      // // productTypeId : Number(productTypeId),
+      // // sizeId: Number(productTypeId),
+      // // manufacturerId: Number(manufacturerId),
+      // // providerId: Number(providerId),
+      // // inventoryId:Number(inventoryId),
+    }])
     const [btnDisable,setBtnDisabled] = useState(true)
 
     // const [showModalProductList,setShowModalProductList] = useState(false)
@@ -47,7 +117,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
     const [showModalProvider,setShowModalProvider] = useState(false);
     const [showModalInventory,setShowModalInventory] = useState(false)
 
-    const inputChange =e=> handleChange(e,data,setData,productSchema,errors,setErrors);
+    const inputChange =e=> handleChange(e,data,setData,incomingProductSchema,errors,setErrors);
     const onSubmit = () =>{
                   
                   const {productName,purchaseDate,
@@ -88,7 +158,41 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                     })
                     
                 }
-    const formSubmit = e => handleSubmit(e,data,productSchema,errors,setErrors,onSubmit)
+    const formSubmit = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,onSubmit)
+    // add data to Table
+    const addToTable = () =>{ 
+                       setIncomingPurchseData([
+                         ...incomingPurchseData,{
+                        userId,
+                        productName:selectedItem[0].name,
+                        quantity,
+                        unitPrice,
+                        tatalExTax: unitPrice*quantity ,
+                        VATRate: VATRate? VATRate: 20,
+                        discount,
+                        totalIncTax: (unitPrice*quantity+unitPrice*quantity*VATRate/100)-(unitPrice*quantity*discount/100),
+                        provider:providerId,
+                        minLevel,
+                        msrp,
+                        Manufacturer,
+                        purchaseDate,
+                        expirationDate,
+                        productionDate,
+
+                        // description,
+                        // sku,
+                        // productImg,
+                        // minLevel,
+                        // productTypeId : Number(productTypeId),                        // sizeId: Number(productTypeId),
+                        // manufacturerId: Number(manufacturerId),
+                        // providerId: Number(providerId),
+                        // inventoryId:Number(inventoryId),
+                      }])
+                      
+                      }
+
+    const formToTable = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,addToTable)
+                      
 
     const mounted = useRef();
       useEffect(() => {
@@ -105,13 +209,29 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
 
    
   
-    const {itemId,purchaseDate,
-           purchasePrice,expirationDate,
-           quantity,description,sku,
-           productImg,productTypeId,sizeId,
-           manufacturerId,providerId,minLevel,
-           inventoryId} = data
+    const { 
+            userId,
+            itemId,
+            manufacturerId,
+            providerId,
+            inventoryId,
+            purchaseDate,
+            expirationDate,
+            productionDate,
+            quantity,
+            purchasePrice,
+            msrp,
+            unitPrice,
+            VATRate,
+            discount,
+            tatalExTax,
+            totalIncTax,
+            minLevel
+          } = data
     
+    const selectedItem = useSelector(getItemsbyIdSelector(itemId))
+    
+    console.log(typeof(itemId),'itemId')
     // const handelmodal=()=>{
     //    setShowModalSize(true)
     // }
@@ -182,7 +302,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
             </div>              
             </div>
               <Form
-                    dataSchema={productSchema}
+                    dataSchema={incomingProductSchema}
                     initialValues={data}
                     initialValuesErrors={errors}
                     // onChange={handleChange}
@@ -198,7 +318,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                       {console.log(initialState,'initialstate')}
                       {console.log(items,itemId,"options,value")}
                       <div className="input-row">
-                      <FormSelect
+                        <FormSelect
                                     label="Product"
                                     name="itemId"
                                     value={itemId}
@@ -208,7 +328,19 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                     errorMessage={errors.itemId}
                                     buttonTittle="Add new"
                                     ButtonClick={()=>setShowModalItem(true)}
-                        /> 
+                        />  
+                        <FormInput
+                                label="Quantity"
+                                type="number" 
+                                placeholder="Quantity" 
+                                min="0" name="quantity" 
+                                value={quantity} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.quantity}
+                        />
+                      </div>  
+                      <div className="input-row">
                         <FormInput
                                 label="Purchase date" 
                                 type="date"
@@ -218,6 +350,16 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                 onChange={inputChange}
                                 onBlur={inputChange}
                                 errorMessage={errors.purchaseDate}
+                        />
+                        <FormInput
+                                label="Production date" 
+                                type="date"
+                                placeholder="Production date"
+                                name="productionDate" 
+                                value={productionDate} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.productionDate}
                         />
                         <FormInput
                                 label="Expiration date" 
@@ -232,28 +374,42 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                       </div>
                       <div className="input-row">
                       <FormInput
-                                label="Purchase price"
+                                label="unit price"
                                 type="number" 
                                 min="1" 
                                 step="0.01" 
-                                placeholder="Purchase Price" 
-                                name="purchasePrice" 
-                                value={purchasePrice} 
+                                placeholder="Unit Price" 
+                                name="unitPrice" 
+                                value={unitPrice} 
                                 onChange={inputChange}
                                 onBlur={inputChange}
-                                errorMessage={errors.purchasePrice}
-                        />
-                        
+                                errorMessage={errors.unitPrice}
+                      />
                       <FormInput
-                                label="Quantity"
+                                label="Suggested price"
                                 type="number" 
-                                placeholder="Quantity" 
-                                min="0" name="quantity" 
-                                value={quantity} 
+                                min="1" 
+                                step="0.01" 
+                                placeholder="Suggested retail price" 
+                                name="msrp" 
+                                value={msrp} 
                                 onChange={inputChange}
                                 onBlur={inputChange}
-                                errorMessage={errors.quantity}
-                        />
+                                errorMessage={errors.msrp}
+                      />
+                      <FormInput
+                                label="VAT rate(%)"
+                                type="number" 
+                                min="1" 
+                                step="1" 
+                                placeholder="Value Added Tax" 
+                                name="VATRate" 
+                                value={VATRate} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.VATRate}
+                      />  
+                      
                         <div></div>
                       </div>
                         
@@ -345,9 +501,19 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                         <div></div>
                     </div>
                   </div>
-                  <button  className="btn btnSubmit" onClick={formSubmit}>ADD</button>
               </div>
-              </Form>                 
+              </Form> 
+              <button  className="btn btnSubmit" onClick={formToTable}>ADD</button>
+              <div className="purchases-table">
+                  <h2>Incoming purchases table</h2>
+                  {/* {incomingPurchseData.map((data,index)=><div key={index}>{JSON.stringify(data)}</div>)} */}
+                  { }
+                  {/* {selectedItem = getItemsbyIdSelector(itemId)} */}
+                  {console.log(selectedItem,incomingPurchseData,'selected item')}
+                   {/*key is important to force table to reload if we add data */}
+                  <Table tableData={incomingPurchseData} key={incomingPurchseData}/>   
+              </div>  
+                           
         </div>
     )
 }

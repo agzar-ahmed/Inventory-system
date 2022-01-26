@@ -39,15 +39,16 @@
     display: block;
   }
 .inputBtn{
-    margin-top: 10px;
-    margin-left:10%;
-    /* margin: 0 0 10px 50px; */
-    background-color: #ebebeb7d;
-    border:none;
-    color: #272727;
-    padding: 7px;
-    font-size: 15px;
-    border-radius: 5px;
+  margin-top: 10px;
+  margin-left: 10%;
+  /* margin: 0 0 10px 50px; */
+  background-color: #ebebeb7d;
+  border: none;
+  color: #272727;
+  padding: 4px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: solid 1px #21dbd2;
 }
 
 /* [focused="true"] ~ span.error{
