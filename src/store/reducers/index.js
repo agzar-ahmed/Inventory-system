@@ -18,5 +18,5 @@ export default combineReducers({
     manufacturer: manufacturerReducer,
     users: usersReducer,
     items: itemsReducer,
-    incomingPurchases:incomingPurchaseReducer
+    incomingPurchase:incomingPurchaseReducer
 });

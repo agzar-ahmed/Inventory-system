@@ -1,9 +1,13 @@
 import { reach } from 'yup';
 
 export const onChange=(e,data,setter)=>{
+  let { name, valueAsNumber, value } = e.target;
     setter({  
                     ...data,
-                    [e.target.name]: e.target.value
+                     [e.target.name]: e.target.value
+                    // [name]: Number.isNaN(valueAsNumber) ? value : valueAsNumber,
+                    //this should work if you have input type="number" but
+                    // event.target.valueAsNumber is not avilable for few input elements such as select, options etc. 
                 })
 }
 

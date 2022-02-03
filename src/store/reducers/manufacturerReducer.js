@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
     const initialState = {
         manufacturerisLoading: false,
-        manufacturerData:null
+        manufacturerData:[]
     };
 
     

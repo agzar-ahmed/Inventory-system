@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
     const initialState = {
         incomingPurchaseisLoading: false,
-        incomingPurchaseData:null
+        incomingPurchaseData:[]
     };
 
     
@@ -19,12 +19,13 @@ import * as actions from "../actions/types";
                     incomingPurchaseData: action.payload.IncomingPurchase,
                     incomingPurchaseisLoading: false
                 };
-            case actions.ADD_INCOMING_PURCHASES:                    
+            case actions.ADD_INCOMING_PURCHASES:    
+            console.log(state,'redux state')                
                 return {
                     ...state,
                     incomingPurchaseData:[
-                           ...state.incomingPurchase,
-                           action.payload
+                           ...state.incomingPurchaseData,
+                           ...action.payload.IncomingPurchase
                     ]
                 };   
             case actions.DELETE_INCOMING_PURCHASES:

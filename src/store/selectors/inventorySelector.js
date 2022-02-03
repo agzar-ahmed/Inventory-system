@@ -6,3 +6,7 @@ export const inventorySelector = () => createSelector(
   inventory=>inventory.inventoryData
 )
  
+export const getInventorybyIdSelector = (inventoryId) => createSelector(
+  state=>state.inventory.inventoryData,
+  inventory=>inventory.filter(inventory=> inventory.id == Number(inventoryId))
+)

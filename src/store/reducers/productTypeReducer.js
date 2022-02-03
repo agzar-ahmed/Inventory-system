@@ -12,7 +12,7 @@ import {
         
         const initialState = {
             productTypeisLoading: false,
-            productTypeData:null
+            productTypeData:[]
         };
     
         

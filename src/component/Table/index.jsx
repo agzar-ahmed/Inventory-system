@@ -12,12 +12,9 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { grid } from '@mui/system';
 
 import { useDispatch } from 'react-redux';
-import { postIncomingPurchases } from '../../store/actions/incomingPurchaseActions'
 
 
-
-
- function Table({tableData}) {
+ function Table({tableData,TableHeader}) {
     const[data,setData] = useState([]);
     const[tableColumn,setTableColumn] = useState([]);
     const[rows,setRows] = useState([]);
@@ -85,13 +82,18 @@ import { postIncomingPurchases } from '../../store/actions/incomingPurchaseActio
   /*end grid */   
 
     const tableContent=async(items)=>{
+        console.log(TableHeader,tableData,'TableHeader')
+        console.log(items,'items')
         if(items){
+            //get the column titles from props or from object key
             const keys=Object.keys(items[0])
+            console.log(keys,'keys')
             // keys.push('actions')
             if(keys){
                      setTableColumn(keys)
-                     gridTable(keys)
-                    }    
+                     gridTable(Object.keys(items[0]))
+            } 
+            // remove empty object,first element in the array to extract column title
             const filtredItems = items.filter(item=>item !== items[0]) 
             console.log(filtredItems,'filtedItems')     
             items && setData(filtredItems)
@@ -103,9 +105,9 @@ import { postIncomingPurchases } from '../../store/actions/incomingPurchaseActio
       
       console.log(tableColumn,"tableColumn")
       const agGrid =[
-        ...keys.map(title=>({
+        ...keys.map((title,index)=>({
             field: title,
-            headerName: title, 
+            headerName:TableHeader? TableHeader[index]: title, 
             width: 150,
             hide: title==="id" && true
         })),
@@ -199,7 +201,6 @@ import { postIncomingPurchases } from '../../store/actions/incomingPurchaseActio
         } */}
         
           </AgGridReact>
-          <button  className="btn btnSubmit" onClick={()=>dispatch(postIncomingPurchases(data))}>Submit data</button>
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
     const initialState = {
         inventoryisLoading: false,
-        inventoryData:null
+        inventoryData:[]
     };
 
     

@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
     const initialState = {
         usersisLoading: false,
-        usersData:null
+        usersData:[]
     };
 
     

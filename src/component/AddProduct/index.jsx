@@ -17,16 +17,17 @@ import { Table } from '../../component/Table';
 import { createItems,getItems } from '../../store/actions/itemAction';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { postIncomingPurchases } from '../../store/actions/incomingPurchaseActions'
+
 import { getItemsbyIdSelector, itemsSelector } from '../../store/selectors/itemSelector'
+import { getManufacturerbyIdSelector } from '../../store/selectors/manufacturerSelector';
+import { getProviderbyIdSelector } from '../../store/selectors/providerSelector';
+import { getInventorybyIdSelector } from '../../store/selectors/inventorySelector';
 
 export default function AddProduct({sizes,itemTypes,items,manufacturers,providers,inventories}) {
     
   const initialState =  {
-      // itemId:'',purchaseDate:'',
-      // purchasePrice:'',expirationDate:'',
-      // quantity:'',manufacturerId:'',
-      // providerId:'',minLevel:'',inventoryId:''
-      userId:1,
+      userId:'1',
       itemId:'',
       manufacturerId:'',
       providerId:'',
@@ -43,23 +44,19 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
       discount:0,
       tatalExTax:'',
       totalIncTax:'',
-      minLevel:''
+      // minLevel:''
     }
     const [data,setData] = useState(
       initialState
     );
+    const [dataArray,setDataArray] = useState([]);
     const [errors,setErrors] = useState(
       {
-        // itemId:'',purchaseDate:'',
-        // purchasePrice:'',expirationDate:'',
-        // quantity:'',
-        // productImg:'',manufacturerId:'',
-        // providerId:'',minLevel:'',inventoryId:''
         userId:'',
         itemId:'',
         manufacturerId:'',
         providerId:'',
-        inventoryLocationId:'',
+        inventoryId:'',
         purchaseDate:'',
         expirationDate:'',
         productionDate:'',
@@ -72,40 +69,26 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
         discount:'',
         tatalExTax:'',
         totalIncTax:'',
-        minLevel:''
+        // minLevel:''
       }
     );
     const [incomingPurchseData,setIncomingPurchseData] = useState([{
       userId:'',
-      productName:'',
+      itemId:'',
       quantity:'',
       unitPrice:'',
-      tatalExTax:'',
+      totalExTax:'',
       VATRate:'',
       discount:'',
       totalIncTax:'',
-      inventoryLocation:'',
-      minLevel:'',
+      inventoryId:'',
+      // minLevel:'',
       msrp:'',
-      provider:'',
-      Manufacturer:'',
+      providerId:'',
+      manufacturerId:'',
       purchaseDate:'',
       expirationDate:'',
       productionDate:'',
-      // productName:'',
-      // purchaseDate:'',
-      // purchasePrice:'',
-      // expirationDate:'',
-      // quantity:'',
-      // // description:'',
-      // // sku:'',
-      // // productImg:'',
-      // minLevel:'',
-      // // productTypeId : Number(productTypeId),
-      // // sizeId: Number(productTypeId),
-      // // manufacturerId: Number(manufacturerId),
-      // // providerId: Number(providerId),
-      // // inventoryId:Number(inventoryId),
     }])
     const [btnDisable,setBtnDisabled] = useState(true)
 
@@ -124,10 +107,10 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                           purchasePrice,expirationDate,
                           quantity,description,sku,
                           productImg,productTypeId,sizeId,
-                          manufacturerId,providerId,minLevel,
+                          manufacturerId,providerId,
                           inventoryId} = data;
                           
-                        //we did this because we want to change IDs to Number type   
+                  //we did this because we want to change IDs to Number type   
                   const data2 = {
                             productName,
                             purchaseDate,
@@ -137,7 +120,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                             description,
                             sku,
                             productImg,
-                            minLevel,
+                            // minLevel,
                             productTypeId : Number(productTypeId),
                             sizeId: Number(productTypeId),
                             manufacturerId: Number(manufacturerId),
@@ -154,42 +137,54 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                       purchasePrice:'',expirationDate:'',
                       quantity:'',
                       productImg:'',manufacturerId:'',
-                      providerId:'',minLevel:'',inventoryId:''
+                      providerId:'',inventoryId:''
                     })
                     
                 }
     const formSubmit = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,onSubmit)
+
     // add data to Table
     const addToTable = () =>{ 
+      console.log(data,incomingPurchseData,'data and incoming purchase')
                        setIncomingPurchseData([
                          ...incomingPurchseData,{
                         userId,
-                        productName:selectedItem[0].name,
+                        itemId:selectedItem[0].name,
                         quantity,
                         unitPrice,
-                        tatalExTax: unitPrice*quantity ,
+                        totalExTax: unitPrice*quantity ,
                         VATRate: VATRate? VATRate: 20,
-                        discount,
                         totalIncTax: (unitPrice*quantity+unitPrice*quantity*VATRate/100)-(unitPrice*quantity*discount/100),
-                        provider:providerId,
-                        minLevel,
+                        discount,
+                        inventoryId: selectedInventory[0].name,
                         msrp,
-                        Manufacturer,
+                        providerId:selectedProvider[0].name,
+                        manufacturerId:selectedManufacturer[0].name,
                         purchaseDate,
                         expirationDate,
                         productionDate,
-
-                        // description,
-                        // sku,
-                        // productImg,
-                        // minLevel,
-                        // productTypeId : Number(productTypeId),                        // sizeId: Number(productTypeId),
-                        // manufacturerId: Number(manufacturerId),
-                        // providerId: Number(providerId),
-                        // inventoryId:Number(inventoryId),
                       }])
+                      setDataArray([
+                        ...dataArray,{
+                       userId,
+                       itemId,
+                       quantity:Number(quantity),
+                       unitPrice:Number(unitPrice),
+                       totalExTax: unitPrice*quantity,
+                       VATRate: VATRate? Number(VATRate): 20,
+                       totalIncTax: (unitPrice*quantity+unitPrice*quantity*VATRate/100)-(unitPrice*quantity*discount/100),
+                       discount:Number(discount),
+                       inventoryId,
+                       msrp:Number(msrp),
+                       providerId,
+                       manufacturerId,
+                       purchaseDate,
+                       expirationDate,
+                       productionDate,
+                     }])
+                     
                       
-                      }
+    }
 
     const formToTable = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,addToTable)
                       
@@ -219,17 +214,16 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
             expirationDate,
             productionDate,
             quantity,
-            purchasePrice,
             msrp,
             unitPrice,
             VATRate,
-            discount,
-            tatalExTax,
-            totalIncTax,
-            minLevel
+            discount
           } = data
     
-    const selectedItem = useSelector(getItemsbyIdSelector(itemId))
+    const selectedItem = useSelector(getItemsbyIdSelector(itemId));
+    const selectedProvider = useSelector(getProviderbyIdSelector(providerId));
+    const selectedManufacturer = useSelector(getManufacturerbyIdSelector(manufacturerId));
+    const selectedInventory = useSelector(getInventorybyIdSelector(inventoryId));
     
     console.log(typeof(itemId),'itemId')
     // const handelmodal=()=>{
@@ -487,7 +481,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                     buttonTittle="Add new"
                                     ButtonClick={()=>setShowModalInventory(true)}       
                         />
-                        <FormInput
+                        {/* <FormInput
                                 label="Min level"
                                 type="number" 
                                 placeholder="Min level" 
@@ -497,7 +491,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                 onBlur={inputChange}
                                 errorMessage={errors.minLevel}
                                 // required
-                        />
+                        /> */}
                         <div></div>
                     </div>
                   </div>
@@ -511,7 +505,34 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                   {/* {selectedItem = getItemsbyIdSelector(itemId)} */}
                   {console.log(selectedItem,incomingPurchseData,'selected item')}
                    {/*key is important to force table to reload if we add data */}
-                  <Table tableData={incomingPurchseData} key={incomingPurchseData}/>   
+                  <Table 
+                        TableHeader={['USER',
+                                      'PRODUCT NAME',
+                                      'QUANTITY',
+                                      'UNIT Price',
+                                      'TOTAL ExTax',
+                                      'VAT Rate',
+                                      'DISCOUNT',
+                                      'TOTAL IncTax',
+                                      'INVENTORY',
+                                      'MIN level',
+                                      'SELLER Price',
+                                      'PROVIDER',
+                                      'MANUFACTURER',
+                                      'PURCHASE DATE',
+                                      'EXPIRATION DATE',
+                                      'PRODUCTION DATE']} 
+                        tableData={incomingPurchseData}  
+                        key={incomingPurchseData}
+                  />
+                <button  
+                      className="btn btnSubmit" 
+                      onClick={()=>{
+                        dispatch(postIncomingPurchases(dataArray))
+                        setDataArray([])
+                        }}>
+                        Submit data
+                </button>
               </div>  
                            
         </div>

@@ -2,7 +2,7 @@ import * as actions from "../actions/types";
 
     const initialState = {
         sizeisLoading: false,
-        sizeData:null
+        sizeData:[]
     };
 
     

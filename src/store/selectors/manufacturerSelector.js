@@ -6,3 +6,7 @@ export const manufacturerSelector = () => createSelector(
   manufacturer=>manufacturer.manufacturerData
 )
  
+export const getManufacturerbyIdSelector = (manufacturerId) => createSelector(
+  state=>state.manufacturer.manufacturerData,
+  manufacturer=>manufacturer.filter(manufacturer=> manufacturer.id == Number(manufacturerId))
+)

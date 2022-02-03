@@ -23,7 +23,7 @@ import { apiCallBegan } from './apiActions';
                       method:'post',
                       data,
                       onStart: action.INCOMING_PURCHASES_LOADING,
-                      onSuccess: action.INCOMING_PURCHASES_LOADED,
+                      onSuccess: action.ADD_INCOMING_PURCHASES,
                       onError:action.INCOMING_PURCHASES_ERROR
             })
         )

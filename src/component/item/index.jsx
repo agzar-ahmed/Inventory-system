@@ -15,7 +15,7 @@ function item() {
     const [data,setData] = useState(
         {
           name:'',description:'',sku:'',
-          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:"2",UserId:"3"
+          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:"2",userId:"3"
         }
       );
     const [errors,setErrors] = useState(
@@ -43,7 +43,7 @@ function item() {
       dispatch(createItems(data))
       setData({
         name:'',description:'',sku:'',
-      productImg:'',productTypeId:'DEFAULT',SizeId:''
+      productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:"2",userId:"3"
       })
   }
     const formSubmit = e => handleSubmit(e,data,itemSchema,errors,setErrors,onSubmit)
