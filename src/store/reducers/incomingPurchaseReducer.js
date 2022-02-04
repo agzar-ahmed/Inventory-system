@@ -20,7 +20,6 @@ import * as actions from "../actions/types";
                     incomingPurchaseisLoading: false
                 };
             case actions.ADD_INCOMING_PURCHASES:    
-            console.log(state,'redux state')                
                 return {
                     ...state,
                     incomingPurchaseData:[

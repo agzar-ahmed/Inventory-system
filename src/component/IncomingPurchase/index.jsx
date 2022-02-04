@@ -25,8 +25,20 @@ import { getProviderbyIdSelector } from '../../store/selectors/providerSelector'
 import { getInventorybyIdSelector } from '../../store/selectors/inventorySelector';
 
 export default function AddProduct({sizes,itemTypes,items,manufacturers,providers,inventories}) {
+//   const notify = () =>{        
+//     toast.dark('Welcome (user name) good luck', {
+//      position: "top-right",
+//      autoClose: 5000,
+//      hideProgressBar: false,
+//      closeOnClick: true,
+//      pauseOnHover: true,
+//      draggable: true,
+//      progress: undefined,
+//      });
+//      // console.log('toast')
+//  }
     
-  const initialState =  {
+    const initialState =  {
       userId:'1',
       itemId:'',
       manufacturerId:'',
@@ -46,10 +58,31 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
       totalIncTax:'',
       // minLevel:''
     }
+    /*Data to handel form */
     const [data,setData] = useState(
       initialState
     );
+    /*dataArray to dispatch array data to server */
     const [dataArray,setDataArray] = useState([]);
+    /*incomingPurchseData to show data in table with names(user,item..) not the ids(uerId,itemId) */
+    const [incomingPurchseData,setIncomingPurchseData] = useState([{
+      userId:'',
+      itemId:'',
+      quantity:'',
+      unitPrice:'',
+      totalExTax:'',
+      VATRate:'',
+      discount:'',
+      totalIncTax:'',
+      inventoryId:'',
+      // minLevel:'',
+      msrp:'',
+      providerId:'',
+      manufacturerId:'',
+      purchaseDate:'',
+      expirationDate:'',
+      productionDate:'',
+    }])
     const [errors,setErrors] = useState(
       {
         userId:'',
@@ -72,24 +105,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
         // minLevel:''
       }
     );
-    const [incomingPurchseData,setIncomingPurchseData] = useState([{
-      userId:'',
-      itemId:'',
-      quantity:'',
-      unitPrice:'',
-      totalExTax:'',
-      VATRate:'',
-      discount:'',
-      totalIncTax:'',
-      inventoryId:'',
-      // minLevel:'',
-      msrp:'',
-      providerId:'',
-      manufacturerId:'',
-      purchaseDate:'',
-      expirationDate:'',
-      productionDate:'',
-    }])
+
     const [btnDisable,setBtnDisabled] = useState(true)
 
     // const [showModalProductList,setShowModalProductList] = useState(false)
@@ -202,8 +218,6 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
 
     const dispatch = useDispatch()
 
-   
-  
     const { 
             userId,
             itemId,
@@ -458,7 +472,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                   </div>
 
                   <div className="addProduct">    
-                    {/* <h3>Inventry</h3>            */}
+                    {/* <h3>Inventry</h3>*/}
                     {/* <Form
                         dataSchema={productSchema}
                         initialValues={data}
@@ -530,6 +544,43 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                       onClick={()=>{
                         dispatch(postIncomingPurchases(dataArray))
                         setDataArray([])
+                        setIncomingPurchseData([{
+                          userId:'',
+                          itemId:'',
+                          quantity:'',
+                          unitPrice:'',
+                          totalExTax:'',
+                          VATRate:'',
+                          discount:'',
+                          totalIncTax:'',
+                          inventoryId:'',
+                          // minLevel:'',
+                          msrp:'',
+                          providerId:'',
+                          manufacturerId:'',
+                          purchaseDate:'',
+                          expirationDate:'',
+                          productionDate:'',
+                        }])
+                        setData({ 
+                          userId:'1',
+                          itemId:'',
+                          manufacturerId:'',
+                          providerId:'',
+                          inventoryId:'',
+                          purchaseDate:'',
+                          expirationDate:'',
+                          productionDate:'',
+                          purchasePrice:'',
+                          quantity:'',
+                          purchasePrice:'',
+                          msrp:'',
+                          unitPrice:'',
+                          VATRate:'',
+                          discount:0,
+                          tatalExTax:'',
+                          totalIncTax:'',
+                        })
                         }}>
                         Submit data
                 </button>

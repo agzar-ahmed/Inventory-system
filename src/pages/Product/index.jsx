@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import './style.css'
 import TopBar from '../../component//TopBar';
-import AddProduct from '../../component/AddProduct'
+import IncomingPurchase from '../../component/IncomingPurchase'
 import {getProductTypes} from '../../store/actions/productTypeActions'
 import {getInventories} from '../../store/actions/inventoryActions'
 import {getSizes} from '../../store/actions/sizeActions'
@@ -101,7 +101,7 @@ export default function Product() {
     return (
         <div className="productPage">
              <TopBar/>
-             <AddProduct sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/>     
+             <IncomingPurchase sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/>     
         </div>
     )
 }

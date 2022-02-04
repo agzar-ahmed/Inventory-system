@@ -1,5 +1,6 @@
 import { API_CALL_BEGAN } from '../actions/types';
 import {apiCallBegan, apiCallSuccess, apiCallFailed } from '../actions/apiActions'
+import { toast } from 'react-toastify';
 
 //api action structure
 // const action={
@@ -36,12 +37,26 @@ const api =(params)=>({dispatch})=>next=>action=>{
       })
     .then(async (res) => {
         // console.log(JSON.stringify(data),method)
-        //  console.log(res,'response before json')
-         if(!res.ok) {
+          // console.log(res,'response before json')
+        if(!res.ok) {
             let error = await res.clone().json()
             console.log(error,'error')
             return  Promise.reject(error)
             }
+        //check if it is creation status  201 to show toast creation success 
+        if(res.status == 201) {
+          toast.success('Created successfully' , {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+            });
+          
+          }
            
            
         return res.json()

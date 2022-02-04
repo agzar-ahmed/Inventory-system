@@ -4,7 +4,7 @@ import combineReducers from './reducers'
 import {devToolsEnhancer} from "redux-devtools-extension"
 import * as actionCreators from './actions/sizeActions'; 
 import logger from './middleware/logger'
-import toast from './middleware/toast'
+import toastMiddleware from './middleware/toast'
 import api from './middleware/api'
 
 const initialState ={}
@@ -17,7 +17,7 @@ const composeSetup = process.env.NODE_ENV !== 'production' && typeof window === 
      }): []
 
 const store= createStore(combineReducers, initialState, compose(
-    applyMiddleware(api(),logger(console),toast(),thunk),
+    applyMiddleware(api(),logger(console),toastMiddleware(),thunk),
     //  devToolsEnhancer({trace:true}),
     //  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__({
     //     trace: true,
