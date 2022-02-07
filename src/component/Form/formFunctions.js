@@ -40,25 +40,22 @@ export const validateProperty=(e,dataSchema,errors,setErrors)=>{
                   [e.target.name]:err.errors[0]
             })
        })
-       console.log(errors,"errors")
   }
 
 export const handleChange=(e,data,setter,dataSchema,errors,setErrors)=>{
    validateProperty(e,dataSchema,errors,setErrors)
-   console.log(data)
    onChange(e,data,setter)
 }
 
       
 export const handleSubmit=async(e,data,dataSchema,errors,setErrors,onSubmit)=>{
     e.preventDefault(); // stops default reloading behaviour
-    console.log(e,"event")
+  
     const validationErrors = await validateData(data,dataSchema);
+    console.log(validationErrors,'validationErrors')
 
     setErrors({errors,...validationErrors })
 
-    console.log(validationErrors,"validationErrors")
-    console.log(data,"submitted data")
     if(validationErrors) return;
     
     onSubmit()

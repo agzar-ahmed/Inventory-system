@@ -7,6 +7,8 @@ import User from './pages/User';
 import Product from './pages/Product'
 import ErrorPage from './pages/ErrorPage';
 import ProductList from './pages/ProductList';
+import Login from './pages/Login';
+import Register from './pages/Regiter'
 
 import { BrowserRouter as Router, Route, Switch} 
 from 'react-router-dom';
@@ -24,6 +26,16 @@ function App() {
                           <Home/>
                     </div>
               </Route>  
+              <Route exact path="/login">
+                     <div className="container">
+                          <Login/>
+                    </div>
+              </Route>
+              <Route exact path="/register">
+                     <div className="container">
+                          <Register/>
+                    </div>
+              </Route>
               <Route exact path="/userslist">
                      <div className="container">
                           <SideBar/>

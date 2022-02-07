@@ -20,7 +20,6 @@ import { incomingPurchaseSelector } from '../../store/selectors/incomingPurchase
 
 import { Table } from '../../component/Table';
 
-
 import { useDispatch,useSelector } from 'react-redux';
 
 export default function Product() {

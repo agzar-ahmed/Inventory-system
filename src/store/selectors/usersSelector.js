@@ -3,7 +3,7 @@ import { createSelector } from 'reselect'
 
 export const usersSelector = () => createSelector(
   state=>state.users,
-  inventory=>inventory.usersData
+  users=>users.usersData
 )
  
 export const getUserbyIdSelector = (userId) => createSelector(

@@ -62,10 +62,12 @@ export default function Users() {
     ];
 
     const renderTable=(users)=>{
-        if(users){
+        if(users.length > 0){
+            
             const keys=Object.keys(users[0])
-            keys && setTableColumn(keys)
-            users && setData(users)
+            console.log(users,users[0],"keys and users")
+             keys && setTableColumn(keys)
+             users && setData(users)
             return 
         }
     }

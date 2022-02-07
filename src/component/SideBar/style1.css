@@ -6,6 +6,7 @@
   padding: 6px 14px;
   z-index: 200;
   transition: all 0.5s ease;
+  min-height: 90vh;
 }
 .sidebar.open{
   width: 250px;
@@ -105,6 +106,7 @@
 .sidebar.open input{
   padding: 0 20px 0 50px;
   width: 70%;
+  
 }
 .sidebar .bx-search{
   position: absolute;
