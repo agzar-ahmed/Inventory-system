@@ -25,18 +25,6 @@ import { getProviderbyIdSelector } from '../../store/selectors/providerSelector'
 import { getInventorybyIdSelector } from '../../store/selectors/inventorySelector';
 
 export default function AddProduct({sizes,itemTypes,items,manufacturers,providers,inventories}) {
-//   const notify = () =>{        
-//     toast.dark('Welcome (user name) good luck', {
-//      position: "top-right",
-//      autoClose: 5000,
-//      hideProgressBar: false,
-//      closeOnClick: true,
-//      pauseOnHover: true,
-//      draggable: true,
-//      progress: undefined,
-//      });
-//      // console.log('toast')
-//  }
     
     const initialState =  {
       userId:'1',
@@ -117,47 +105,47 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
     const [showModalInventory,setShowModalInventory] = useState(false)
 
     const inputChange =e=> handleChange(e,data,setData,incomingProductSchema,errors,setErrors);
-    const onSubmit = () =>{
+    // const onSubmit = () =>{
                   
-                  const {productName,purchaseDate,
-                          purchasePrice,expirationDate,
-                          quantity,description,sku,
-                          productImg,productTypeId,sizeId,
-                          manufacturerId,providerId,
-                          inventoryId} = data;
+    //               const {productName,purchaseDate,
+    //                       purchasePrice,expirationDate,
+    //                       quantity,description,sku,
+    //                       productImg,productTypeId,sizeId,
+    //                       manufacturerId,providerId,
+    //                       inventoryId} = data;
                           
-                  //we did this because we want to change IDs to Number type   
-                  const data2 = {
-                            productName,
-                            purchaseDate,
-                            purchasePrice,
-                            expirationDate,
-                            quantity,
-                            description,
-                            sku,
-                            productImg,
-                            // minLevel,
-                            productTypeId : Number(productTypeId),
-                            sizeId: Number(productTypeId),
-                            manufacturerId: Number(manufacturerId),
-                            providerId: Number(providerId),
-                            inventoryId:Number(inventoryId),
-                          }
-                          console.log("submitted");
+    //               //we did this because we want to change IDs to Number type   
+    //               const data2 = {
+    //                         productName,
+    //                         purchaseDate,
+    //                         purchasePrice,
+    //                         expirationDate,
+    //                         quantity,
+    //                         description,
+    //                         sku,
+    //                         productImg,
+    //                         // minLevel,
+    //                         productTypeId : Number(productTypeId),
+    //                         sizeId: Number(productTypeId),
+    //                         manufacturerId: Number(manufacturerId),
+    //                         providerId: Number(providerId),
+    //                         inventoryId:Number(inventoryId),
+    //                       }
+    //                       console.log("submitted");
                     
-                    //     console.log(data2,"data2");
-                    //     // dispatch(createItems(data))
-                    //     // getItems()
-                    setData( {
-                      itemId:"",purchaseDate:'',
-                      purchasePrice:'',expirationDate:'',
-                      quantity:'',
-                      productImg:'',manufacturerId:'',
-                      providerId:'',inventoryId:''
-                    })
+    //                 //     console.log(data2,"data2");
+    //                 //     // dispatch(createItems(data))
+    //                 //     // getItems()
+    //                 setData( {
+    //                   itemId:"",purchaseDate:'',
+    //                   purchasePrice:'',expirationDate:'',
+    //                   quantity:'',
+    //                   productImg:'',manufacturerId:'',
+    //                   providerId:'',inventoryId:''
+    //                 })
                     
-                }
-    const formSubmit = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,onSubmit)
+    //             }
+    // const formSubmit = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors)
 
     // add data to Table
     const addToTable = () =>{ 
@@ -197,9 +185,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                        purchaseDate,
                        expirationDate,
                        productionDate,
-                     }])
-                     
-                      
+                     }])               
     }
 
     const formToTable = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors,addToTable)
@@ -314,7 +300,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                     initialValues={data}
                     initialValuesErrors={errors}
                     // onChange={handleChange}
-                    onSubmit={formSubmit}
+                    // onSubmit={formSubmit}
                     // labelBtn={"Add Item"}
                     errors = {errors}
                     setErrors = {setErrors}
@@ -330,6 +316,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                     label="Product"
                                     name="itemId"
                                     value={itemId}
+                                    autoFocus
                                     onChange={inputChange}
                                     onBlur={inputChange}
                                     options={items}
