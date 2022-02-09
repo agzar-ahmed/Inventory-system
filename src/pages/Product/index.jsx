@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import './style.css'
 import TopBar from '../../component//TopBar';
-import IncomingPurchase from '../../component/IncomingPurchase'
+import prouct from '../../component/IncomingPurchase'
 import {getProductTypes} from '../../store/actions/productTypeActions'
 import {getInventories} from '../../store/actions/inventoryActions'
 import {getSizes} from '../../store/actions/sizeActions'
