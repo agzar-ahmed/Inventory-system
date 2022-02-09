@@ -9,6 +9,7 @@ import ErrorPage from './pages/ErrorPage';
 import ProductList from './pages/ProductList';
 import Login from './pages/Login';
 import Register from './pages/Regiter'
+import IncomingPurchase from './pages/IncomingPurchases'
 
 import { BrowserRouter as Router, Route, Switch} 
 from 'react-router-dom';
@@ -49,12 +50,18 @@ function App() {
                           <User/>
                     </div>
               </Route>  
-              <Route exact path="/product">
+              <Route exact path="/incomingpurchase">
+                     <div className="container">
+                          <SideBar/>
+                          <IncomingPurchase/>
+                    </div>
+              </Route> 
+              {/* <Route exact path="/product">
                      <div className="container">
                           <SideBar/>
                           <Product/>
                     </div>
-              </Route>  
+              </Route>   */}
               <Route exact path="/productlist">
                      <div className="container">
                           <SideBar/>

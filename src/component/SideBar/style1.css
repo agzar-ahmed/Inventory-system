@@ -134,7 +134,7 @@
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
-  background: #11101D;
+  /* background: #11101D; */
 }
 .sidebar li a:hover{
   background: #FFF;
@@ -240,7 +240,11 @@
     display: none;
   }
 }
-.sidebar .active{
+.sidebar .active,
+.sidebar .active i,
+.sidebar .active .links_name
+{
   background: #FFF;
   color: #11101d;
+  border-radius:12px
 }

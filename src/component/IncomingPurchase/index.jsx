@@ -3,7 +3,7 @@ import './style.css'
 import Modal from '../Modal';
 import Form from '../Form' 
 import { FormInput,FormSelect } from'../FormFields';
-import Item from '../item'
+import Item from '../Item'
 import Size from '../Size'
 import ItemTypes from '../ItemType'
 import Manufacturer from '../Manufacurer'
@@ -105,49 +105,6 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
     const [showModalInventory,setShowModalInventory] = useState(false)
 
     const inputChange =e=> handleChange(e,data,setData,incomingProductSchema,errors,setErrors);
-    // const onSubmit = () =>{
-                  
-    //               const {productName,purchaseDate,
-    //                       purchasePrice,expirationDate,
-    //                       quantity,description,sku,
-    //                       productImg,productTypeId,sizeId,
-    //                       manufacturerId,providerId,
-    //                       inventoryId} = data;
-                          
-    //               //we did this because we want to change IDs to Number type   
-    //               const data2 = {
-    //                         productName,
-    //                         purchaseDate,
-    //                         purchasePrice,
-    //                         expirationDate,
-    //                         quantity,
-    //                         description,
-    //                         sku,
-    //                         productImg,
-    //                         // minLevel,
-    //                         productTypeId : Number(productTypeId),
-    //                         sizeId: Number(productTypeId),
-    //                         manufacturerId: Number(manufacturerId),
-    //                         providerId: Number(providerId),
-    //                         inventoryId:Number(inventoryId),
-    //                       }
-    //                       console.log("submitted");
-                    
-    //                 //     console.log(data2,"data2");
-    //                 //     // dispatch(createItems(data))
-    //                 //     // getItems()
-    //                 setData( {
-    //                   itemId:"",purchaseDate:'',
-    //                   purchasePrice:'',expirationDate:'',
-    //                   quantity:'',
-    //                   productImg:'',manufacturerId:'',
-    //                   providerId:'',inventoryId:''
-    //                 })
-                    
-    //             }
-    // const formSubmit = e => handleSubmit(e,data,incomingProductSchema,errors,setErrors)
-
-    // add data to Table
     const addToTable = () =>{ 
       console.log(data,incomingPurchseData,'data and incoming purchase')
                        setIncomingPurchseData([
@@ -322,7 +279,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                     options={items}
                                     errorMessage={errors.itemId}
                                     buttonTittle="Add new"
-                                    ButtonClick={()=>setShowModalItem(true)}
+                                    ButtonClick={(e)=>{ e.preventDefault();setShowModalItem(true)}}
                         />  
                         <FormInput
                                 label="Quantity"

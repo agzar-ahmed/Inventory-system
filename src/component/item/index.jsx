@@ -5,13 +5,13 @@ import {FormInput, FormSelect} from "../FormFields"
 import { itemSchema } from '../../validaions/productValidation';
 import {productTypeSelector} from '../../store/selectors/productTypeSelector';
 import {sizeSelector} from '../../store/selectors/sizeSelector';
-import { handleChange, handleSubmit} from '../../component/Form/formFunctions';
+import { handleChange, handleSubmit} from '../Form/formFunctions';
 import ImagWidget from '../ImageWidget';
 import { createItems } from '../../store/actions/itemAction';
 
 import { useDispatch,useSelector } from 'react-redux';
 
-function item() {
+function Item() {
     const [data,setData] = useState(
         {
           name:'',description:'',sku:'',
@@ -142,4 +142,4 @@ function item() {
     )
 }
 
-export default item
+export default Item

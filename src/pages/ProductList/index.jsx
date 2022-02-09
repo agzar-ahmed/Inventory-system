@@ -1,6 +1,8 @@
 import React,{useEffect} from 'react';
 // import {ProductsTable} from '../../component/ProductsTable';
 import {Table,ProductsTable1} from '../../component/Table';
+import Table1 from '../../component/Table1'
+import ListGroup from '../../component/ListGoup'
 import TopBar from '../../component/TopBar'
 import { Link } from 'react-router-dom'
 import './style.css'
@@ -40,6 +42,17 @@ function ProductList() {
                 <div className="prod-table">
                     {console.log(productList,"productList")}
                     {productList && <Table tableData={productList}/>} 
+                    <h2>Titre tableau </h2>
+                    <div className="productlist-fulltable">
+                        <div className="productlist-listgroup">
+                            <ListGroup/>
+                        </div>
+
+                        <div className="productlist-table">
+                            <Table1 /> 
+                        </div>                           
+                    </div>
+                        
                 </div>
             </div>
         </div>

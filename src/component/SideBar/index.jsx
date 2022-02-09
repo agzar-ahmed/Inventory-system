@@ -1,12 +1,41 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import './style1.css';
 import {Link} from 'react-router-dom';
 
 import {LineStyle,Timeline,TrendingUp,PeopleOutlineRounded
   ,DashboardRounded,EmailOutlined,BarChartRounded
    ,SettingsApplicationsRounded,ShoppingCartRounded} from '@material-ui/icons'
+import InventoryIcon from '@mui/icons-material/Inventory';
 
-export default function index1() {
+
+export default function SideBar() {
+
+const initailState =[
+  {id: 1, label: "Dashboard", to: "/", icon: <DashboardRounded/>,toolTip:'Dashboard'},
+  {id: 2, label: "Users", to: "/userslist", icon: <PeopleOutlineRounded />,toolTip:'Users'},
+  {id: 3, label: "Products", to: "/productlist", icon: <InventoryIcon/>,toolTip:'Products'},
+  {id: 4, label: "Incoming Purchase", to: "/incomingpurchase", icon: <ShoppingCartRounded/>,toolTip:'Incoming Purchase'},
+  {id: 7, label: "Order", to: "", icon: <EmailOutlined />,toolTip:'Order'},
+  {id: 8, label: "Order", to: "", icon: <BarChartRounded/>,toolTip:'Analytics'},
+  {id: 6, label: "Messages", to: "", icon: <EmailOutlined />,toolTip:'Messages'},
+  {id: 5, label: "Setting", to: "", icon: <SettingsApplicationsRounded />,toolTip:'Setting'},
+]
+  
+
+const [ links, setLinks ] = useState(initailState)
+const [ activeLink, setActiveLink ] = useState(1)
+
+const renderLinks=()=>links && links.map(link =>{
+  return <li 
+             className={activeLink == link.id ? "active":""}
+             onClick={()=>{setActiveLink(link.id)}}>
+               <Link to={link.to} className=''>
+                 <i className='bx bx-grid-alt'>{link.icon}</i>
+                 <span className="links_name">{link.label}</span>
+               </Link>
+               <span className="tooltip">{link.toolTip}</span>
+         </li>
+})
     return (
         <div className="sidebar open">
         <div className="logo-details">
@@ -20,70 +49,15 @@ export default function index1() {
              <input type="text" placeholder="Search..."/>
              <span className="tooltip">Search</span>
           </li>
-          <li className='active'>
-            <Link to='/' className='active'>
-            {/* <a href="#" classeName='active'> */}
-              <i className='bx bx-grid-alt active'><DashboardRounded className='sideBarIcon'/></i>
-              <span className=" active">Dashboard</span>
-            {/* </a> */}
-             <span className="tooltip">Dashboard</span>
-             </Link>
-          </li>
-          <li>
-             <Link to='/userslist'>
-              <i className='bx bx-user'><PeopleOutlineRounded /></i>
-              <span className="links_name">Users</span>
-             </Link>
-           <span className="tooltip">Users</span>
-         </li>
-         <li>
-           <a href="#">
-             <i className='bx bx-chat' ><EmailOutlined /></i>
-             <span className="links_name">Messages</span>
-           </a>
-           <span className="tooltip">Messages</span>
-         </li>
-         <li>
-           <a href="#">
-             <i className='bx bx-pie-chart-alt-2' ><BarChartRounded/></i>
-             <span className="links_name">Analytics</span>
-           </a>
-           <span className="tooltip">Analytics</span>
-         </li>
-         <li>
-           <Link  to='/product'>
-             <i className='bx bx-folder' ><ShoppingCartRounded/></i>
-             <span className="links_name">Product</span>
-           </Link>
-           <span className="tooltip">product</span>
-         </li>
-         <li>
-           <a href="#">
-             <i className='bx bx-cart-alt' ></i>
-             <span className="links_name">Order</span>
-           </a>
-           <span className="tooltip">Order</span>
-         </li>
-         <li>
-           <a href="#">
-             <i className='bx bx-heart' ></i>
-             <span className="links_name">Saved</span>
-           </a>
-           <span className="tooltip">Saved</span>
-         </li>
-         <li>
-           <a href="#">
-             <i className='bx bx-cog' ><SettingsApplicationsRounded /></i>
-             <span className="links_name">Setting</span>
-           </a>
-           <span className="tooltip">Setting</span>
-         </li>
+          
+         {renderLinks()}
+        
          <li className="profile">
              <div className="profile-details">
                <img src="profile.jpg" alt="profileImg"/>
                <div className="name_job">
-                 <div className="name">Prem Shahi</div>
-                 <div className="job">Web designer</div>
+                 <div className="name">user Name</div>
+                 <div className="job">job title</div>
                </div>
              </div>
              <i className='bx bx-log-out' id="log_out" ></i>

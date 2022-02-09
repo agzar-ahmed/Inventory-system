@@ -6,9 +6,10 @@ import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {loginSchema} from '../../validaions/loginValidation'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import  { useHistory } from 'react-router-dom'
 
 
-const Login=()=>{
+const Login=(props)=>{
     const initialData = {
         email:"",
         password:""
@@ -19,10 +20,13 @@ const Login=()=>{
         password:"",
         email:""
     });
+    //hook for redirection 
+    const history = useHistory()
+
     const onSubmit = () =>{
         const baseURL = process.env.REACT_APP_BASE_URL
         const url = "/auth"
-         
+        
     fetch(`${baseURL}${url}`, {
         method: "post", // *GET, POST, PUT, DELETE, etc.
         headers: {
@@ -62,7 +66,9 @@ const Login=()=>{
                     progress: undefined,
                     theme: "colored"
                 });
+                history.push("/")
                 }  
+                
             return res.json()
         })
         .then((resJson)=>{

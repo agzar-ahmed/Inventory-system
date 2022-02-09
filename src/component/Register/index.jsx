@@ -6,6 +6,7 @@ import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {RegisterSchema} from '../../validaions/registerValidation'
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import  { useHistory } from 'react-router-dom'
 
 
 const Register=()=>{
@@ -25,6 +26,9 @@ const Register=()=>{
         password:"",
         confirmPassword:""  
     });
+
+    const history=useHistory()
+
     const onSubmit = () =>{
         const baseURL = process.env.REACT_APP_BASE_URL
         const url = "/user"
@@ -68,6 +72,8 @@ const Register=()=>{
                     progress: undefined,
                     theme: "colored"
                 });
+
+                history.push("/")
                 }  
             return res.json()
         })

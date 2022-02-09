@@ -1,0 +1,26 @@
+.listGroup >ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: solid 1px var(--darkBlue);
+    border-radius: 5px;
+}
+.listGroup >ul>li{
+    text-decoration: none;
+    padding: 1em;
+    border-bottom: solid 1px var(--darkBlue);
+    font-size: 1.4em;
+}
+.listGroup >ul>li:hover{
+ background-color: var(--lightBlue);
+ color: #ffff;
+ cursor: pointer;
+}
+.listGroup >ul>li:last-child{
+    border-bottom: none
+}
+.listGroup >ul>li.active{
+    color: #ffff;
+    background-color:  var(--darkBlue);;
+}
+
