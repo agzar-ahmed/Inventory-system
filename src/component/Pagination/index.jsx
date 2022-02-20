@@ -1,24 +1,26 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import './style.css'
 import PropTypes from 'prop-types'
 import {ArrowCircleLeft, ArrowCircleRight} from '@mui/icons-material';
 
 
 function Pagination({itemCount, pageSize, onPagination}) {
- const [ totalPage, setTotalPage ] = useState(Math.ceil(itemCount / pageSize))
- const [ active , setActive ] = useState(1) 
- const pages = totalPage != 1 ? [ ...Array(totalPage).keys() ]:null;//dont show pagination if page = 1
+ const [ totalPage, setTotalPage ] = useState(Math.ceil(itemCount/pageSize))
  
+ const [ active , setActive ] = useState(1) 
+ const pages = totalPage <= 1 ? null:[ ...Array(totalPage).keys() ];//dont show pagination if page = 1
+ 
+ useEffect(()=>setTotalPage(Math.ceil(itemCount/pageSize)),[itemCount])
   return   <div className="pagination">
                 { 
-                active == 0 && setActive(1), 
-                active == 0 && onPagination(1),
-                active > totalPage && setActive(totalPage),
-                active > totalPage && onPagination(totalPage),
+                // active == 0 && (setActive(1)), 
+                // active == 0 && (()=>onPagination(1)),
+                // active > totalPage && (setActive(totalPage)),
+                // active > totalPage && (()=>onPagination(totalPage)),
                 pages && 
                 <ul className="page">
                     <li className="page__btn" onClick={()=>{onPagination(active-1 == 0 ? 1 : active-1);
-                                                            setActive(active-1)}}>
+                                                            setActive(active-1 == 0 ? 1 : active-1)}}>
                                                                 <ArrowCircleLeft/>
                     </li>
                     {
@@ -31,7 +33,7 @@ function Pagination({itemCount, pageSize, onPagination}) {
                             {index+1}
                     </li>}
                     )}
-                    <li className="page__btn" onClick={()=>{setActive(active+1); 
+                    <li className="page__btn" onClick={()=>{setActive(active+1 > totalPage  ? totalPage : active+1); 
                                                             onPagination(active+1 > totalPage ? totalPage : active+1)}}>
                         <ArrowCircleRight/>
                     </li>

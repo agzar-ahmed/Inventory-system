@@ -10,7 +10,7 @@
     align-items: normal;
 }
 .productlist-listgroup{
-    flex-grow: 1;
+    width: 200px;
     padding: 1em;
 }
 .productlist-table{

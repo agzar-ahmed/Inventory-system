@@ -14,9 +14,11 @@ export default function index() {
       
             
     <div className='Home'>
+        {/* <button onClick={()=>{testSentrylogger}}>Break the world</button>; */}
             <TopBar/>
             <Features/>
             <Chart data={chartData} title="Chart title"/>
+            
 
             <div className="homeWidgets">
                 <SmallWidget/>

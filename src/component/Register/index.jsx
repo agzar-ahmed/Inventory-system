@@ -45,8 +45,8 @@ const Register=()=>{
             console.log(res)
             if(!res.ok) {
                 let error = await res.clone().json()
-                console.log(error.msg,'error')
-                toast.error(error.msg, {
+                const errKeys = error.msg&&Object.keys(error.msg)
+                toast.error(error.msg[errKeys[0]], {
                     position: "bottom-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -56,6 +56,8 @@ const Register=()=>{
                     progress: undefined,
                     theme: "colored"
                 });
+                //remove Token from localstorage
+                localStorage.removeItem('token');
         // show the error using existing error state you cab use an other
         //div to how error if you want 
                setErrors({...errors,...error.msg})
@@ -72,16 +74,30 @@ const Register=()=>{
                     progress: undefined,
                     theme: "colored"
                 });
-
-                history.push("/")
                 }  
             return res.json()
         })
         .then((resJson)=>{
             console.log(resJson,'resJson')
             //addtoken to header
+             localStorage.setItem('token',resJson.token);
             //redirect 
-    })       
+            history.push("/")
+        })
+        .catch(err=>{
+            toast.error('Error connection', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored"
+            });
+             //remove Token from localstorage
+             localStorage.removeItem('token');
+        })      
     }
     const handelChange = e => handleChange(e,data,setData,RegisterSchema,errors,setErrors);
     const handelSubmit= e =>handleSubmit(e,data,RegisterSchema,errors,setErrors,onSubmit)

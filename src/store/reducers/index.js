@@ -8,7 +8,7 @@ import manufacturerReducer from './manufacturerReducer'
 import usersReducer from './usersReducer';
 import itemsReducer from './itemsReducer';
 import incomingPurchaseReducer from './incomingPurchaseReducer'
-
+import inventoryItemReducer from './inventoryItemReducer'
 
 export default combineReducers({
     productType: productTypeReducer,
@@ -18,5 +18,6 @@ export default combineReducers({
     manufacturer: manufacturerReducer,
     users: usersReducer,
     items: itemsReducer,
-    incomingPurchase:incomingPurchaseReducer
+    incomingPurchase:incomingPurchaseReducer,
+    inventoryItem: inventoryItemReducer,
 });

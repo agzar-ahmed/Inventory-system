@@ -4,12 +4,15 @@ import Form from '../Form'
 import { FormInput,FormSelect } from'../FormFields';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {loginSchema} from '../../validaions/loginValidation'
+import http from '../../services/httpSevice'
+
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import  { useHistory } from 'react-router-dom'
 
 
 const Login=(props)=>{
+    console.log(props,'login component props')
     const initialData = {
         email:"",
         password:""
@@ -20,62 +23,66 @@ const Login=(props)=>{
         password:"",
         email:""
     });
-    //hook for redirection 
+    //hook for redirection
     const history = useHistory()
+    const {state} = props.location;
 
     const onSubmit = () =>{
         const baseURL = process.env.REACT_APP_BASE_URL
         const url = "/auth"
         
-    fetch(`${baseURL}${url}`, {
+    http(`${baseURL}${url}`, {
         method: "post", // *GET, POST, PUT, DELETE, etc.
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            // "Access-Control-Allow-Origin":"*"
             // 'Content-Type': 'application/x-www-form-urlencoded',
           },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       })
-        .then( async(res) => { 
-            console.log(res)
-            if(!res.ok) {
-                let error = await res.clone().json()
-                console.log(error.msg,'error')
-                toast.error(error.msg, {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored"
-                });
-        // show the error using existing error state you cab use an other
-        //div to how error if you want 
-               setErrors({...errors,...error.msg})
-                return
-                }else{
-                let response = await res.clone().json()
-                toast.success( `Welcome back ${response.user.fullName}`, {
-                    position: "bottom-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "colored"
-                });
-                history.push("/")
-                }  
-                
-            return res.json()
-        })
+        .then(res=>res.json())
         .then((resJson)=>{
-            console.log(resJson,'resJson')
-            //addtoken to header
+            console.log(resJson,'resJson login') 
+            //addtoken to localStorage
+            localStorage.setItem("token",resJson.token)
             //redirect 
-    })       
+            // history.push
+            console.log(state,'state.from.pathname')
+             window.location = state? state.from.pathname:"/dashboard"
+             console.log(window.location,'window.location')
+            // toast.success( `Welcome back ${resJson.user.fullName}`, {
+            //     position: "bottom-right",
+            //     autoClose: 5000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: true,
+            //     draggable: true,
+            //     progress: undefined,
+            //     theme: "colored"
+            // });       
+        })   
+        .catch(err=>{
+            console.log(err,"catch error from login")
+            /***************** expected error ******************/
+           if( err.status == 400) {
+                setErrors({...err.message})
+                return
+            }
+           
+        /******************** Unexpected error **************************/   
+        toast.error("Error connection", {
+            position: "bottom-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored"
+        })   
+        //remove Token from localstorage
+            localStorage.removeItem('token');
+        })  
     }
     const handelChange = e => handleChange(e,data,setData,loginSchema,errors,setErrors);
     const handelSubmit= e =>handleSubmit(e,data,loginSchema,errors,setErrors,onSubmit)

@@ -164,6 +164,9 @@
 }
 .sidebar li.profile{
   position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 60px;
   width: 78px;
   left: 0;
@@ -247,4 +250,9 @@
   background: #FFF;
   color: #11101d;
   border-radius:12px
+}
+.profile-logout:hover{
+  background: teal;
+  border-radius: 40%;
+  cursor: pointer;
 }

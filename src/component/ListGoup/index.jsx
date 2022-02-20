@@ -1,19 +1,19 @@
 import React,{useState} from 'react';
 import './style.css'
 
-export default function ListGroup() {
+export default function ListGroup({listData, onSelect}) {
   const [ activeItem,setActiveItem ] = useState(1)
-  const listGroup = [{id:"1",label:"All inventory"},
-                     {id:"2",label:"Inventory 1"},
-                     {id:"3",label:"Inventory 2"},
-                     {id:"4",label:"Inventory 3"}]
   return (
     <div className='listGroup'>
         <ul>
-          {listGroup.map((item)=> 
-                      <li className={item.id == activeItem && "active"} 
-                          onClick={()=>{setActiveItem(item.id)}}>
-                            {item.label}
+          {listData.map((item)=> 
+                      <li key={item.id} className={item.id == activeItem ? "active":undefined} 
+                          onClick={()=>{
+                            setActiveItem(item.id)
+                            onSelect(item.id)
+                          }}>
+                            {item.name}
+                           <span className="listGroup-totalitem">({item.totalItem ? item.totalItem:0})</span>
                       </li>
           )}
            

@@ -1,6 +1,7 @@
 import { API_CALL_BEGAN } from '../actions/types';
 import {apiCallBegan, apiCallSuccess, apiCallFailed } from '../actions/apiActions'
 import { toast } from 'react-toastify';
+import http from '../../services/httpSevice';
 
 //api action structure
 // const action={
@@ -27,7 +28,7 @@ const api =(params)=>({dispatch})=>next=>action=>{
     //first be we do API_CALL_BEGAN
     next(action)//API_CALL_BEGAN passed to other middlewares
 
-    fetch(`${baseURL}${url}`, {
+    http(`${baseURL}${url}`, {
         method, // *GET, POST, PUT, DELETE, etc.
         headers: {
             'Content-Type': 'application/json'

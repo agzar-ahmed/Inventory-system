@@ -1,14 +1,26 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 // import {ProductsTable} from '../../component/ProductsTable';
 import {Table,ProductsTable1} from '../../component/Table';
-import Table1 from '../../component/Table1'
-import ListGroup from '../../component/ListGoup'
-import TopBar from '../../component/TopBar'
-import { Link } from 'react-router-dom'
-import './style.css'
+import Table1 from '../../component/Table1';
+import ListGroup from '../../component/ListGoup';
+import TopBar from '../../component/TopBar';
+import { Link } from 'react-router-dom';
+import './style.css';
+import { ShoppingBag } from '@mui/icons-material';
 
+//actions
 import { getItems } from '../../store/actions/itemAction';
+import { getInventoryItems } from '../../store/actions/inventoryItemActions';
+import { getInventories } from '../../store/actions/inventoryActions';
+
+
+//selectors
 import { itemsSelector } from '../../store/selectors/itemSelector'
+import { inventoryItemSelector } from '../../store/selectors/inventoryItemSelector'
+import { getItemsbyIdSelector } from '../../store/selectors/itemSelector';
+import { inventorySelector } from '../../store/selectors/inventorySelector';
+
+
 import { useDispatch,useSelector } from 'react-redux';
 
 
@@ -19,12 +31,53 @@ function ProductList() {
 
     useEffect(()=>{
         dispatch(getItems());
+        dispatch(getInventoryItems())
+        dispatch(getInventories())
     }
     ,[])
 
     const productList = useSelector(itemsSelector())
-     
-    console.log(productList,"productList1")
+    const inventoryItems = useSelector(inventoryItemSelector())
+    const inventoryData = useSelector(inventorySelector())
+
+    const [ tableData,setTableData ] = useState([]);
+    const [ listData,setListData ] = useState([])
+    const [ filtredData,setFiltredData ] = useState([]);
+    const onSelect = (id) =>{ 
+        if(id == "all") return  setFiltredData(inventoryItems)
+        const newData = inventoryItems.filter(inventoryItem=>id == inventoryItem.inventoryId)
+        setFiltredData(newData)
+    }
+    
+
+  
+  
+    useEffect(
+        ()=>setTableData(filtredData.map((inventoryItem,index)=>{
+            return {     
+                     id:index+1,
+                     inventory:inventoryItem.Inventory.name,
+                     product:inventoryItem.Item.name,
+                     image:<img className='table-productimg' src={`${ process.env.REACT_APP_PUBLIC_URL}${inventoryItem.Item.imageURL1}`} label={inventoryItem.Item.imageURL1} />,
+                     sku:inventoryItem.Item.sku,
+                     inventory:inventoryItem.Inventory.name,
+                     totalQuantity:inventoryItem.totalQuantity,
+                     lastUpdate: inventoryItem.updatedAt
+                   }
+         }))
+        ,[filtredData])
+
+        const reorderInventoryData = [
+            {id:"all",name:"All inventories",totalItem:inventoryItems.length},
+            ...inventoryData.map(inventory=>{
+            return { id:inventory.id,
+             name:inventory.name,
+             totalItem:inventory.Item_inventories.length}
+            })
+     ]
+
+     console.log(reorderInventoryData,"reorderInventoryData")
+
     return (
         <div className="content">
             <TopBar/>
@@ -40,16 +93,22 @@ function ProductList() {
                     </div>              
                 </div>
                 <div className="prod-table">
-                    {console.log(productList,"productList")}
-                    {productList && <Table tableData={productList}/>} 
-                    <h2>Titre tableau </h2>
+                    {/* {console.log(productList,"productList")}
+                    {productList && <Table tableData={productList}/>}  */}
                     <div className="productlist-fulltable">
                         <div className="productlist-listgroup">
-                            <ListGroup/>
+                            <ListGroup
+                            listData={reorderInventoryData}
+                            onSelect={onSelect}
+                            />
                         </div>
 
                         <div className="productlist-table">
-                            <Table1 /> 
+                            {tableData &&<Table1 
+                                    tableSize={5}
+                                    tableData={tableData}
+                                    tableHeader={[<ShoppingBag/>,'Inventory', 'Product','Product image','SKU','Total quantity','Last update']} 
+                            /> }
                         </div>                           
                     </div>
                         
