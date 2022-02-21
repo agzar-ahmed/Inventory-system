@@ -2,7 +2,7 @@ import React,{ useState } from 'react';
 import './style1.css';
 import {Link} from 'react-router-dom';
 
-import { userLogout } from '../../utils/authenication';
+import { userLogout } from '../../services/authService';
 
 import {LineStyle,Timeline,TrendingUp,PeopleOutlineRounded
   ,DashboardRounded,EmailOutlined,BarChartRounded

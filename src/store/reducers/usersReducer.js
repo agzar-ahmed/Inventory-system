@@ -16,7 +16,7 @@ import * as actions from "../actions/types";
             case actions.USERS_LOADED:
                 return {
                     ...state,
-                    usersData: action.payload,
+                    usersData: action.payload.users,
                     usersisLoading: false
                 };
             case actions.ADD_USERS:                    

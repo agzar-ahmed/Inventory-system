@@ -16,7 +16,7 @@ import * as actions from "../actions/types";
             case actions.MANUFACTURER_LOADED:
                 return {
                     ...state,
-                    manufacturerData: action.payload,
+                    manufacturerData: action.payload.manufacturers,
                     manufacturerisLoading: false
                 };
             case actions.ADD_MANUFACTURER:                    

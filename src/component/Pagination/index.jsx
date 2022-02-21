@@ -11,6 +11,7 @@ function Pagination({itemCount, pageSize, onPagination}) {
  const pages = totalPage <= 1 ? null:[ ...Array(totalPage).keys() ];//dont show pagination if page = 1
  
  useEffect(()=>setTotalPage(Math.ceil(itemCount/pageSize)),[itemCount])
+ 
   return   <div className="pagination">
                 { 
                 // active == 0 && (setActive(1)), 

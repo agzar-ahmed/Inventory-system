@@ -1,7 +1,7 @@
 import { API_CALL_BEGAN } from '../actions/types';
 import {apiCallBegan, apiCallSuccess, apiCallFailed } from '../actions/apiActions'
 import { toast } from 'react-toastify';
-import http from '../../services/httpSevice';
+import http from '../../services/httpService';
 
 //api action structure
 // const action={
@@ -28,22 +28,16 @@ const api =(params)=>({dispatch})=>next=>action=>{
     //first be we do API_CALL_BEGAN
     next(action)//API_CALL_BEGAN passed to other middlewares
 
-    http(`${baseURL}${url}`, {
+    http(url, {
         method, // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
+        //header is already defined in httpService
+        // headers: {
+        //     'Content-Type': 'application/json'
+        //     // 'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       })
     .then(async (res) => {
-        // console.log(JSON.stringify(data),method)
-          // console.log(res,'response before json')
-        if(!res.ok) {
-            let error = await res.clone().json()
-            console.log(error,'error')
-            return  Promise.reject(error)
-            }
         //check if it is creation status  201 to show toast creation success 
         if(res.status == 201) {
           toast.success('Created successfully' , {
@@ -58,7 +52,6 @@ const api =(params)=>({dispatch})=>next=>action=>{
             });
           
           }
-           
            
         return res.json()
     })

@@ -1,4 +1,5 @@
 import * as action from './types';
+import { apiCallBegan } from './apiActions';
 
  //RETURN ERRORS
  export const returnErrors = (msg, status, id=null) => {
@@ -11,23 +12,16 @@ import * as action from './types';
 
 
  export const getProviders = () => (dispatch, getState) => {
-        //category loading
-    dispatch({ type: action.PROVIDER_LOADING });
-
-    fetch('http://localhost:3002/api/providers')
-    .then(res => res.json())
-    .then(resJson =>
-        {
-        console.log( resJson.providers, 'res from reducer')
-        dispatch({
-        type: action.PROVIDER_LOADED,
-        payload: resJson.providers
-        }) }
-    )
-
-    .catch(err => {
-        // dispatch(returnErrors(err.response.data, err.response.status,'PRODUCT_TYPE_ERROR'));
-    }); 
+    dispatch(
+        apiCallBegan({
+            url:'/providers',
+            // method:'get',
+            // data:{},
+            onStart: action.PROVIDER_LOADING,
+            onSuccess: action.PROVIDER_LOADED,
+            onError: action.PROVIDER_ERROR
+        })
+    );
 }
 
 // export function deleteProductType(id){

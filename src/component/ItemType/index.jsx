@@ -23,7 +23,7 @@ export default function ItemTypes(){
         console.log(data,"response");
         e.preventDefault() // stops default reloading behaviour
 
-            fetch("http://localhost:3000/api/itemtype", {
+            fetch("/itemtype", {
             method: "post",
             headers: {
                 'Accept': 'application/json',

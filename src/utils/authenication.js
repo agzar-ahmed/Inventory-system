@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import http from '../services/httpSevice';
+import http from '../services/httpService';
 
 
 //login user

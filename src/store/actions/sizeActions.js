@@ -1,5 +1,5 @@
 import * as action from './types';
-
+import { apiCallBegan } from './apiActions';
  //RETURN ERRORS
  export const returnErrors = (msg, status, id=null) => {
     // return {
@@ -11,23 +11,17 @@ import * as action from './types';
 
 
  export const getSizes = () => (dispatch, getState) => {
-        //category loading
-    dispatch({ type: action.SIZE_LOADING });
+    dispatch(
+        apiCallBegan({
+            url:'/sizes',
+            // method:'get',
+            // data:{},
+            onStart: action.SIZE_LOADING,
+            onSuccess: action.SIZE_LOADED,
+            onError: action.SIZE_ERROR
+        })
+    );
 
-    fetch('http://localhost:3002/api/sizes')
-    .then(res => res.json())
-    .then(resJson =>
-        {
-        console.log( resJson.providers, 'res from reducer')
-        dispatch({
-        type: action.SIZE_LOADED,
-        payload: resJson.sizes
-        }) }
-    )
-
-    .catch(err => {
-        // dispatch(returnErrors(err.response.data, err.response.status,'PRODUCT_TYPE_ERROR'));
-    }); 
 }
 
 // export function deleteProductType(id){

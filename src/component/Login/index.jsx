@@ -4,7 +4,7 @@ import Form from '../Form'
 import { FormInput,FormSelect } from'../FormFields';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {loginSchema} from '../../validaions/loginValidation'
-import http from '../../services/httpSevice'
+import http from '../../services/httpService'
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -28,16 +28,9 @@ const Login=(props)=>{
     const {state} = props.location;
 
     const onSubmit = () =>{
-        const baseURL = process.env.REACT_APP_BASE_URL
-        const url = "/auth"
-        
-    http(`${baseURL}${url}`, {
+          
+    http(`/auth`, {
         method: "post", // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            'Content-Type': 'application/json',
-            // "Access-Control-Allow-Origin":"*"
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       })
         .then(res=>res.json())

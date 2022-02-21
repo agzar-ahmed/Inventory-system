@@ -16,7 +16,7 @@ import * as actions from "../actions/types";
             case actions.PROVIDER_LOADED:
                 return {
                     ...state,
-                    providerData: action.payload,
+                    providerData: action.payload.providers,
                     providerisLoading: false
                 };
             case actions.ADD_PROVIDER:                    

@@ -16,7 +16,7 @@ import * as actions from "../actions/types";
             case actions.INVENTORY_LOADED:
                 return {
                     ...state,
-                    inventoryData: action.payload,
+                    inventoryData: action.payload.inventories,
                     inventoryisLoading: false
                 };
             case actions.ADD_INVENTORY:                    
@@ -24,7 +24,7 @@ import * as actions from "../actions/types";
                     ...state,
                     inventoryData:[
                            ...state.inventory,
-                           action.payload
+                           action.payload.inventories
                     ]
                 };   
             case actions.DELETE_INVENTORY:
