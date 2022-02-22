@@ -48,12 +48,11 @@ export const handleChange=(e,data,setter,dataSchema,errors,setErrors)=>{
 }
 
       
-export const handleSubmit=async(e,data,dataSchema,errors,setErrors,onSubmit)=>{
+export const handleSubmit = async(e,data,dataSchema,errors,setErrors,onSubmit)=>{
     e.preventDefault(); // stops default reloading behaviour
   
     const validationErrors = await validateData(data,dataSchema);
-    console.log(validationErrors,'validationErrors')
-
+   
     setErrors({errors,...validationErrors })
 
     if(validationErrors) return;

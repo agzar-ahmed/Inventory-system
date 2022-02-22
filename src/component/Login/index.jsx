@@ -5,6 +5,7 @@ import { FormInput,FormSelect } from'../FormFields';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
 import {loginSchema} from '../../validaions/loginValidation'
 import http from '../../services/httpService'
+import { loginUser } from '../../services/authService';
 
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -28,21 +29,10 @@ const Login=(props)=>{
     const {state} = props.location;
 
     const onSubmit = () =>{
-          
-    http(`/auth`, {
-        method: "post", // *GET, POST, PUT, DELETE, etc.
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-      })
-        .then(res=>res.json())
-        .then((resJson)=>{
-            console.log(resJson,'resJson login') 
-            //addtoken to localStorage
-            localStorage.setItem("token",resJson.token)
-            //redirect 
-            // history.push
-            console.log(state,'state.from.pathname')
+        loginUser(data)
+        .then(resJson=>{
+            //redirect
              window.location = state? state.from.pathname:"/dashboard"
-             console.log(window.location,'window.location')
             // toast.success( `Welcome back ${resJson.user.fullName}`, {
             //     position: "bottom-right",
             //     autoClose: 5000,
@@ -53,29 +43,8 @@ const Login=(props)=>{
             //     progress: undefined,
             //     theme: "colored"
             // });       
-        })   
-        .catch(err=>{
-            console.log(err,"catch error from login")
-            /***************** expected error ******************/
-           if( err.status == 400) {
-                setErrors({...err.message})
-                return
-            }
-           
-        /******************** Unexpected error **************************/   
-        toast.error("Error connection", {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored"
-        })   
-        //remove Token from localstorage
-            localStorage.removeItem('token');
-        })  
+        })
+        .catch(err=>setErrors({...err.message}))
     }
     const handelChange = e => handleChange(e,data,setData,loginSchema,errors,setErrors);
     const handelSubmit= e =>handleSubmit(e,data,loginSchema,errors,setErrors,onSubmit)
