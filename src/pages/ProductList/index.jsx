@@ -29,13 +29,6 @@ function ProductList() {
     //life cycle HOOKS
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-        dispatch(getItems());
-        dispatch(getInventoryItems())
-        dispatch(getInventories())
-    }
-    ,[])
-
     const productList = useSelector(itemsSelector())
     const inventoryItems = useSelector(inventoryItemSelector())
     const inventoryData = useSelector(inventorySelector())
@@ -43,29 +36,39 @@ function ProductList() {
     const [ tableData,setTableData ] = useState([]);
     const [ listData,setListData ] = useState([])
     const [ filtredData,setFiltredData ] = useState([]);
-    const onSelect = (id) =>{ 
-        if(id == "all") return  setFiltredData(inventoryItems)
+
+    const onSelect = (id) =>{
+        if(id == "all") return  setFiltredData(inventoryItems) 
         const newData = inventoryItems.filter(inventoryItem=>id == inventoryItem.inventoryId)
         setFiltredData(newData)
     }
+    useEffect( ()=>onSelect("all"),[inventoryItems])
     
-
-  
-  
     useEffect(
         ()=>setTableData(filtredData.map((inventoryItem,index)=>{
             return {     
                      id:index+1,
                      inventory:inventoryItem.Inventory.name,
                      product:inventoryItem.Item.name,
-                     image:<img className='table-productimg' src={`${ process.env.REACT_APP_PUBLIC_URL}${inventoryItem.Item.imageURL1}`} label={inventoryItem.Item.imageURL1} />,
+                     image:<img className='table-productimg' 
+                                src={`${ process.env.REACT_APP_PUBLIC_URL}${inventoryItem.Item.imageURL1}`} 
+                                label={inventoryItem.Item.imageURL1} />,
                      sku:inventoryItem.Item.sku,
                      inventory:inventoryItem.Inventory.name,
                      totalQuantity:inventoryItem.totalQuantity,
-                     lastUpdate: inventoryItem.updatedAt
+                     lastUpdate:<span>{(new Date(inventoryItem.updatedAt)).toUTCString()}</span>,
+                     action:<span><button>Update</button> <button>delete</button></span>
                    }
          }))
         ,[filtredData])
+
+        useEffect(()=>{
+            dispatch(getItems());
+            dispatch(getInventoryItems())
+            dispatch(getInventories())
+           
+        }
+        ,[])
 
         const reorderInventoryData = [
             {id:"all",name:"All inventories",totalItem:inventoryItems.length},
@@ -104,11 +107,15 @@ function ProductList() {
                         </div>
 
                         <div className="productlist-table">
+                            {console.log(tableData,"tableData")}
                             {tableData &&<Table1 
                                     tableSize={5}
                                     tableData={tableData}
-                                    tableHeader={[<ShoppingBag/>,'Inventory', 'Product','Product image','SKU','Total quantity','Last update']} 
-                            /> }
+                                    tableHeader={[<ShoppingBag/>,'Inventory','Product','Product image','SKU','Total quantity','Last update','']} 
+                                    tableColumn={['inventory','product','image','sku','totalQuantity','lastUpdate','action']}
+                           // tableColumn to show colum in the order we want we won't to rely to object.key order 
+                          //we need to see object properties in back end
+                          /> }
                         </div>                           
                     </div>
                         

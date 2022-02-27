@@ -293,76 +293,80 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                         />
                       </div>  
                       <div className="input-row">
-                        <FormInput
-                                label="Purchase date" 
-                                type="date"
-                                placeholder="Purchase Date"
-                                name="purchaseDate" 
-                                value={purchaseDate} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.purchaseDate}
-                        />
-                        <FormInput
-                                label="Production date" 
-                                type="date"
-                                placeholder="Production date"
-                                name="productionDate" 
-                                value={productionDate} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.productionDate}
-                        />
-                        <FormInput
-                                label="Expiration date" 
-                                type="date"
-                                placeholder="Expiration date"
-                                name="expirationDate" 
-                                value={expirationDate} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.expirationDate}
-                        />
-                      </div>
-                      <div className="input-row">
-                      <FormInput
-                                label="unit price"
-                                type="number" 
-                                min="1" 
-                                step="0.01" 
-                                placeholder="Unit Price" 
-                                name="unitPrice" 
-                                value={unitPrice} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.unitPrice}
-                      />
-                      <FormInput
-                                label="Suggested price"
-                                type="number" 
-                                min="1" 
-                                step="0.01" 
-                                placeholder="Suggested retail price" 
-                                name="msrp" 
-                                value={msrp} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.msrp}
-                      />
-                      <FormInput
-                                label="VAT rate(%)"
-                                type="number" 
-                                min="1" 
-                                step="1" 
-                                placeholder="Value Added Tax" 
-                                name="VATRate" 
-                                value={VATRate} 
-                                onChange={inputChange}
-                                onBlur={inputChange}
-                                errorMessage={errors.VATRate}
-                      />  
-                      
-                        <div></div>
+                        <div>
+                            <FormInput
+                                    label="Purchase date" 
+                                    type="date"
+                                    placeholder="Purchase Date"
+                                    name="purchaseDate" 
+                                    value={purchaseDate} 
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    errorMessage={errors.purchaseDate}
+                            />
+                            <FormInput
+                                    label="unit price"
+                                    type="number" 
+                                    min="1" 
+                                    step="0.01" 
+                                    placeholder="Unit Price" 
+                                    name="unitPrice" 
+                                    value={unitPrice} 
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    errorMessage={errors.unitPrice}
+                            />
+                        </div>
+                       
+                       <div>
+                            <FormInput
+                                    label="Production date" 
+                                    type="date"
+                                    placeholder="Production date"
+                                    name="productionDate" 
+                                    value={productionDate} 
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    errorMessage={errors.productionDate}
+                            />
+                            <FormInput
+                                  label="Suggested price"
+                                  type="number" 
+                                  min="1" 
+                                  step="0.01" 
+                                  placeholder="Suggested retail price" 
+                                  name="msrp" 
+                                  value={msrp} 
+                                  onChange={inputChange}
+                                  onBlur={inputChange}
+                                  errorMessage={errors.msrp}
+                            />
+                       </div>
+                       
+                       <div>
+                            <FormInput
+                                    label="Expiration date" 
+                                    type="date"
+                                    placeholder="Expiration date"
+                                    name="expirationDate" 
+                                    value={expirationDate} 
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    errorMessage={errors.expirationDate}
+                            />
+                            <FormInput
+                                    label="VAT rate(%)"
+                                    type="number" 
+                                    min="1" 
+                                    step="1" 
+                                    placeholder="Value Added Tax" 
+                                    name="VATRate" 
+                                    value={VATRate} 
+                                    onChange={inputChange}
+                                    onBlur={inputChange}
+                                    errorMessage={errors.VATRate}
+                            />  
+                        </div>
                       </div>
                         
                         

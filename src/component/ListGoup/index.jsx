@@ -2,10 +2,12 @@ import React,{useState} from 'react';
 import './style.css'
 
 export default function ListGroup({listData, onSelect}) {
-  const [ activeItem,setActiveItem ] = useState(1)
+  const [ activeItem,setActiveItem ] = useState('all')
+ 
   return (
-    <div className='listGroup'>
+    <div className='listGroup box-shadow'>
         <ul>
+        {console.log(listData,"listData")}
           {listData.map((item)=> 
                       <li key={item.id} className={item.id == activeItem ? "active":undefined} 
                           onClick={()=>{

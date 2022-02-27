@@ -10,7 +10,12 @@
     border-bottom: 2px solid;
     border-bottom-color: #d8dbe0;
 }
-
+.table thead th span {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;   
+}
 .table th, .table td {
     padding: 0.75rem;
     vertical-align: top;
@@ -98,4 +103,15 @@
     transform: translate(-50%, -50%);
     padding: 0;
     margin: 0;
+}
+.table-pageSize{
+    font-size: 15px;
+    color: #3e3e3e;
+    text-transform: uppercase;
+    border: 1px solid #9999;
+    outline: none;
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background: var(--lightGrey1);
 }

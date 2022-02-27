@@ -4,13 +4,23 @@ import PropTypes from 'prop-types'
 import {ArrowCircleLeft, ArrowCircleRight} from '@mui/icons-material';
 
 
-function Pagination({itemCount, pageSize, onPagination}) {
+function Pagination({ activePage,itemCount, pageSize, onPagination}) {
  const [ totalPage, setTotalPage ] = useState(Math.ceil(itemCount/pageSize))
  
- const [ active , setActive ] = useState(1) 
+ const [ active , setActive ] = useState(activePage) 
  const pages = totalPage <= 1 ? null:[ ...Array(totalPage).keys() ];//dont show pagination if page = 1
  
- useEffect(()=>setTotalPage(Math.ceil(itemCount/pageSize)),[itemCount])
+ useEffect(()=>{
+    console.log("render pagiation")
+    setActive(1)
+},[])
+
+ useEffect(()=>{
+    console.log("render pagiation componentdidupdate")
+     setTotalPage(Math.ceil(itemCount/pageSize))
+     setActive(1)
+ },[itemCount])
+ 
  
   return   <div className="pagination">
                 { 

@@ -51,7 +51,6 @@ function Item() {
     const{ name, description,sku,
     productImg,ItemTypeId,SizeId } = data
   return ( 
-
             <Form
                     dataSchema={itemSchema}
                     initialValues={data}
@@ -62,8 +61,9 @@ function Item() {
                     errors = {errors}
                     setErrors = {setErrors}
             >
+              {console.log(sizes)}
               <div className='item-form'>
-                <div>
+                <div className='item-column'>
                   <ImagWidget 
                             data={data} 
                             setData={setData} 
@@ -75,7 +75,43 @@ function Item() {
                             setErrors = {setErrors}
                   />
                   
-                  <FormSelect
+               
+                    </div>
+                <div className='item-column'>
+                    <FormInput
+                                label="name" 
+                                placeholder="Product name" 
+                                name="name" 
+                                value={name} 
+                                onChange={inputChange}
+                                onBlur={inputChange}
+                                errorMessage={errors.name}
+                    />
+                  
+                    <FormInput
+                        label="SKU"
+                        type="text" 
+                        placeholder="Serial number" 
+                        name="sku" 
+                        value={sku} 
+                        onChange={inputChange}
+                        onBlur={inputChange}
+                        errorMessage={errors.sku}
+                        // required
+                    /> 
+
+                    <FormSelect
+                          label="Product Type"
+                          name="ItemTypeId" 
+                          value={ItemTypeId}
+                          onChange={inputChange}
+                          onBlur={inputChange}
+                          options={itemTypes}
+                          errorMessage={errors.ItemTypeId}
+                          buttonTittle="Add new"
+                          // ButtonClick={()=>setShowModalItemType(true)}       
+                    />
+                    <FormSelect
                             label="Size"
                             name="SizeId" 
                             value={SizeId}
@@ -86,42 +122,7 @@ function Item() {
                             buttonTittle="Add new"
                             // ButtonClick={()=>setShowModalSize(true)}       
                     />
-                    </div>
-              <div>
-                <FormInput
-                            label="name" 
-                            placeholder="Product name" 
-                            name="name" 
-                            value={name} 
-                            onChange={inputChange}
-                            onBlur={inputChange}
-                            errorMessage={errors.name}
-                />
-              
-                <FormInput
-                    label="SKU"
-                    type="text" 
-                    placeholder="Serial number" 
-                    name="sku" 
-                    value={sku} 
-                    onChange={inputChange}
-                    onBlur={inputChange}
-                    errorMessage={errors.sku}
-                    // required
-                /> 
-
-                <FormSelect
-                      label="Product Type"
-                      name="ItemTypeId" 
-                      value={ItemTypeId}
-                      onChange={inputChange}
-                      onBlur={inputChange}
-                      options={itemTypes}
-                      errorMessage={errors.ItemTypeId}
-                      buttonTittle="Add new"
-                      // ButtonClick={()=>setShowModalItemType(true)}       
-                />
- </div>
+                </div>
                        
 
                

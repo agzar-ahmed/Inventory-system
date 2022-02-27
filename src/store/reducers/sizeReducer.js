@@ -16,15 +16,15 @@ import * as actions from "../actions/types";
             case actions.SIZE_LOADED:
                 return {
                     ...state,
-                    sizeData: action.payload,
+                    sizeData: action.payload.sizes,
                     sizeisLoading: false
                 };
             case actions.ADD_SIZE:                    
                 return {
                     ...state,
                     sizeData:[
-                           ...state.size,
-                           action.payload
+                           ...state.sizeData,
+                           action.payload.sizes
                     ]
                 };   
             case actions.DELETE_SIZE:
