@@ -11,7 +11,11 @@ import ErrorPage from './pages/ErrorPage';
 import ProductList from './pages/ProductList';
 import Login from './pages/Login';
 import Register from './pages/Regiter'
+import CheckEmail from './pages/CheckEmail'
+import Emailverifiaction from './pages/EmailVerification'
 import IncomingPurchase from './pages/IncomingPurchases';
+import SendResetPassword from './pages/sendResetPassword'
+import ResetPassword from './pages/ResetPassword'
 
 
 import {loadUser} from './services/authService'
@@ -53,7 +57,11 @@ function App() {
               <Route exact path="/">     
                   <div>Home Page to do</div>
               </Route>
-              <Route exact path="/login"render={(props) => <Login {...props} /> }/>
+              <Route exact path="/login/:userEmail?"render={(props) => <Login {...props} /> }/>
+              <Route exact path="/checkemail/:userEmail"render={(props) => <CheckEmail {...props} /> }/>
+              <Route exact path="/emailverification/:userEmail/:token"render={(props) => <Emailverifiaction {...props} /> }/>                
+              <Route exact path="/sendresetpassword"render={(props) => <SendResetPassword {...props} /> }/>                
+              <Route exact path="/resetpassword/:userEmail/:token"render={(props) => <ResetPassword {...props} /> }/>                
               <Route exact path="/register">
                   <Register/>
               </Route> 

@@ -11,7 +11,7 @@ import Provider from '../Provider'
 import ImagWidget from '../ImageWidget';
 import { Link } from 'react-router-dom';
 import { handleChange, handleSubmit } from '../Form/formFunctions';
-import {incomingProductSchema}from '../../validaions/productValidation'
+import {incomingProductSchema}from '../../validations/productValidation'
 import { Table } from '../../component/Table';
 
 import { createItems,getItems } from '../../store/actions/itemAction';

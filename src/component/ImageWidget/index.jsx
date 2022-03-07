@@ -3,7 +3,7 @@ import {  HighlightOff,AddPhotoAlternate } from '@material-ui/icons';
 import './style.css'
 import {FormInput,FileForm} from '../FormFields'
 import { handleChange } from '../Form/formFunctions';
-import { itemSchema } from '../../validaions/productValidation';
+import { itemSchema } from '../../validations/productValidation';
 
 const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
 

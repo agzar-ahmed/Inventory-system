@@ -1,33 +1,31 @@
+/****************************interceptor  *****************************/
+/**********************************************************************/
 import { toast } from "react-toastify";
 
 const token = localStorage.getItem('token')
 const baseURL = process.env.REACT_APP_BASE_URL
 
 const { fetch: originalFetch } = window;
- 
-// const url = "/user"
-//  console.log(data,"data")
-// fetch(`${baseURL}${url}`, {
-// method: "post", // *GET, POST, PUT, DELETE, etc.
-// headers: {
-//     'Content-Type': 'application/json'
-//     'x-'
-//     // 'Content-Type': 'application/x-www-form-urlencoded',
-//   },
-// body: JSON.stringify(data) // body data type must match "Content-Type" header
-// })
 
 export default window.fetch = async (...args) => {
-  let [url, config] = args;
-  // console.log(url,config,args,'http arguments') 
-
+  let [url,config] = args;
+  console.log(url,config,args,token,'http arguments') 
+  /************ header ********************/
+  //get custom configuration 
+  let customHeader =[]
+  //check custom header exist
+  if(config){
+      if (config.hasOwnProperty('headers')) customHeader =  {...config.headers}
+  }
+ 
   const apiURL = `${baseURL}${url}`
   const headers =  {
                       'Content-Type': 'application/json',
-                      'x-auth-token': token,
-                      // "access-control-allow-origin":"*"
+                       'x-auth-token': token,
+                      // "access-control-allow-origin":"*",
+                       ...customHeader
                   }
-  // console.log( apiURL,{  headers, ...config },'fetch arguments' )
+  
   let response = await originalFetch(
                                         apiURL,
                                       { 
@@ -35,8 +33,6 @@ export default window.fetch = async (...args) => {
                                         ...config
                                       } 
                                         );
-    // console.log(response,"interceptor response")
-    //handel expected errors
     if (!response.ok && response.status >= 400 && response.status<500) { 
       let error = await response.clone().json()
       // console.log(error,"interceptor 400 error")

@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import './style.css'
 import Form from '../Form';
 import {FormInput, FormSelect} from "../FormFields"
-import { itemSchema } from '../../validaions/productValidation';
+import { itemSchema } from '../../validations/productValidation';
 import {productTypeSelector} from '../../store/selectors/productTypeSelector';
 import {sizeSelector} from '../../store/selectors/sizeSelector';
 import { handleChange, handleSubmit} from '../Form/formFunctions';
@@ -74,9 +74,8 @@ function Item() {
                             errors={errors}
                             setErrors = {setErrors}
                   />
-                  
-               
-                    </div>
+                </div>
+
                 <div className='item-column'>
                     <FormInput
                                 label="name" 
@@ -87,7 +86,7 @@ function Item() {
                                 onBlur={inputChange}
                                 errorMessage={errors.name}
                     />
-                  
+                    
                     <FormInput
                         label="SKU"
                         type="text" 
@@ -98,9 +97,8 @@ function Item() {
                         onBlur={inputChange}
                         errorMessage={errors.sku}
                         // required
-                    /> 
-
-                    <FormSelect
+                    />    
+                     <FormSelect
                           label="Product Type"
                           name="ItemTypeId" 
                           value={ItemTypeId}
@@ -110,7 +108,11 @@ function Item() {
                           errorMessage={errors.ItemTypeId}
                           buttonTittle="Add new"
                           // ButtonClick={()=>setShowModalItemType(true)}       
-                    />
+                    />                
+                </div>
+              </div>
+              <div className='input-row'>
+                <div  className='item-column'>
                     <FormSelect
                             label="Size"
                             name="SizeId" 
@@ -123,11 +125,8 @@ function Item() {
                             // ButtonClick={()=>setShowModalSize(true)}       
                     />
                 </div>
-                       
-
-               
-              </div>
-              <FormInput
+                <div className="item-column">
+                    <FormInput
                             label="Description"
                             type="text" 
                             placeholder="Description" 
@@ -136,8 +135,10 @@ function Item() {
                             onChange={inputChange}
                             onBlur={inputChange}
                             errorMessage={errors.description}
-                        />  
-
+                      />  
+                </div>
+              </div>
+         
             </Form>
         
     )

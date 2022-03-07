@@ -27,7 +27,9 @@ code {
 .content{
   flex: 4 1;
 }
-
+.center{
+  text-align: center;
+}
 .titleHeader{
   display: flex;
   justify-content: space-between;
@@ -92,4 +94,17 @@ button[disabled]{
 
 .box-shadow{
   box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+}
+
+.success-message{
+  color: #2e7b31;
+  background: #00968838;
+  padding: 10px;
+  border-radius: 5px;
+}
+.error-message{
+  color: #ff1c0b;
+  background: #f4433640;
+  padding: 10px;
+  border-radius: 5px;
 }
