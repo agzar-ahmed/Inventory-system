@@ -80,7 +80,6 @@ const EmailVerified=()=>{
                 // console.log(err)
                 setMessage(err.message)
             }
-           
          }
          console.log(localStorage.getItem('token'),'token from componentDidUpdate')
          console.log(verificationToken,'verificationToken from componentDidUpdate')
@@ -91,9 +90,19 @@ const EmailVerified=()=>{
     
     const showBtn = () =>{
        return showLogin?
-        <button  className="btn btnSubmit" onClick={(e)=> history.push(`/login/${userEmail}`)}>Login</button>
+        <button  className="btn btnSubmit" onClick={(e)=> {
+            localStorage.removeItem('token')
+            history.push(`/login/${userEmail}`)}}
+        >
+        Login
+        </button>
         :
-        <button  className="btn btnSubmit" onClick={ (e)=> history.push(`/register`)}>Register</button>
+        <button  className="btn btnSubmit" onClick={ (e)=>{ 
+            localStorage.removeItem('token')
+            history.push(`/register`)}}
+        >
+        Register
+        </button>
     }
     
     // const view= ()=>

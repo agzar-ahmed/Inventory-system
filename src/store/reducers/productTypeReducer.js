@@ -26,14 +26,14 @@ import {
                 case PRODUCT_TYPE_LOADED:
                     return {
                         ...state,
-                        productTypeData: action.payload,
+                        productTypeData: action.payload.itemTypes,
                         productTypeisLoading: false
                     };
                 case ADD_PRODUCT_TYPE:                    
                     return {
                         ...state,
                         productTypeData:[
-                               ...state.productType,
+                               ...state.productType.itemTypes,
                                action.payload
                         ]
                     };   

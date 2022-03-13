@@ -7,7 +7,7 @@ const baseURL = process.env.REACT_APP_BASE_URL
 
 const { fetch: originalFetch } = window;
 
-export default window.fetch = async (...args) => {
+export default  async (...args) => {
   let [url,config] = args;
   console.log(url,config,args,token,'http arguments') 
   /************ header ********************/
@@ -25,7 +25,7 @@ export default window.fetch = async (...args) => {
                       // "access-control-allow-origin":"*",
                        ...customHeader
                   }
-  
+  console.log(headers,apiURL,config,"http header")
   let response = await originalFetch(
                                         apiURL,
                                       { 

@@ -1,5 +1,6 @@
 import * as action from './types';
 import { apiCallBegan } from './apiActions';
+import { toast } from 'react-toastify';
 
  export const getItems = () => (dispatch, getState) => {
   // dispatch({ type: action.ITEMS_LOADING });
@@ -15,7 +16,7 @@ import { apiCallBegan } from './apiActions';
       )
   }
 
-  export const createItems = (data) => (dispatch, getState) => {
+export const createItems = (data) => (dispatch, getState) => {
     
     console.log(data,'data')
     const baseURL = process.env.REACT_APP_BASE_URL
@@ -37,28 +38,37 @@ import { apiCallBegan } from './apiActions';
 /* Mulipart fom data */
     //we move this down to dispatch onStart action (loading indecators must of the time)
     //first be we do API_CALL_BEGAN
-    // next(action)//API_CALL_BEGAN passed to other middlewares
-
+    //next(action)//API_CALL_BEGAN passed to other middlewares
+    console.log(formData,'formData')
     fetch(`${baseURL}${url}`, {
         method, // *GET, POST, PUT, DELETE, etc.
         headers: {
-            //  'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-        body: formData
-        // JSON.stringify(data) // body data type must match "Content-Type" header
+        //make sure not to set the Content-Type header. The browser will set it for you, including the boundary parameter.
+          'x-auth-token': localStorage.getItem('token')
+        },
+        body: formData // body data type must match "Content-Type" header   
       })
-    .then(async (res) => {
-        // console.log(JSON.stringify(data),method)
-        //  console.log(res,'response before json')
-         if(!res.ok) {
-            let error = await res.clone().json()
-            console.log(error,'error')
-            return  Promise.reject(error)
-            }
-           
-           
-        return res.json()
+    .then(response => {
+      if (!response.ok && response.status >= 400 && response.status<500) { 
+      response.clone().json()
+       .then( error=>{ return Promise.reject(error);})
+      }
+      //check if it is creation status  201 to show toast creation success 
+      if(response.status == 201) {
+        toast.success('Created successfully' , {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored"
+          });
+        
+      }
+      console.log(response,'response schema')
+      return response.json()
     })
     .then(resJson =>
         {

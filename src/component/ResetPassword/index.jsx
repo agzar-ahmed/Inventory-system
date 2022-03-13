@@ -32,10 +32,11 @@ const ResetPassword=()=>{
     const onSubmit = () =>{
         console.log(data,"reset password")
         console.log(token,"token from onSubmit")
-            resetPassword(data)
+        resetPassword(data)
         .then(res=>{
             setSuccessMsg(res.message)
             setData(initialData)
+            localStorage.removeItem('token')
             // console.log(res)
             //redirect
             // history.push(`/checkemail/${email}`)
@@ -55,6 +56,7 @@ const ResetPassword=()=>{
             setErrors({...err.message})
             setErrorMsg(err.message)
             setSuccessMsg('')
+            // localStorage.removeItem('token')
             // // console.log(err)
          })
     
@@ -65,9 +67,6 @@ const ResetPassword=()=>{
         // console.log(localStorage.getItem('token'),'token from componentDidMount')
         // console.log(verificationToken,'verificationToken from componentDidMount')
     },[])
-    useEffect(()=>{
-        
-    },[verificationToken])
 
     const handelChange = e => handleChange(e,data,setData,resetPasswordSchema,errors,setErrors);
     const handelSubmit= e =>handleSubmit(e,data,resetPasswordSchema,errors,setErrors,onSubmit)
@@ -110,7 +109,15 @@ const ResetPassword=()=>{
                             errorMessage={errors.confirmPassword}
                     />  
                 </Form>
-                <div><Link to={`/login/${email}`}>Login</Link></div>
+                <div onClick={()=>{ 
+                    localStorage.removeItem('token')
+                    //removing token is really important in this stage otherwise 
+                    //the user will login if click this link   
+                    }}>
+                     <Link to={`/login/${email}`}> 
+                        Login
+                     </Link> 
+                </div>
             </div>
       
 }

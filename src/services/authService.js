@@ -31,6 +31,7 @@ export const registerUser =async( data ) =>{
             progress: undefined,
             theme: "colored"
         })   
+        throw ""
         //remove Token from localstorage
         // localStorage.removeItem('token');
     }
@@ -75,12 +76,12 @@ export const loadUser = async() => {
         const res = await http(`/auth/user`)
         if(!res.ok) return localStorage.removeItem('token'); 
         const resJson = await res.json()
-        console.log(resJson,'resJson')
+        console.log(resJson,'res from loadUser")')
         return resJson
     }catch(err){
         console.log(err,"err from loadUser")
-          // remove Token from localstorage
-        // localStorage.removeItem('token');
+        // remove Token from localstorage
+        localStorage.removeItem('token');
     }
 
     
@@ -102,7 +103,8 @@ export const sendResetPassword =async( data ) =>{
       
         return resJson
     }catch(err){
-         
+            // remove Token from localstorage
+            localStorage.removeItem('token');
             /***************** expected error ******************/
             if( ( err.status >= 400 && err.status<500)) {
                 throw err           // we thow err in this cas becuase we need to handel them in component 
@@ -134,11 +136,13 @@ export const resetPassword =async( data,token ) =>{
       
         return resJson
     }catch(err){
+        // remove Token from localstorage
+        // localStorage.removeItem('token');
         /**********************handel JWT expire *******************/
         if( err.status == 403) {
             throw Error("Link expired, please send an other reset password request to get new link.")           // we thow err in this cas becuase we need to handel them in component 
             
-            //to show set error state then show 400(client) rang errors 
+            //to show invali json token or expired 
         }   
 
         /***************** expected error ******************/

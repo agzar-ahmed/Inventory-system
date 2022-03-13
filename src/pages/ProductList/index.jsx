@@ -56,7 +56,7 @@ function ProductList() {
                      sku:inventoryItem.Item.sku,
                      inventory:inventoryItem.Inventory.name,
                      totalQuantity:inventoryItem.totalQuantity,
-                     lastUpdate:<span>{(new Date(inventoryItem.updatedAt)).toUTCString()}</span>,
+                     lastUpdate:(new Date(inventoryItem.updatedAt)).toUTCString(),
                      action:<span><button>Update</button> <button>delete</button></span>
                    }
          }))

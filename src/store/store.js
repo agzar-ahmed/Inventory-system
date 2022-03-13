@@ -23,7 +23,7 @@ const store= createStore(combineReducers, initialState, compose(
     //     trace: true,
     //     traceLimit: 25
     //    })
-     composeSetup
+    composeSetup
     ));
 
 export default store;

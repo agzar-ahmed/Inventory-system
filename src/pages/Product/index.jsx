@@ -11,6 +11,7 @@ import {getProviders} from '../../store/actions/providerActions'
 import {getManufacturers} from '../../store/actions/manufacturerActions'
 import { getItems } from '../../store/actions/itemAction';
 import { getIncomingPurchases } from '../../store/actions/incomingPurchaseActions';
+import { getCompanies } from '../../store/actions/companiesActions'
 
 import { inventorySelector } from '../../store/selectors/inventorySelector'
 import { providerSelector } from '../../store/selectors/providerSelector'
@@ -19,6 +20,7 @@ import {sizeSelector} from '../../store/selectors/sizeSelector'
 import {manufacturerSelector} from '../../store/selectors/manufacturerSelector'
 import { itemsSelector } from '../../store/selectors/itemSelector'
 import { incomingPurchaseSelector } from '../../store/selectors/incomingPurchaseSelector'
+
 
 import { Table } from '../../component/Table';
 
@@ -82,6 +84,7 @@ export default function Product() {
         dispatch(getManufacturers())
         dispatch(getItems())
         dispatch(getIncomingPurchases())
+        
     }
     ,[])
 

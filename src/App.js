@@ -10,12 +10,13 @@ import Product from './pages/Product'
 import ErrorPage from './pages/ErrorPage';
 import ProductList from './pages/ProductList';
 import Login from './pages/Login';
-import Register from './pages/Regiter'
+import Register from './pages/Register'
 import CheckEmail from './pages/CheckEmail'
 import Emailverifiaction from './pages/EmailVerification'
 import IncomingPurchase from './pages/IncomingPurchases';
 import SendResetPassword from './pages/sendResetPassword'
 import ResetPassword from './pages/ResetPassword'
+import ItemList from './pages/ItemList'
 
 
 import {loadUser} from './services/authService'
@@ -73,6 +74,7 @@ function App() {
                   <ProtectedRoute  exact component={IncomingPurchase} path="/dashboard/incomingpurchase" user={user}/>
                   <ProtectedRoute  exact component={Product} path="/dashboard/product" user={user}/>
                   <ProtectedRoute  exact component={ProductList} path="/dashboard/productlist" user={user}/>
+                  <ProtectedRoute  exact component={ItemList} path="/dashboard/itemlist" user={user}/>
               </Route>
               <Route path="*" component={ErrorPage}/>
             </Switch>  

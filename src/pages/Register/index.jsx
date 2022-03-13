@@ -1,7 +1,7 @@
 import React,{ useState, useEffect } from 'react';
 import "./style.css"
-import ResetPassword from '../../component/ResetPassword';
-import Spinner from '../../component/Spinner' 
+import Register from '../../component/Register';
+import Spinner from '../../component/Spinner' ;
 
 export default function Index() {
   const [loading,setLoading] = useState(true)
@@ -9,7 +9,8 @@ export default function Index() {
     /* Redirect user if already loggedin */
     localStorage.getItem('token') ? window.location = '/dashboard' : setLoading(false)      
 },[])
-  return <div className="resetpassword-page">
-        {loading?<Spinner/> : <ResetPassword />} 
+  return <div className="login-page">
+          {loading?<Spinner/> : <Register/>}
+       
   </div>;
 };

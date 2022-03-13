@@ -25,6 +25,8 @@ const Login=(props)=>{
         email:userEmail,
         password:""
     }
+
+    const [loading, setLoading] = useState(true);
     const [errorMsg,setErrorMsg] = useState()
     const [data, setData] = useState(initialData);
     const [errors, setErrors] = useState({
@@ -43,14 +45,9 @@ const Login=(props)=>{
     const handelChange = e => handleChange(e,data,setData,loginSchema,errors,setErrors);
     const handelSubmit= e =>handleSubmit(e,data,loginSchema,errors,setErrors,onSubmit)
 
-    useEffect(
-        ()=>{}
-        ,[])
 
     const { email,password } = data
     return  <div className='loginForm'>
-        {/* Redirect user if already loggedin */}
-        { localStorage.getItem('token') && history.push('/dashboard')} 
         <h2>Login</h2>
         <p>{errorMsg ? errorMsg:null}</p>
                 <Form

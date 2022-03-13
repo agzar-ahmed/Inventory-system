@@ -37,23 +37,23 @@ const api =(params)=>({dispatch})=>next=>action=>{
         //   },
         body: JSON.stringify(data) // body data type must match "Content-Type" header
       })
-    .then(async (res) => {
-        //check if it is creation status  201 to show toast creation success 
-        if(res.status == 201) {
-          toast.success('Created successfully' , {
-            position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored"
-            });
+  .then(async (res) => {
+      //check if it is creation status  201 to show toast creation success 
+      if(res.status == 201) {
+        toast.success('Created successfully' , {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored"
+          });
+        
+      }
           
-          }
-           
-        return res.json()
+      return res.json()
     })
     .then(resJson =>
         {

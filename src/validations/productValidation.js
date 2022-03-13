@@ -33,7 +33,8 @@ export const itemSchema = yup.object({
   //                  .test('is-correct-file', 'VALIDATION_FIELD_FILE_BIG',checkIfFilesAreTooBig)
                   //  .test('is-big-file','VALIDATION_FIELD_FILE_WRONG_TYPE',checkIfFilesAreCorrectType),
   ItemTypeId: yup.number().typeError('Product type is required').required().positive(),
-  SizeId: yup.number().typeError('Size is required').required().positive()
+  SizeId: yup.number().typeError('Size is required').required().positive(),
+  CompanyId: yup.number().typeError('Size is required').required().positive()
   // name: string().required(),
   // age: number().required().positive().integer(),
   // email: string().email(),

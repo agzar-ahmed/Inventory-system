@@ -3,11 +3,14 @@ import './style.css'
 import Form from '../Form';
 import {FormInput, FormSelect} from "../FormFields"
 import { itemSchema } from '../../validations/productValidation';
-import {productTypeSelector} from '../../store/selectors/productTypeSelector';
-import {sizeSelector} from '../../store/selectors/sizeSelector';
 import { handleChange, handleSubmit} from '../Form/formFunctions';
 import ImagWidget from '../ImageWidget';
+
 import { createItems } from '../../store/actions/itemAction';
+
+import {productTypeSelector} from '../../store/selectors/productTypeSelector';
+import {sizeSelector} from '../../store/selectors/sizeSelector';
+import { manufacturerSelector } from '../../store/selectors/manufacturerSelector';
 
 import { useDispatch,useSelector } from 'react-redux';
 
@@ -15,7 +18,8 @@ function Item() {
     const [data,setData] = useState(
         {
           name:'',description:'',sku:'',
-          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:"2",userId:"3"
+          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:""
+          //,userId:"26"
         }
       );
     const [errors,setErrors] = useState(
@@ -27,6 +31,7 @@ function Item() {
 
     const itemTypes = useSelector(productTypeSelector())
     const sizes = useSelector(sizeSelector())
+    const manufacturers = useSelector(manufacturerSelector());
 
   //  const handelOnChange=
    //(e,setter)=>{
@@ -43,13 +48,14 @@ function Item() {
       dispatch(createItems(data))
       setData({
         name:'',description:'',sku:'',
-      productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:"2",userId:"3"
+       productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:""
+      //,userId:"26"
       })
   }
     const formSubmit = e => handleSubmit(e,data,itemSchema,errors,setErrors,onSubmit)
     
     const{ name, description,sku,
-    productImg,ItemTypeId,SizeId } = data
+    productImg,ItemTypeId,SizeId,CompanyId } = data
   return ( 
             <Form
                     dataSchema={itemSchema}
@@ -125,6 +131,21 @@ function Item() {
                             // ButtonClick={()=>setShowModalSize(true)}       
                     />
                 </div>
+                <div className="item-column">
+                      <FormSelect
+                          label="Manufacturer"
+                          name="CompanyId"
+                          value={CompanyId}
+                          onChange={inputChange}
+                          onBlur={inputChange}
+                          options={manufacturers}
+                          errorMessage={errors.manufacturerId}
+                          buttonTittle="Add new"
+                          // ButtonClick={()=>setShowModalManufacturer(true)}       
+                      />
+                </div>
+              </div>
+              <div className='input-row'>
                 <div className="item-column">
                     <FormInput
                             label="Description"

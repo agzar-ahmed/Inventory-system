@@ -71,6 +71,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                             alt="product image"
                             />
                             {console.log(selectedImg,"selectedImg")}
+                          {/* show overlay to delete image if image selected*/}
                           { selectedImg &&
                             <div className="img-delete">
                                 <div>
@@ -152,7 +153,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                                         />
                                     </div>
                                 )
-                             }
+                            }
                                
                              { maxImgWarning && <div className='warning'>Maximum {maxPicture} photos</div> }
                              { duplicateImg && <div className='warning'>Photo already exists</div> }

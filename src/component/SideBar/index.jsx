@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import './style1.css';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { userLogout } from '../../services/authService';
 
@@ -26,13 +26,13 @@ const initailState =[
   
 
 const [ links, setLinks ] = useState(initailState)
-const [ activeLink, setActiveLink ] = useState(1)
+const [ activeLink, setActiveLink ] = useState(window.location.pathname)
 
 const renderLinks=()=>links && links.map(link =>{
   return <li 
              key={link.id}
-             className={activeLink == link.id ? "active":""}
-             onClick={()=>{setActiveLink(link.id)}}>
+             className={activeLink == link.to ? "active":""}
+             onClick={()=>{setActiveLink(link.to)}}>
                <Link to={link.to} className=''>
                  <i className='bx bx-grid-alt'>{link.icon}</i>
                  <span className="links_name">{link.label}</span>
