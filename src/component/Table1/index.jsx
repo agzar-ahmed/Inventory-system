@@ -3,9 +3,8 @@ import './style.css'
 import Pagination from '../Pagination'
 import { paginate } from '../../utils/paginate'
 import Spinner from '../Spinner'
-import {FormInput} from '../FormFields'
 
-import img from "./picture.jpg"
+
 import { ArrowDropUp, ArrowDropDown } from '@mui/icons-material';
 // import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
@@ -96,12 +95,12 @@ function Table({tableSize, tableHeader, tableData, tableColumn}) {
                                 {sortedData.map((parentInfo,index)=>{
                                             return <tr key={index}>
                                                     <td key={index} className="text-center">
-                                                        <div>{itemOrder + index}</div> 
+                                                        <div className='table-content'>{itemOrder + index}</div> 
                                                     </td>
                                                     {  parentInfo && tableColumn.map((property,index)=>{
                                                          
                                                            return <td key={index} className="text-center">
-                                                                    <div>{parentInfo[property]}</div> 
+                                                                    <div className='table-content'>{parentInfo[property]}</div> 
                                                                   </td>
                                                     })}
                                                     </tr>   

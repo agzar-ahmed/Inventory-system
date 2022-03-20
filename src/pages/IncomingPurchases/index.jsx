@@ -100,7 +100,7 @@ export default function Product() {
     return (
         <div className="productPage">
              <TopBar/>
-             <IncomingPurchase sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={itemsList}/>     
+             <IncomingPurchase sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={Object.values(itemsList)}/>     
         </div>
     )
 }

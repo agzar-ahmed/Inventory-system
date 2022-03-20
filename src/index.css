@@ -30,6 +30,9 @@ code {
 .center{
   text-align: center;
 }
+.d-flex{
+  display: flex;
+}
 .titleHeader{
   display: flex;
   justify-content: space-between;
@@ -58,10 +61,11 @@ code {
   font-family: 'Roboto',sans-serif;
   font-weight: bold;
   color: #FFFFFF;
-  text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%);
+  /* text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%); */
   text-align: center;
   transition: all 0.2s;
   background: #ff5131;
+  cursor: pointer;
 }
 .btn-action-edit{
   display: inline-block;
@@ -74,10 +78,11 @@ code {
   font-family: 'Roboto',sans-serif;
   font-weight: bold;
   color: #FFFFFF;
-  text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%);
+  /* text-shadow: 0 0.04em 0.04em rgb(0 0 0 / 35%); */
   text-align: center;
   transition: all 0.2s;
-  background: #17f687;
+  background: #00bc5d;
+  cursor: pointer;
 }
 
 button:hover{

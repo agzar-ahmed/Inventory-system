@@ -6,7 +6,7 @@ import { itemSchema } from '../../validations/productValidation';
 import { handleChange, handleSubmit} from '../Form/formFunctions';
 import ImagWidget from '../ImageWidget';
 
-import { createItems } from '../../store/actions/itemAction';
+import { createItems, updateItems } from '../../store/actions/itemAction';
 
 import {productTypeSelector} from '../../store/selectors/productTypeSelector';
 import {sizeSelector} from '../../store/selectors/sizeSelector';
@@ -14,14 +14,17 @@ import { manufacturerSelector } from '../../store/selectors/manufacturerSelector
 
 import { useDispatch,useSelector } from 'react-redux';
 
-function Item() {
-    const [data,setData] = useState(
-        {
-          name:'',description:'',sku:'',
-          productImg:'',ItemTypeId:"",SizeId:"",CompanyId:""
-          //,userId:"26"
-        }
-      );
+function Item({item,closeModal}) {
+  console.log(item,"SelectedItem")
+   let initialState ={}
+    item ? 
+    initialState = item : 
+    initialState = {
+      name:'',description:'',sku:'',
+      productImg:'',ItemTypeId:"",SizeId:"",CompanyId:"",imgToUpdate:[]
+      //,userId:"26"
+    }
+    const [data,setData] = useState(initialState);
     const [errors,setErrors] = useState(
         {
           name:'',description:'',sku:'',
@@ -45,10 +48,22 @@ function Item() {
     
     const dispatch = useDispatch()
     const onSubmit = () =>{
-      dispatch(createItems(data))
+      //Update
+     if(item) {
+      dispatch(updateItems(data))
       setData({
         name:'',description:'',sku:'',
-       productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:""
+       productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:"",imgToUpdate:[]
+      //,userId:"26"
+      })
+      closeModal(true)
+      return
+     }
+     //create
+     dispatch(createItems(data))
+      setData({
+        name:'',description:'',sku:'',
+       productImg:'',productTypeId:'DEFAULT',SizeId:'',CompanyId:"",imgToUpdate:[]
       //,userId:"26"
       })
   }
@@ -63,7 +78,7 @@ function Item() {
                     initialValuesErrors={errors}
                     // onChange={productTypeId}
                     onSubmit={formSubmit}
-                    labelBtn={"Add Item"}
+                    labelBtn={item?"Update":"Add Item"}
                     errors = {errors}
                     setErrors = {setErrors}
             >

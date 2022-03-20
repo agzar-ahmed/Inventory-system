@@ -5,59 +5,78 @@ import {FormInput,FileForm} from '../FormFields'
 import { handleChange } from '../Form/formFunctions';
 import { itemSchema } from '../../validations/productValidation';
 
+import getKey from '../../utils/getKey';
+
 const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
 
-    const [previewImg,setPreviewImg] = useState()
-    const [previewList,setPreviewList] = useState([])
+  // const [imgToUpdate,setImgToUpdate] = useState()
+  //add img to initialState UPDATE cas:
+    var imgToUpdate =[]
+    let initialState = data.imageURL1 !== undefined ?
+     (
+      Object.keys(data).filter(prop => prop.startsWith("image")).map(key=>{
+        //image URL
+        if(data[key]) return `${process.env.REACT_APP_PUBLIC_URL}/${data[key]}`
+        //get imageURL field to update data[key] undefined or null
+        imgToUpdate.push(key)
+        console.log(imgToUpdate,'check if image exist')
+        return null
+      }).filter(elem=>elem != null)
+      ) :[]
+    //you can also use hasOwnProperty or in operator
+
+    console.log(data,initialState,'data from img widget')
+
+    const [previewImg,setPreviewImg] = useState(initialState[0])
+    const [previewList,setPreviewList] = useState(initialState)
     const [maxImgWarning,setMaxImgWarning] = useState(false)
     const [duplicateImg,setDuplicateImg] = useState(false)
-    const [selectedImg,setSelectedImg] = useState(null)
-    // const imgRef = useRef()
+    const [selectedImg,setSelectedImg] = useState(initialState[0]?1:null)
+   
 
     const handelPicture=(e)=>{
-        
+      console.log(e.target.files,'img files')
         handleChange(e,data,setData,itemSchema,errors,setErrors);
+
         //clear all errors
         setDuplicateImg(false)
         setMaxImgWarning(false)
         setSelectedImg(null)
 
-        e.target.files[0] && setPreviewImg(URL.createObjectURL(e.target.files[0])) 
-      
-        //verify if photo already exists:
-        if(previewList.includes(previewImg)){
-        setDuplicateImg(true)
-        return
+        if (e.target.files[0]){ 
+          var imgUrl= URL.createObjectURL(e.target.files[0])
+          setPreviewImg(imgUrl) 
+          console.log(imgToUpdate,e.target.files[0],imgUrl,previewImg,previewList,'check if image exist')
         }
-        
+      
+        console.log(imgUrl,previewList,previewImg,'check if image exist')
+         //verify if photo already exists:
+        if(previewList.includes(imgUrl)){
+          setDuplicateImg(true)
+          return
+        }
+
         //verify max photo number:
         if(previewList.length >= maxPicture ){
-        setMaxImgWarning(true)
-        return
+          setMaxImgWarning(true)
+          return
         }
-        
+             
         let newPreviewList = [];
-        // /if(previewImg && previewList){
+      
           e.target.files[0] && (newPreviewList = [...previewList, URL.createObjectURL(e.target.files[0])])
-        // }
-    
-       
-        // console.log(previewList.find(url=> url === previewImg),'duplicated') 
-        // console.log(previewImg,previewList,'previewList')
-    
-    
-        // console.log(e.target.files)
+        
         setPreviewList(newPreviewList)
         //heighlight selected image length-1 to match the index
         // setSelectedImg(newPreviewList.length)
         
-        setData({
+        setData(
+          {
             ...data,
-            [e.target.name]:[...data.productImg, e.target.files[0]]
+            imgToUpdate,
+            [e.target.name]:data.productImg !== undefined ? [...data.productImg , e.target.files[0]] :  [e.target.files[0]]
         })
-        // handleChange()
-    
-        // console.log(data)
+      
       }
 
     return (
@@ -79,6 +98,14 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                                             className="img-deleteIcon" 
                                             onClick={()=>{
                                             const FiltredImgList = previewList.filter(img=> img !== previewImg )
+                                            // find deleted img key to update
+                                            initialState.length>0 && (
+                                            setData({...data,imgToUpdate:[...imgToUpdate,...getKey(data,[previewImg.substring(previewImg.lastIndexOf('/') + 1)])]})
+                                              //  imgToUpdate !== undefined ? 
+                                              //  data.imgToUpdate = [...imgToUpdate,...data.imgToUpdate ,...getKey(data,[previewImg.substring(previewImg.lastIndexOf('/') + 1)])]:
+                                              //  data.imgToUpdate =[...imgToUpdate,...getKey(data,[previewImg.substring(previewImg.lastIndexOf('/') + 1)])]
+                                              )
+                                            console.log(data.imgToUpdate,data,[previewImg],getKey(data,[previewImg]),'data.imgToUpDate')
                                             // console.log(FiltredImgList,'FiltredImgList')
                                             setPreviewList(FiltredImgList)
                                             }}
@@ -90,24 +117,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                     </div>                    
                     :
                     <div>
-
-
-                      {/* <label 
-                      onClick={()=>{
-                        console.log(imgRef.current,"input Ref")
-                        imgRef.current.click()
-                      }} 
-                      htmlFor="file1"> 
-                      <AddPhotoAlternate className="imgIcon"/> 
-                      </label>
-                      <input 
-                         ref={imgRef} 
-                         type="file"  
-                         name="productImg" 
-                         onChange={handelPicture} 
-                         style={{display:'none'}}
-                      /> */}
-                      {console.log(errors.productImg,'errorMessage')}
+                    {/* {console.log(errors.productImg,'errorMessage')} */}
                       <FileForm 
                              type="file"  
                              label={<AddPhotoAlternate className="imgIcon"/>}
@@ -116,18 +126,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                              onBlur={handelPicture}
                              errorMessage={errors.productImg}
                         />
-                      {/* <FormInput
-                            htmlFor="file1"
-                            label={<AddPhotoAlternate className="imgIcon"/>}
-                            displayInput={false}
-                            type="file"
-                            id="file1"
-                            // style={{display:'none'}}
-                            name="productImg" 
-                            onChange={handelPicture}
-                            onBlur={handelPicture}
-                            errorMessage="erromessage"
-                      />  */}
+
                     </div>
                     }
                     {
@@ -141,7 +140,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                                 previewList.map((image,index) =>
                                     <div key={index+1} className={ selectedImg == index+1 ?'overlay':'noOverlay'}>
                                       {console.log(selectedImg,image,index,'selectedImg')} 
-                                      <img 
+                                      {image && <img 
                                         key={index+1}
                                         className="imgIconPrev"
                                         src={image} 
@@ -150,7 +149,7 @@ const ImagWidget = ({data,setData,errors,setErrors,maxPicture}) => {
                                           setPreviewImg(e.target.src)
                                           setSelectedImg(index+1)
                                         }}
-                                        />
+                                        />}
                                     </div>
                                 )
                             }

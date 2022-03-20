@@ -52,10 +52,11 @@
   top:50%;
   left:50%;
   border-radius: 5px; */
+  min-height: 20vh;
   max-height: 80vh;
   min-width: 40vw;
   z-index: 100; 
-  box-shadow: rgb(43 44 57 / 14%) 0px 6px 20px;
+  box-shadow: rgb(43 44 57 / 40%) 0px 6px 20px;
   border-radius: 10px 10px 0 0;
   animation: 0.2s ease 0.1s 1 normal forwards running;
   box-shadow: rgb(43 44 57 / 14%) 0p

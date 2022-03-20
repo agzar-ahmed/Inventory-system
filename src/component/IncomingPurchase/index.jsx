@@ -26,6 +26,8 @@ import { getInventorybyIdSelector } from '../../store/selectors/inventorySelecto
 
 export default function AddProduct({sizes,itemTypes,items,manufacturers,providers,inventories}) {
     
+    console.log(items,manufacturers,providers,inventories)
+
     const initialState =  {
       userId:'1',
       itemId:'',
@@ -97,7 +99,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
     const [btnDisable,setBtnDisabled] = useState(true)
 
     // const [showModalProductList,setShowModalProductList] = useState(false)
-    const [showModalItem,setShowModalItem] = useState(false)
+    const [showModalItem,setShowModalItem] = useState(true)
     const [showModalSize,setShowModalSize] = useState(false);
     const [showModalItemType,setShowModalItemType] = useState(false);
     const [showModalManufacturer,setShowModalManufacturer] = useState(false);
@@ -106,11 +108,11 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
 
     const inputChange =e=> handleChange(e,data,setData,incomingProductSchema,errors,setErrors);
     const addToTable = () =>{ 
-      console.log(data,incomingPurchseData,'data and incoming purchase')
+      console.log(data,incomingPurchseData,selectedItem,'data and incoming purchase')
                        setIncomingPurchseData([
                          ...incomingPurchseData,{
                         userId,
-                        itemId:selectedItem[0].name,
+                        itemId:selectedItem.name,
                         quantity,
                         unitPrice,
                         totalExTax: unitPrice*quantity ,
@@ -204,7 +206,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                   <ProductList/>
               </Modal>
             } */}
-             {showModalItem &&
+            {!showModalItem &&
               <Modal title="Add new Product" closeModal={setShowModalItem}>
                   <Item/>
               </Modal>
@@ -279,7 +281,7 @@ export default function AddProduct({sizes,itemTypes,items,manufacturers,provider
                                     options={items}
                                     errorMessage={errors.itemId}
                                     buttonTittle="Add new"
-                                    ButtonClick={(e)=>{ e.preventDefault();setShowModalItem(true)}}
+                                    ButtonClick={(e)=>{ e.preventDefault();setShowModalItem(false)}}
                         />  
                         <FormInput
                                 label="Quantity"

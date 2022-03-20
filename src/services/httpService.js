@@ -1,6 +1,7 @@
 /****************************interceptor  *****************************/
 /**********************************************************************/
 import { toast } from "react-toastify";
+import {userLogout} from "./authService"
 
 const token = localStorage.getItem('token')
 const baseURL = process.env.REACT_APP_BASE_URL
@@ -34,6 +35,10 @@ export default  async (...args) => {
                                       } 
                                         );
     if (!response.ok && response.status >= 400 && response.status<500) { 
+      //authentication error (token expire ,No token) redirect user to login
+      //check if path name is note login to avoid infinite loop cause we check token when we login component mount
+      console.log(window.location.pathname,window.location.pathname != '/login' )
+        window.location.pathname != '/login' && response.status == 403 && userLogout()
       let error = await response.clone().json()
       // console.log(error,"interceptor 400 error")
     

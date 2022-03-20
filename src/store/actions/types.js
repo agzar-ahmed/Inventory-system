@@ -53,6 +53,7 @@ export const USERS_LOADING = "USERS_LOADING";
 
 //items
 export const ADD_ITEMS = "ADD_ITEMS";
+export const UPDATE_ITEMS = "UPDATE_ITEMS";
 export const DELETE_ITEMS = "DELETE_ITEMS";
 export const CLEAR_ITEMS = "CLEAR_ITEMS";
 export const ITEMS_ERROR = "ITEMS_ERRORS";
