@@ -2,25 +2,38 @@ import * as yup from 'yup';
 
 export const incomingProductSchema = yup.object({
   userId:yup.number().typeError('This field is required').required().positive(),
-  itemId:yup.number().typeError('This field is required').required().positive(),
+  // itemId:yup.number().typeError('This field is required').required().positive(),
   providerId:yup.number().typeError('This field is required').required().positive(),
-  manufacturerId:yup.number().typeError('').positive(),
+  // orderId:yup.number().typeError('This field is required').required().positive(),
+  // manufacturerId:yup.number().typeError('').positive(),
   inventoryId:yup.number().typeError('This field is required').required().positive(),
-  purchaseDate:yup.date().typeError('This field is required').default(() => new Date()),
-  expirationDate: yup.date().typeError('You must specify a date'),
-  productionDate: yup.date().typeError('You must specify a date'),
+  incomingDate:yup.date().typeError('This field is required').required(),
+  numberIncomingPurchase: yup.string(),
+  // expirationDate: yup.date().typeError('You must specify a date'),
+  // productionDate: yup.date().typeError('You must specify a date'),
   // purchasePrice:yup.number().typeError('This field is required').required().positive(),
-  quantity:yup.number().typeError('This field is required').positive().nullable(true),
-  unitPrice:yup.number().typeError('This field is required').required().positive(),
-  VATRate:yup.number().typeError('This field is required').required().positive(),
-  msrp:yup.number().typeError('').positive(),
-  // discount:yup.number().typeError('This field is number'),
-  // tatalExTax:yup.number().typeError('This field is required').required().positive(),
-  // totalIncTax:yup.number().typeError('This field is required').required().positive(),
-  minLevel:yup.number().typeError('').positive(),
+  // quantity:yup.number().typeError('This field is required').positive().nullable(true),
+  // unitPrice:yup.number().typeError('This field is required').required().positive(),
+  // VATRate:yup.number().typeError('This field is required').required().positive(),
+  // msrp:yup.number().typeError('').positive(),
+  // // discount:yup.number().typeError('This field is number'),
+  tatalExTax: yup.number().typeError('This field is required').required().positive(),
+  totalIncTax:yup.number().typeError('This field is required').required().positive(),
+  totalVAT:yup.number().typeError('This field is required').required().positive(),
+  // minLevel:yup.number().typeError('').positive(),
   });
 
-
+  export const incomingDetailsSchema = yup.object({
+    itemId:yup.number().typeError('This field is required').required().positive(),
+    ordredQuantity: yup.number().typeError('This field is required').required().positive(),
+    incomingQuantity: yup.number().typeError('This field is required').required().positive(),
+    reste: yup.number().typeError('This field is required').required(),
+    totalExTax: yup.number().typeError('This field is required').required().positive(),
+    VATRate: yup.number().typeError('This field is required').required(),
+    discount: yup.number().typeError('This field is required').required(),
+    totalIncTax: yup.number().typeError('This field is required').required().positive(),
+    unitPrice: yup.number().typeError('This field is required').required().positive(),
+  });
   
 export const itemSchema = yup.object({
   

@@ -6,8 +6,9 @@ import { userLogout } from '../../services/authService';
 
 import {LineStyle,Timeline,TrendingUp,PeopleOutlineRounded
   ,DashboardRounded,EmailOutlined,BarChartRounded
-   ,SettingsApplicationsRounded,AddShoppingCartRounded} from '@material-ui/icons'
+   ,SettingsApplicationsRounded,AddShoppingCartRounded,SendSharp} from '@material-ui/icons'
 import InventoryIcon from '@mui/icons-material/Inventory';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { Logout } from '@mui/icons-material';
 
 
@@ -16,10 +17,11 @@ export default function SideBar({user}) {
 const initailState =[
   {id: 1, label: "Dashboard", to: "/dashboard", icon: <DashboardRounded/>,toolTip:'Dashboard'},
   {id: 2, label: "Users", to: "/dashboard/userslist", icon: <PeopleOutlineRounded />,toolTip:'Users'},
-  {id: 3, label: "Products", to: "/dashboard/productlist", icon: <InventoryIcon/>,toolTip:'Products'},
+  {id: 3, label: "Stock", to: "/dashboard/stock", icon: <InventoryIcon/>,toolTip:'Products'},
   {id: 4, label: "Incoming Purchase", to: "/dashboard/incomingpurchase", icon: <AddShoppingCartRounded/>,toolTip:'Incoming Purchase'},
-  {id: 7, label: "Order", to: "", icon: <EmailOutlined />,toolTip:'Order'},
-  {id: 8, label: "Order", to: "", icon: <BarChartRounded/>,toolTip:'Analytics'},
+  {id: 7, label: "Outgoing Purchase", to: "", icon: <ShoppingCartCheckoutIcon />,toolTip:'Order'},
+  {id: 8, label: "Order", to: "", icon: <SendSharp/>,toolTip:'Analytics'},
+  {id: 9, label: "Product List", to: "/dashboard/productlist", icon: <BarChartRounded/>,toolTip:'Analytics'},
   {id: 6, label: "Messages", to: "", icon: <EmailOutlined />,toolTip:'Messages'},
   {id: 5, label: "Setting", to: "", icon: <SettingsApplicationsRounded />,toolTip:'Setting'},
 ]

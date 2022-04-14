@@ -5,7 +5,8 @@ export const itemsSelector = () => createSelector(
   state=>state.items,
   items=>items.itemsData
 )
+
 export const getItemsbyIdSelector = (itemId) => createSelector(
-  state=>state.items.itemsData,
+  state=>state.items.itemsData.byIds,
   items=>items[itemId]//.filter(item=> item.id == Number(itemId))
 )

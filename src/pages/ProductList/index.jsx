@@ -1,128 +1,177 @@
-import React,{useEffect,useState} from 'react';
-// import {ProductsTable} from '../../component/ProductsTable';
-import {Table,ProductsTable1} from '../../component/Table';
-import Table1 from '../../component/Table1';
-import ListGroup from '../../component/ListGoup';
-import TopBar from '../../component/TopBar';
-import { Link } from 'react-router-dom';
-import './style.css';
-import { ShoppingBag } from '@mui/icons-material';
+import React,{useEffect} from 'react'
+import './style.css'
+import Table from '../../component/Table1'
+import TopBar from '../../component/TopBar'
+import Item from '../../component/Item'
+import Modal from '../../component/Modal'
 
-//actions
-import { getItems } from '../../store/actions/itemAction';
-import { getInventoryItems } from '../../store/actions/inventoryItemActions';
-import { getInventories } from '../../store/actions/inventoryActions';
+import { getItems,deleteItem, updateItems } from '../../store/actions/itemAction'
+import { getSizes } from '../../store/actions/sizeActions'
+import { getUsers } from '../../store/actions/usersActions'
+import { getProductTypes } from '../../store/actions/productTypeActions'
+import { getCompanies } from '../../store/actions/companiesActions'
+import { getManufacturers } from '../../store/actions/manufacturerActions'
 
-
-//selectors
 import { itemsSelector } from '../../store/selectors/itemSelector'
-import { inventoryItemSelector } from '../../store/selectors/inventoryItemSelector'
-import { getItemsbyIdSelector } from '../../store/selectors/itemSelector';
-import { inventorySelector } from '../../store/selectors/inventorySelector';
+import { getSizebyIdSelector } from '../../store/selectors/sizeSelector'
+import { getUserbyIdSelector } from '../../store/selectors/usersSelector'
+import { getProductTypebyIdSelector } from '../../store/selectors/productTypeSelector'
+import { getCompanybyIdSelector } from '../../store/selectors/companieSelector'
+
+import { useDispatch, useSelector, useStore } from 'react-redux'
+import { useState } from 'react'
 
 
-import { useDispatch,useSelector } from 'react-redux';
-
-
-function ProductList() {
-
-    //life cycle HOOKS
+export default function ProductList() {
     const dispatch = useDispatch()
 
-    const productList = useSelector(itemsSelector())
-    const inventoryItems = useSelector(inventoryItemSelector())
-    const inventoryData = useSelector(inventorySelector())
-
-    const [ tableData,setTableData ] = useState([]);
-    const [ listData,setListData ] = useState([])
-    const [ filtredData,setFiltredData ] = useState([]);
-
-    const onSelect = (id) =>{
-        if(id == "all") return  setFiltredData(inventoryItems) 
-        const newData = inventoryItems.filter(inventoryItem=>id == inventoryItem.inventoryId)
-        setFiltredData(newData)
-    }
-    useEffect( ()=>onSelect("all"),[inventoryItems])
+    const itemData = useSelector(itemsSelector())
+    const itemList = itemData.byIds != undefined && itemData.byIds
     
+    // const sizeById = useSelector(getSizebyIdSelector(id))
+
+    console.log(itemList,'itemList 1')
+
+    const [ tableData,setTableData ] = useState([])
+    const [ closeItemModal, setCloseItemModal ] = useState(true)
+    const [ closeConfimModal, setCloseConfimModal ] = useState(true)
+    const [ selectedItem, setSelectedItem ] = useState (null)
+
+    useEffect(()=>{
+      dispatch(getSizes())
+      dispatch(getUsers())
+      dispatch(getProductTypes())
+      dispatch(getManufacturers())
+      dispatch(getCompanies())
+      dispatch(getItems())
+
+    },[])
+
+    //actions
+    
+    const tableAction=(item)=>{
+      return  <div className='d-flex'>
+                  <button className='btn-action-edit' onClick={()=> {
+                    setCloseItemModal(false)
+                    setSelectedItem(item)
+                    }}>
+                      Edit
+                  </button> 
+                  <button className='btn-action-delete' 
+                          onClick={()=> {                          
+                            // console.log(item.id)
+                            setSelectedItem(item)
+                            // deleteItem(52)
+                            setCloseConfimModal(false)
+                          }}
+                  >
+                      Delete
+                  </button>
+              </div>
+    }
+
     useEffect(
-        ()=>setTableData(filtredData.map((inventoryItem,index)=>{
-            return {     
-                     id:index+1,
-                     inventory:inventoryItem.Inventory.name,
-                     product:inventoryItem.Item.name,
-                     image:<img className='table-productimg' 
-                                src={`${ process.env.REACT_APP_PUBLIC_URL}${inventoryItem.Item.imageURL1}`} 
-                                label={inventoryItem.Item.imageURL1} />,
-                     sku:inventoryItem.Item.sku,
-                     inventory:inventoryItem.Inventory.name,
-                     totalQuantity:inventoryItem.totalQuantity,
-                     lastUpdate:(new Date(inventoryItem.updatedAt)).toUTCString(),
-                     action:<span><button>Update</button> <button>delete</button></span>
-                   }
-         }))
-        ,[filtredData])
-
-        useEffect(()=>{
-            dispatch(getItems());
-            dispatch(getInventoryItems())
-            dispatch(getInventories())
-           
-        }
-        ,[])
-
-        const reorderInventoryData = [
-            {id:"all",name:"All inventories",totalItem:inventoryItems.length},
-            ...inventoryData.map(inventory=>{
-            return { id:inventory.id,
-             name:inventory.name,
-             totalItem:inventory.Item_inventories.length}
-            })
-     ]
-
-     console.log(reorderInventoryData,"reorderInventoryData")
-
-    return (
-        <div className="content">
-            <TopBar/>
-            <div className="productlist">
-                <div className="titleHeader">
-                    <h1>Product list</h1>
-                    <div>
-                        <Link to="product">
-                            <button className="btn" >
-                                    New product
-                            </button>
-                        </Link>
-                    </div>              
-                </div>
-                <div className="prod-table">
-                    {/* {console.log(productList,"productList")}
-                    {productList && <Table tableData={productList}/>}  */}
-                    <div className="productlist-fulltable">
-                        <div className="productlist-listgroup">
-                            <ListGroup
-                            listData={reorderInventoryData}
-                            onSelect={onSelect}
-                            />
-                        </div>
-
-                        <div className="productlist-table">
-                            {console.log(tableData,"tableData")}
-                            {tableData &&<Table1 
-                                    tableSize={5}
-                                    tableData={tableData}
-                                    tableHeader={[<ShoppingBag/>,'Inventory','Product','Product image','SKU','Total quantity','Last update','']} 
-                                    tableColumn={['inventory','product','image','sku','totalQuantity','lastUpdate','action']}
-                           // tableColumn to show colum in the order we want we won't to rely to object.key order 
-                          //we need to see object properties in back end
-                          /> }
-                        </div>                           
-                    </div>
-                        
-                </div>
-            </div>
-        </div>
-    )
+      ()=>{
+        // const tableData = changeData(itemList)
+      //  setTableData(tableData)
+      
+      const arr = Object.values(itemList)
+      console.log(itemList,arr,'itemList')
+      arr && setTableData( arr.map((item,index)=>{
+        const imageURL = item.imageURL1 || item.imageURL2 || item.imageURL3
+        return {     
+                id:index+1,
+                imageURL1: <img className='table-productimg' 
+                src={`${ process.env.REACT_APP_PUBLIC_URL}${imageURL}`} 
+                label={imageURL} />,
+                name:item.name,
+                sku:item.sku,
+                ItemTypeId:item.ItemTypeId && <GetProductTypeName id={item.ItemTypeId}/>,
+                SizeId: item.SizeId && <GetSizeName id={item.SizeId}/>,//useSelector(getSizebyIdSelector(item.SizeId))[0].name,// sizeById[0] && sizeById[0].name,
+                CompanyId:item.CompanyId && <GetCompanyName id={item.CompanyId}/>,
+                UserId:item.UserId && <GetUserName id={item.UserId}/>,
+                updatedAt:(new Date(item.updatedAt)).toUTCString(),
+                action: tableAction(item)
+              }
+              
+      }))
+      }
+      ,[itemList])
+  return (
+    <div className="content">
+       {!closeItemModal && <Modal title={selectedItem?"Edit Product":"Add Product"} closeModal={setCloseItemModal}>
+                              <Item item={selectedItem} closeModal={setCloseItemModal}/>
+                           </Modal>}
+       {!closeConfimModal && <Modal title={"Confirmation"}  closeModal={setCloseConfimModal}>
+                                {/* <Item item={selectedItem} closeModal={setCloseItemModal}/> */}
+                                <div>
+                                    <h4>Are sure you want to delete this product?</h4>
+                                    <button 
+                                            className='btn-action-delete' 
+                                            onClick={()=> { 
+                                                     setCloseConfimModal(true) 
+                                                     dispatch(deleteItem(selectedItem.id))
+                                                     }}
+                                    >
+                                                  Delete
+                                    </button>
+                                </div>
+                                
+                              </Modal>}
+    
+       <TopBar/>
+       <div className="itemList-table">
+         <div className='titleHeader'>
+            <h1>All products:</h1>
+            <button 
+                    className="btn"
+                    onClick={()=>{
+                                    setSelectedItem(null)//clear data SelectedItem state 
+                                    setCloseItemModal(false)
+                                  }}>
+                Add product
+              </button>
+         </div>
+          <Table 
+                    tableSize={20} 
+                    tableHeader={["N°","Image","Product","SKU","Type","Size","Manufacurer","CreatedBy","Last update",'']} 
+                    tableData={tableData} 
+                    tableColumn={["imageURL1","name","sku","ItemTypeId","SizeId","CompanyId","UserId","updatedAt","action"]} 
+          />
+       </div>
+    </div>
+  )
 }
 
-export default ProductList
+// I can not call the hook inside a function so I did this below the error we get:
+// cannot be called inside a callback. React Hooks must be called in a React function component nction component or a custom React Hook function
+function GetSizeName({id}) {
+  const { name } = useSelector(getSizebyIdSelector(id))[0]
+//  console.log(id,name,'name from getSizeName')
+  return(
+    <div>{name}</div>
+  )
+}
+
+function GetUserName({id}) {
+  const { firstName, lastName } = useSelector(getUserbyIdSelector(id))[0]
+//  console.log(id,name,'name from getSizeName')
+  return(
+    <div>{firstName} {lastName}</div>
+  )
+}
+
+function GetProductTypeName({id}) {
+  const { name } = useSelector(getProductTypebyIdSelector(id))[0]
+//  console.log(id,name,'name from getSizeName')
+  return(
+    <div>{name}</div>
+  )
+}
+function GetCompanyName({id}) {
+  const { name } = useSelector(getCompanybyIdSelector(id))[0]
+//  console.log(id,name,'name from getSizeName')
+  return(
+    <div>{name}</div>
+  )
+}

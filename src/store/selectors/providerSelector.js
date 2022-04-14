@@ -2,11 +2,11 @@ import { createSelector } from 'reselect'
  
 
 export const providerSelector = () => createSelector(
-  state=>state.provider,
-  productType=>productType.providerData
+  state=>state.provider.providerData,
+  provider=>provider
 )
 
 export const getProviderbyIdSelector = (providerId) => createSelector(
   state=>state.provider.providerData,
-  provider=>provider.filter(provider=>provider.id == Number(providerId))
+  provider=>provider.byIds[String(providerId)]//filter(provider=>provider.id == Number(providerId))
 )

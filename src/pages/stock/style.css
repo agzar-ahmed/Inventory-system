@@ -1,0 +1,19 @@
+.productlist{
+    padding: 20px
+}
+.prod-table{
+    height: 80vh;
+}
+.productlist-fulltable{
+    display: flex;
+    justify-content: space-around;
+    align-items: normal;
+}
+.productlist-listgroup{
+    width: 200px;
+    padding: 1em;
+}
+.productlist-table{
+    flex-grow: 4;
+    padding: 1em;
+}

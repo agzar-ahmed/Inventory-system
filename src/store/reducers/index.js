@@ -8,7 +8,7 @@ import manufacturerReducer from './manufacturerReducer'
 import usersReducer from './usersReducer';
 import itemsReducer from './itemsReducer';
 import incomingPurchaseReducer from './incomingPurchaseReducer'
-import inventoryItemReducer from './inventoryItemReducer'
+import stockReducer from './stockReducer'
 import companyReducer from './companyReducer';
 
 export default combineReducers({
@@ -20,6 +20,6 @@ export default combineReducers({
     users: usersReducer,
     items: itemsReducer,
     incomingPurchase:incomingPurchaseReducer,
-    inventoryItem: inventoryItemReducer,
+    stock: stockReducer,
     companies: companyReducer
 });

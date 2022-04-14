@@ -10,7 +10,7 @@ import {usersSelector} from '../../store/selectors/usersSelector'
 import { useDispatch,useSelector } from 'react-redux';
 
 
-export default function Users() {
+export default function UsersListPage() {
     const[data,setData] = useState([]);
     const[tableColumn,setTableColumn] = useState([]);
 
@@ -80,12 +80,13 @@ export default function Users() {
     }
     ,[])
 
-    const usersList = useSelector(usersSelector())
+    const usersData = useSelector(usersSelector())
+    const usersList = usersData.byIds!=undefined && Object.values(usersData.byIds)
      
     useEffect(()=>{
             renderTable(usersList)
     }
-    ,[usersList])
+    ,[usersData])
     
 
     return (

@@ -61,6 +61,17 @@ flex-basis: 100%;
   margin: 20px;
   min-width: 100px;
 }
+.incoming-total{
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 20px;
+}
+.incoming-total span{
+  font-weight: bold;
+  margin: 1vw;
+  font-size: large;
+}
 .purchases-table{
-  padding:20px
+  padding:20px;
+  font-size: 18px;
 }

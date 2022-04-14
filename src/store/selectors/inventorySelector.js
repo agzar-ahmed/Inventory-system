@@ -8,5 +8,5 @@ export const inventorySelector = () => createSelector(
  
 export const getInventorybyIdSelector = (inventoryId) => createSelector(
   state=>state.inventory.inventoryData,
-  inventory=>inventory.filter(inventory=> inventory.id == Number(inventoryId))
+  inventory=>inventory.byIds[String(inventoryId)]
 )

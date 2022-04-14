@@ -22,7 +22,7 @@ import { Table } from '../../component/Table';
 
 import { useDispatch,useSelector } from 'react-redux';
 
-export default function Product() {
+export default function IncomingPage() {
 
     /* before using Redux */
     // const [itemSizes,setItemSizes] = useState([]);
@@ -71,6 +71,7 @@ export default function Product() {
 
 //life cycle HOOKS
     const dispatch = useDispatch()
+  
 
     useEffect(()=>{
         dispatch(getProductTypes())
@@ -94,13 +95,20 @@ export default function Product() {
 
     const state = useSelector(state=>state)
 
-    console.log(state,manufacturersList,inventoriesList,productTypesList,providersList,sizesList,'selectors')
+    console.log(Object.values(providersList),'selectors')
     // setItemTypes(store.productType.productTypeData)
 
     return (
-        <div className="productPage">
+        <div className="content">
              <TopBar/>
-             <IncomingPurchase sizes={sizesList} itemTypes={productTypesList} providers={providersList} manufacturers={manufacturersList} inventories={inventoriesList} items={Object.values(itemsList)}/>     
+             <IncomingPurchase 
+                        sizes={sizesList} 
+                        itemTypes={productTypesList} 
+                        providers={providersList.byIds != undefined && Object.values(providersList.byIds)} 
+                        manufacturers={manufacturersList} 
+                        inventories={inventoriesList.byIds != undefined && Object.values(inventoriesList.byIds)} 
+                        items={Object.values(itemsList)}
+            />     
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { apiCallBegan } from './apiActions';
   // dispatch({ type: action.ITEMS_LOADING });
       dispatch(
           apiCallBegan({
-                    url:'/incomingpuchase',
+                    url:'/incomingpurchases',
                     // method:'get',
                     // data:{},
                     onStart: action.INCOMING_PURCHASES_LOADING,
@@ -19,12 +19,41 @@ import { apiCallBegan } from './apiActions';
     // dispatch({ type: action.ITEMS_LOADING });
         dispatch(
             apiCallBegan({
-                      url:'/incomingpuchase',
+                      url:'/incomingpurchases',
                       method:'post',
                       data,
                       onStart: action.INCOMING_PURCHASES_LOADING,
                       onSuccess: action.ADD_INCOMING_PURCHASES,
                       onError:action.INCOMING_PURCHASES_ERROR
             })
+        )
+   }
+
+
+
+
+ /******************************************************** IncomingPurchasesDetails *****************************/  
+   
+ export const getIncomingPurchaseDetails = (incomingId) => (dispatch, getState) => {
+    // dispatch({ type: action.ITEMS_LOADING });
+        dispatch(
+            apiCallBegan({
+                      url:`/incomingpurchasedetails/${incomingId}`,
+                      // method:'get',
+                      // data:{},
+                      onStart: action.INCOMING_PURCHASES_DETAILS_LOADING,
+                      onSuccess: action.INCOMING_PURCHASES_DETAILS_LOADED,
+                      onError:action.INCOMING_PURCHASES_DETAILS_ERROR
+            })
+        )
+   }
+
+export const updateIncomingPurchaseDetails = (updatedDetails) => (dispatch, getState) => {
+    // dispatch({ type: action.ITEMS_LOADING });
+        dispatch(
+            { 
+                type: action.UPDATE_INCOMING_PURCHASES_DETAILS,
+                payload: updatedDetails
+            }
         )
    }

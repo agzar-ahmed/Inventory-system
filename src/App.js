@@ -4,19 +4,20 @@ import SideBar from './component/SideBar';
 import Spinner from './component/Spinner';
 
 import Home from './pages/Home';
-import Users from './pages/Users';
+import UsersList from './pages/UsersList';
 import User from './pages/User';
 import Product from './pages/Product'
 import ErrorPage from './pages/ErrorPage';
-import ProductList from './pages/ProductList';
+import stock from './pages/stock';
 import Login from './pages/Login';
 import Register from './pages/Register'
 import CheckEmail from './pages/CheckEmail'
 import Emailverifiaction from './pages/EmailVerification'
-import IncomingPurchase from './pages/IncomingPurchases';
 import SendResetPassword from './pages/sendResetPassword'
 import ResetPassword from './pages/ResetPassword'
-import ItemList from './pages/ItemList'
+import ProductList from './pages/ProductList'
+import IncomingPurchase from './pages/IncomingPurchases';
+import IncomingPurchaseList from './pages/IncomingPurchaseList'
 
 
 import {loadUser} from './services/authService'
@@ -69,12 +70,14 @@ function App() {
               <Route  path="/dashboard">
                   <ProtectedRoute  component={SideBar} path="/dashboard" user={user}/>
                   <ProtectedRoute  exact component={Home} path="/dashboard" user={user}/>
-                  <ProtectedRoute  exact component={Users} path="/dashboard/userslist" user={user}/>
+                  <ProtectedRoute  exact component={UsersList} path="/dashboard/userslist" user={user}/>
                   <ProtectedRoute  exact component={User} path="/dashboard/user" user={user}/>
-                  <ProtectedRoute  exact component={IncomingPurchase} path="/dashboard/incomingpurchase" user={user}/>
                   <ProtectedRoute  exact component={Product} path="/dashboard/product" user={user}/>
-                  <ProtectedRoute  exact component={ProductList} path="/dashboard/productlist" user={user}/>
-                  <ProtectedRoute  exact component={ItemList} path="/dashboard/itemlist" user={user}/>
+                  <ProtectedRoute  exact component={ProductList} path="/dashboard/ProductList" user={user}/>
+                  <ProtectedRoute  exact component={stock} path="/dashboard/stock" user={user}/>
+                  <ProtectedRoute  exact component={IncomingPurchase} path="/dashboard/incomingpurchase" user={user}/>
+                  <ProtectedRoute  exact component={IncomingPurchaseList} path="/dashboard/Incomingpurchaselist" user={user}/>
+                  
               </Route>
               <Route path="*" component={ErrorPage}/>
             </Switch>  

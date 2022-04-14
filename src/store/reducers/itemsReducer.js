@@ -1,15 +1,16 @@
 import * as actions from "../actions/types";
+import groupBy from "../../utils/groupBy";
 
     const initialState = {
         itemsisLoading: false,
         itemsData:{}
     };
     
-   function reorderState (state){
-    var obj = {};
-    state.map(k => obj[k.id] = k)
-    return obj
-   }
+//    function reorderState (state){
+//     var obj = {};
+//     state.map(k => obj[k.id] = k)
+//     return obj
+//    }
     
 
     
@@ -24,7 +25,10 @@ import * as actions from "../actions/types";
             case actions.ITEMS_LOADED:
                 return {
                     ...state,
-                    itemsData: reorderState(action.payload.items),
+                    itemsData: {
+                        byIds:groupBy(action.payload.items,'id'),
+                        allIds: action.payload.items.map(inventory=>inventory.id)
+                    }, 
                     itemsisLoading: false
                 };
             case  actions.ITEMS_ERROR:
@@ -46,7 +50,7 @@ import * as actions from "../actions/types";
                     ...state,
                     itemsData:{
                            ...state.itemsData,
-                           [action.payload.id]: {...action.payload.items}
+                           [action.payload.items.id]: {...action.payload.items}
                         //    action.payload.items
                     }
                 };   

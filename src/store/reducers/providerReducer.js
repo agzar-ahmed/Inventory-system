@@ -1,4 +1,5 @@
 import * as actions from "../actions/types";
+import groupBy from "../../utils/groupBy";
 
     const initialState = {
         providerisLoading: false,
@@ -16,7 +17,11 @@ import * as actions from "../actions/types";
             case actions.PROVIDER_LOADED:
                 return {
                     ...state,
-                    providerData: action.payload.providers,
+                    providerData: {
+                        byIds: groupBy(action.payload.providers,'id'),
+                        allIds: action.payload.providers.map(provider=>provider.id)
+                    },
+                   
                     providerisLoading: false
                 };
             case actions.ADD_PROVIDER:                    

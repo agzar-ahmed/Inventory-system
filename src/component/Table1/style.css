@@ -90,8 +90,8 @@
 }
 
 .table-productimg{
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 5px;
 }
 .table-nodata{
@@ -117,4 +117,17 @@
     border-radius: 5px;
     padding: 5px;
     background: var(--lightGrey1);
+}
+.table-total{
+    display: inline-block;
+    box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+}
+.table-total div {
+    padding: 10px;
+}
+.table-total div:not(:last-child) {
+    border-bottom: 1px solid rgb(24 29 31 / 26%);
+}
+.table-total span {
+    margin-right: 3vh;
 }

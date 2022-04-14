@@ -1,4 +1,5 @@
 import * as actions from "../actions/types";
+import groupBy from '../../utils/groupBy'
 
     const initialState = {
         inventoryisLoading: false,
@@ -16,7 +17,10 @@ import * as actions from "../actions/types";
             case actions.INVENTORY_LOADED:
                 return {
                     ...state,
-                    inventoryData: action.payload.inventories,
+                    inventoryData:  {
+                                byIds:groupBy(action.payload.inventories,'id'),
+                                allIds: action.payload.inventories.map(inventory=>inventory.id)
+                            },
                     inventoryisLoading: false
                 };
             case actions.ADD_INVENTORY:                    
@@ -24,7 +28,7 @@ import * as actions from "../actions/types";
                     ...state,
                     inventoryData:[
                            ...state.inventory,
-                           action.payload.inventories
+                           groupBy(action.payload.inventories)
                     ]
                 };   
             case actions.DELETE_INVENTORY:
