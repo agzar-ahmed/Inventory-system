@@ -20,7 +20,7 @@ const api =(params)=>({dispatch})=>next=>action=>{
   console.log(params,'params')
     if(action.type !== API_CALL_BEGAN) return next(action)
   
-    const { url, method, data, onStart, onSuccess, onError,index } = action.payload
+    const { url, method, data, onStart, onSuccess, onError, index } = action.payload
     const baseURL = process.env.REACT_APP_BASE_URL
 
     if(onStart) dispatch({type:onStart})
@@ -40,7 +40,8 @@ const api =(params)=>({dispatch})=>next=>action=>{
       })
   .then(async (res) => {
     console.log(res,"res")
-      //check if it is creation status  201 to show toast creation success 
+      //check if it is creation status  201 to show toast creation success
+      //create toast
       if(res.status == 201) {
         toast.success('Created successfully' , {
           position: "bottom-right",
@@ -54,6 +55,21 @@ const api =(params)=>({dispatch})=>next=>action=>{
           });
         
       }
+      //update toast
+      if(res.status == 200 && method == 'put') {
+        toast.success('Updated successfully' , {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored"
+          });
+        
+      }
+      //delete toast
       if(res.status == 204) {
         toast.success('Deleted successfully' , {
           position: "bottom-right",
